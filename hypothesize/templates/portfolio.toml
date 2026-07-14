@@ -1,0 +1,92 @@
+# Example hypothesize portfolio registry.
+#
+# This file is the SOURCE OF TRUTH. `hypothesize` only derives from it; it never
+# writes back here. IDs (HYP-*, CAP-*, REQ-*, STUDY-*, LIM-*) are stable and must
+# not be reused for a different meaning. Titles/summaries may be refined freely.
+#
+# Point [tool.hypothesize].catalog at this file. Every @hyp_* / @cap_* tag used in
+# the acceptance suite MUST resolve to an entry here, or publication fails.
+
+schema_version = 1
+title = "Example project research portfolio"
+last_reviewed = "2026-07-14"
+thesis = "One honest sentence stating what this project claims to make true, and for whom."
+
+# ---------------------------------------------------------------------------
+# Hypotheses. Empirical propositions that ONLY a qualified, preregistered study
+# can move to supported / falsified / inconclusive. Passing tests never do.
+# `tag` maps the compact Gherkin tag (@hyp_ex_1) to the stable id (HYP-EX-1);
+# if omitted it is auto-derived from the id.
+# ---------------------------------------------------------------------------
+[[hypotheses]]
+id = "HYP-EX-1"
+tag = "hyp_ex_1"
+title = "Primary effect"
+statement = "Users of the structured tool reach more accurate decisions than users of the unstructured baseline."
+summary = "The scoring mechanism exists and runs on fixtures; the comparative study has not run."
+
+[[hypotheses]]
+id = "HYP-EX-2"
+tag = "hyp_ex_2"
+title = "No false-positive cost"
+statement = "The structured tool does not increase unsupported suspicion on clean cases."
+summary = "Synthetic clean-control behavior exists; human specificity has not been measured."
+
+# ---------------------------------------------------------------------------
+# Capabilities. Things the implementation can demonstrably do; status is derived
+# from tagged acceptance scenarios. `tag` maps @cap_* onto the id. `hypotheses`
+# links the capability to what it informs (a rollup only — never a conclusion).
+# ---------------------------------------------------------------------------
+[[capabilities]]
+id = "CAP-EXAMPLE"
+tag = "cap_example"
+title = "Score a response deterministically on the synthetic corpus"
+hypotheses = ["HYP-EX-1"]
+
+[[capabilities]]
+id = "CAP-CLEAN-CONTROL"
+tag = "cap_clean_control"
+title = "Penalize unsupported suspicion on clean controls"
+hypotheses = ["HYP-EX-2"]
+
+[[capabilities]]
+id = "CAP-RESEARCH-STATUS-PUBLICATION"
+tag = "cap_research_status_publication"
+title = "Publish one honest machine-readable research status"
+hypotheses = []
+
+# ---------------------------------------------------------------------------
+# Requirements. Normative release/workflow gates (NOT hypotheses). Link to the
+# capabilities and/or hypotheses that must hold for the gate to pass.
+# ---------------------------------------------------------------------------
+[[requirements]]
+id = "REQ-HONEST-STATUS"
+title = "Published results separate capability, evidence maturity, and conclusion"
+source = "docs/REPORTING_POLICY.md"
+blocking = true
+capabilities = ["CAP-RESEARCH-STATUS-PUBLICATION"]
+hypotheses = []
+
+# ---------------------------------------------------------------------------
+# Studies. Evidence-producing designs. A study changes a conclusion only once it
+# is preregistered AND qualified AND has produced an admitted outcome.
+# ---------------------------------------------------------------------------
+[[studies]]
+id = "STUDY-COMPARATIVE-PILOT"
+title = "Comparative decision-accuracy pilot"
+order = 1
+status = "designed"          # designed | protocol | specified | complete
+preregistered = false        # true once the design is registered before results
+qualified = false            # true once it meets the precommitted quality bar
+hypotheses = ["HYP-EX-1", "HYP-EX-2"]
+source = "docs/PILOT_PREREGISTRATION.md"
+criterion = "Precommitted decision-accuracy and clean-control specificity thresholds on independently produced gold cases."
+
+# ---------------------------------------------------------------------------
+# Limitations. Reasons a claim cannot yet be promoted. Keep these honest and
+# current; they are published alongside the status.
+# ---------------------------------------------------------------------------
+[[limitations]]
+id = "LIM-SYNTHETIC-CORPUS"
+status = "open"              # open | mitigated | closed
+text = "The corpus is synthetic; held-out and external transfer are deliberately excluded from this development harness."

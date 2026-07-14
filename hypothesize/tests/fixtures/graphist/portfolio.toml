@@ -1,0 +1,435 @@
+schema_version = 1
+title = "Graphist research portfolio"
+last_reviewed = "2026-07-14"
+thesis = "Graphist can make machine reasoning and machine action explicit, challengeable, verifiable, and auditable."
+
+[[tracks]]
+id = "learn"
+title = "Graphist Learn"
+description = "Representation, abstraction, transfer, and search."
+
+[[tracks]]
+id = "verify"
+title = "Graphist Verify"
+description = "Independent checking and replayable assurance."
+
+[[tracks]]
+id = "explain"
+title = "Graphist Explain"
+description = "Faithful explanation, contestability, and fault localization."
+
+[[tracks]]
+id = "audit"
+title = "Graphist Audit"
+description = "Provenance, reconstruction, and epistemic status."
+
+[[tracks]]
+id = "govern"
+title = "Graphist Govern"
+description = "Authority separation and controlled action."
+
+[[tracks]]
+id = "inquire"
+title = "Graphist Inquire"
+description = "Model-independent and human-machine collaboration."
+
+[[hypotheses]]
+id = "GH-LRN"
+title = "Learning and performance"
+statement = "Graph-native representations and Gamma abstractions improve accuracy, structural transfer, sample efficiency, or search relative to equally informed strong baselines."
+summary = "T1/T2 show no basic binding advantage; graph-native T3 mechanisms exist, but the decisive independent comparison has not run."
+tracks = ["learn"]
+
+[[hypotheses]]
+id = "GH-VER"
+title = "Verification and assurance"
+statement = "Useful classes of structural operations can be checked independently and accepted with replayable certificates."
+summary = "Strong bounded mechanism evidence exists in the kernel, certificate replay, mutation tests, and differential checker; external utility is untested."
+tracks = ["verify"]
+
+[[hypotheses]]
+id = "GH-AUD"
+title = "Auditability and provenance"
+statement = "Explicit states, transformations, evidence, authority, and history make consequential activity more reliably reconstructible than ordinary outputs or logs."
+summary = "Strong mechanism evidence exists; comparative operational and human studies remain open."
+tracks = ["audit"]
+
+[[hypotheses]]
+id = "GH-EXP"
+title = "Faithful explainability and contestability"
+statement = "Explanations derived from the operative graph and checked witnesses expose the basis, limits, and consequences of a result more faithfully than post-hoc narrative alone."
+summary = "Partial mechanism support exists; human comprehension, calibration, and actionability are untested."
+tracks = ["explain"]
+
+[[hypotheses]]
+id = "GH-CHL"
+title = "Challengeability and repair"
+statement = "Independently generated, kernel-checked counterexamples or rejection reasons improve error detection, revision, and final decision quality."
+summary = "A bounded discovery-and-revision mechanism exists; there is no externally valid comparative result."
+tracks = ["explain", "inquire"]
+
+[[hypotheses]]
+id = "GH-GOV"
+title = "Governance and authority separation"
+statement = "Separating proposal, verification, challenge, adjudication, evaluation, and commitment reduces self-certification and unsafe action."
+summary = "Application and architectural mechanisms exist; organizational effectiveness is untested."
+tracks = ["govern"]
+
+[[hypotheses]]
+id = "GH-INT"
+title = "Interoperability and model independence"
+statement = "A shared typed graph IR and small checking boundary can mediate learned, symbolic, human, and tool-based components without trusting their internal reasoning."
+summary = "Multiple ports and representations are implemented; portability across independent ecosystems is untested."
+tracks = ["inquire"]
+
+[[hypotheses]]
+id = "GH-HMI"
+title = "Human-machine inquiry"
+statement = "Explicit proposals, evidence, objections, unknowns, and revisions improve collaborative inquiry compared with polished answers or transcript-only workflows."
+summary = "Bounded inquiry mechanisms exist; comparative human evidence is absent."
+tracks = ["inquire"]
+
+[[hypotheses]]
+id = "GH-DBG"
+title = "Debuggability and forensics"
+statement = "Explicit lineage, typed failures, and replayable transitions reduce the time and ambiguity involved in fault localization, incident reconstruction, and rollback."
+summary = "The mechanism is partly embodied in traces and the rejection taxonomy; an operational study is needed."
+tracks = ["explain"]
+
+[[hypotheses]]
+id = "GH-SAF"
+title = "Safe automation and change control"
+statement = "Independently checking an AI-proposed change before commitment reduces unsafe accepted changes without making useful automation impractical."
+summary = "The core verification mechanism exists; domain-specific safety and cost evidence is untested."
+tracks = ["verify", "govern"]
+
+[[hypotheses]]
+id = "GH-EPI"
+title = "Epistemic discipline"
+statement = "Explicit evidential states and decision rules reduce conflation of proposed, unrefuted, supported, falsified, and inconclusive claims."
+summary = "The discipline is implemented in experiment and inquiry designs; its effect on real decisions is untested."
+tracks = ["audit"]
+
+[[hypotheses]]
+id = "GH-EFF"
+title = "Computational practicality"
+statement = "Graphist advantages can be obtained at a resource cost appropriate to their setting rather than through dramatically greater search, data, or latency."
+summary = "Resource accounting exists in parts of the harness, but no general efficiency claim is supported."
+tracks = ["learn"]
+
+[[capabilities]]
+id = "typed-diagrams"
+title = "Typed diagrams (W1-W6)"
+tag = "cap_typed_diagrams"
+hypotheses = ["GH-VER"]
+
+[[capabilities]]
+id = "verified-transformations"
+title = "Identity-preserving verified transformations"
+tag = "cap_verified_transformations"
+hypotheses = ["GH-VER", "GH-SAF"]
+
+[[capabilities]]
+id = "replayable-certificates"
+title = "Replayable certificates"
+tag = "cap_replayable_certificates"
+hypotheses = ["GH-VER", "GH-AUD"]
+
+[[capabilities]]
+id = "equal-information"
+title = "Equal-information representations"
+tag = "cap_equal_information"
+hypotheses = ["GH-INT", "GH-EPI"]
+
+[[capabilities]]
+id = "experiment-governance"
+title = "Preregistered experiment governance"
+tag = "cap_experiment_governance"
+hypotheses = ["GH-GOV", "GH-EPI", "GH-AUD"]
+
+[[capabilities]]
+id = "trusted-t1-t2-pilot"
+title = "Trusted T1/T2 pilot"
+tag = "cap_t1_t2_pilot"
+hypotheses = ["GH-VER", "GH-AUD", "GH-SAF"]
+
+[[capabilities]]
+id = "term-schema-transfer"
+title = "Parameterized term-schema transfer"
+tag = "cap_term_schema_transfer"
+hypotheses = ["GH-LRN", "GH-VER", "GH-INT"]
+
+[[capabilities]]
+id = "graph-schema-transfer"
+title = "Graph-native schema matching"
+tag = "cap_graph_schema_transfer"
+hypotheses = ["GH-LRN", "GH-VER", "GH-INT"]
+
+[[capabilities]]
+id = "learned-graphist"
+title = "Learned Graphist policy"
+tag = "cap_learned_graphist"
+hypotheses = ["GH-LRN", "GH-INT"]
+
+[[capabilities]]
+id = "grapheus-challenge"
+title = "Grapheus challenge policy"
+tag = "cap_grapheus_challenge"
+hypotheses = ["GH-CHL", "GH-EXP"]
+
+[[capabilities]]
+id = "discovery-revision"
+title = "Graph-derived discovery and revision"
+tag = "cap_discovery_revision"
+hypotheses = ["GH-CHL", "GH-HMI", "GH-DBG"]
+
+[[capabilities]]
+id = "scientific-graph-transfer"
+title = "Population-backed graph transfer experiment"
+tag = "cap_scientific_graph_transfer"
+hypotheses = ["GH-LRN", "GH-EFF"]
+
+[[capabilities]]
+id = "human-audit-study"
+title = "Comparative human audit study"
+tag = "cap_human_audit"
+hypotheses = ["GH-EXP", "GH-AUD", "GH-HMI"]
+
+[[capabilities]]
+id = "research-publication"
+title = "Generated research publication"
+tag = "research_status"
+hypotheses = ["GH-AUD", "GH-EPI"]
+
+[[use_cases]]
+id = "UC-01"
+title = "Verified AI Transformations"
+path = "use-cases/verified_ai_transformations.md"
+priority = "tier_1"
+specification = "specified"
+implementation_ceiling = "bounded_mechanism"
+validation = "internal_mechanism"
+capabilities = ["verified-transformations", "replayable-certificates", "trusted-t1-t2-pilot"]
+hypotheses = ["GH-SAF", "GH-VER", "GH-AUD", "GH-CHL", "GH-GOV", "GH-DBG", "GH-INT", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-02"
+title = "Structured Agent Runtime / Harness"
+path = "use-cases/agent_harness.md"
+priority = "tier_2"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["learned-graphist", "grapheus-challenge", "discovery-revision"]
+hypotheses = ["GH-GOV", "GH-AUD", "GH-DBG", "GH-SAF", "GH-INT", "GH-HMI", "GH-CHL", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-03"
+title = "Knowledge and Data Change Assurance"
+path = "use-cases/knowledge_data_assurance.md"
+priority = "domain_extension"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["typed-diagrams", "verified-transformations", "replayable-certificates"]
+hypotheses = ["GH-SAF", "GH-VER", "GH-AUD", "GH-DBG", "GH-EXP", "GH-GOV", "GH-INT", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-04"
+title = "Proof and Program Synthesis"
+path = "use-cases/proof_and_program_synthesis.md"
+priority = "research"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["term-schema-transfer", "graph-schema-transfer", "replayable-certificates"]
+hypotheses = ["GH-VER", "GH-LRN", "GH-INT", "GH-CHL", "GH-EXP", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-05"
+title = "Scientific Hypothesis Management"
+path = "use-cases/scientific_hypothesis_management.md"
+priority = "research"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["experiment-governance", "research-publication"]
+hypotheses = ["GH-EPI", "GH-AUD", "GH-HMI", "GH-CHL", "GH-GOV", "GH-EXP", "GH-INT", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-06"
+title = "Graphist-Grapheus Inquiry"
+path = "use-cases/graphist_grapheus_inquiry.md"
+priority = "tier_3"
+specification = "specified"
+implementation_ceiling = "bounded_mechanism"
+validation = "internal_mechanism"
+capabilities = ["learned-graphist", "grapheus-challenge", "discovery-revision"]
+hypotheses = ["GH-HMI", "GH-CHL", "GH-EPI", "GH-EXP", "GH-GOV", "GH-AUD", "GH-LRN", "GH-INT", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-07"
+title = "Auditable Decision Dossiers"
+path = "use-cases/auditable_decision_dossiers.md"
+priority = "tier_1"
+specification = "specified"
+implementation_ceiling = "not_started"
+validation = "not_run"
+capabilities = []
+hypotheses = ["GH-AUD", "GH-EXP", "GH-GOV", "GH-HMI", "GH-EPI", "GH-CHL", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-08"
+title = "AI Incident Forensics and Rollback"
+path = "use-cases/ai_incident_forensics_and_rollback.md"
+priority = "tier_1"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["replayable-certificates", "experiment-governance"]
+hypotheses = ["GH-DBG", "GH-AUD", "GH-SAF", "GH-VER", "GH-GOV", "GH-EXP", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-09"
+title = "Human Review and Dispute Resolution"
+path = "use-cases/human_review_and_dispute_resolution.md"
+priority = "explain"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["grapheus-challenge", "discovery-revision"]
+hypotheses = ["GH-EXP", "GH-CHL", "GH-HMI", "GH-GOV", "GH-AUD", "GH-EPI", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-10"
+title = "Safety and Assurance Cases"
+path = "use-cases/safety_and_assurance_cases.md"
+priority = "tier_2"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["replayable-certificates", "experiment-governance"]
+hypotheses = ["GH-VER", "GH-AUD", "GH-GOV", "GH-CHL", "GH-EXP", "GH-EPI", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-11"
+title = "Model-Agnostic Verification Gateway"
+path = "use-cases/model_agnostic_verification_gateway.md"
+priority = "tier_2"
+specification = "specified"
+implementation_ceiling = "bounded_mechanism"
+validation = "internal_mechanism"
+capabilities = ["verified-transformations", "replayable-certificates", "equal-information"]
+hypotheses = ["GH-INT", "GH-VER", "GH-GOV", "GH-SAF", "GH-AUD", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-12"
+title = "Compliance-by-Construction Workflows"
+path = "use-cases/compliance_by_construction_workflows.md"
+priority = "tier_2"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["experiment-governance", "replayable-certificates"]
+hypotheses = ["GH-GOV", "GH-SAF", "GH-AUD", "GH-VER", "GH-EPI", "GH-INT", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-13"
+title = "Explainable Entity-Resolution Review"
+path = "use-cases/explainable_entity_resolution_review.md"
+priority = "domain_experiment"
+specification = "specified"
+implementation_ceiling = "adjacent_mechanisms"
+validation = "not_run"
+capabilities = ["typed-diagrams", "grapheus-challenge"]
+hypotheses = ["GH-EXP", "GH-CHL", "GH-HMI", "GH-AUD", "GH-SAF", "GH-EPI", "GH-EFF"]
+
+[[use_cases]]
+id = "UC-14"
+title = "Auditable Training and Evaluation Traces"
+path = "use-cases/auditable_training_and_evaluation.md"
+priority = "research_infrastructure"
+specification = "specified"
+implementation_ceiling = "bounded_mechanism"
+validation = "internal_mechanism"
+capabilities = ["experiment-governance", "research-publication"]
+hypotheses = ["GH-AUD", "GH-EPI", "GH-VER", "GH-GOV", "GH-INT", "GH-LRN", "GH-EFF"]
+
+[[studies]]
+id = "ST-01"
+title = "Verified change-control pilot"
+order = 1
+status = "planned"
+use_cases = ["UC-01", "UC-11"]
+hypotheses = ["GH-SAF", "GH-VER", "GH-AUD", "GH-EFF"]
+criterion = "Fewer unsafe accepted changes than matched checks, independent replay, and acceptable useful completion."
+
+[[studies]]
+id = "ST-02"
+title = "Decision review study"
+order = 2
+status = "planned"
+use_cases = ["UC-07", "UC-09"]
+hypotheses = ["GH-AUD", "GH-EXP", "GH-HMI", "GH-EFF"]
+criterion = "Better review accuracy or calibration than strong matched dossiers without unacceptable workload."
+
+[[studies]]
+id = "ST-03"
+title = "Incident forensic exercise"
+order = 3
+status = "planned"
+use_cases = ["UC-08"]
+hypotheses = ["GH-DBG", "GH-AUD", "GH-SAF", "GH-EFF"]
+criterion = "Faster or more accurate reconstruction and recovery than ordinary logs under matched information."
+
+[[studies]]
+id = "ST-04"
+title = "Entity-resolution explanation study"
+order = 4
+status = "planned"
+use_cases = ["UC-13", "UC-03"]
+hypotheses = ["GH-EXP", "GH-CHL", "GH-HMI", "GH-EFF"]
+criterion = "Better adjudication than score and rule explanations after controlling information and explanation size."
+
+[[studies]]
+id = "ST-05"
+title = "Independent gateway conformance"
+order = 5
+status = "planned"
+use_cases = ["UC-11"]
+hypotheses = ["GH-INT", "GH-VER", "GH-GOV", "GH-EFF"]
+criterion = "Two independent proposers share the boundary without proposer-specific trusted acceptance logic."
+
+[[studies]]
+id = "ST-06"
+title = "T3 schema-transfer experiment"
+order = 6
+status = "specified_inactive"
+use_cases = ["UC-04", "UC-06"]
+hypotheses = ["GH-LRN", "GH-VER", "GH-EFF"]
+criterion = "S8 beats S7 and strong S4/S6 baselines under matched information and resource governance."
+
+[[limitations]]
+id = "LIM-01"
+status = "open"
+text = "Pilot systems are algorithmic reference arms, not independently developed learned models."
+
+[[limitations]]
+id = "LIM-02"
+status = "open"
+text = "The test-split seal prevents accidental access but is not a defense against a malicious machine operator."
+
+[[limitations]]
+id = "LIM-03"
+status = "open"
+text = "Authority separation is application-enforced inside one process rather than process-isolated."
+
+[[limitations]]
+id = "LIM-04"
+status = "open"
+text = "Human comprehension, calibration, review, and operational-cost benefits have not been tested externally."
+
+[[limitations]]
+id = "LIM-05"
+status = "open"
+text = "Full open-world inquiry and complete endoporeutic game semantics are not implemented."

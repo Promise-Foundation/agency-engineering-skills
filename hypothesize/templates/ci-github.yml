@@ -1,0 +1,38 @@
+# GitHub Actions: run the acceptance suite, then enforce that the committed
+# research status is current. `hypothesize check` writes nothing and exits
+# non-zero if any published target is stale or traceability is broken, so a PR
+# that changes behavior without regenerating the status (via `hypothesize sync`)
+# fails here. Drop this in .github/workflows/ and adjust names/paths to taste.
+
+name: Research status is current
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  research-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install -e ".[dev]"
+          python -m pip install hypothesize
+
+      # Produce the acceptance report that [tool.hypothesize.runner].report
+      # points at. This uses the behave adapter; for the pytest adapter, emit
+      # the pytest JSON report your config expects instead.
+      - name: Acceptance suite -> report
+        run: |
+          mkdir -p artifacts/research
+          python -m behave -f json.pretty -o artifacts/research/behave.json
+
+      # Derive and compare against committed targets. WRITES NOTHING; fails on
+      # any stale target or untracked @hyp_*/@cap_* tag.
+      - name: Research publication is current
+        run: hypothesize check

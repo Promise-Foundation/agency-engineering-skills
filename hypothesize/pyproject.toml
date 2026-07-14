@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hypothesize"
+version = "0.1.0"
+description = "Derive an honest, machine-readable research status by keeping capability, evidence, and scientific conclusion separate."
+requires-python = ">=3.9"
+dependencies = ["tomli>=2.0; python_version < '3.11'"]
+
+[project.optional-dependencies]
+behave = ["behave>=1.2"]
+dev = ["pytest>=8.0", "behave>=1.2", "tomli>=2.0; python_version < '3.11'"]
+
+[project.scripts]
+hypothesize = "hypothesize.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

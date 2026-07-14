@@ -1,0 +1,2854 @@
+{
+  "build": {
+    "evidence_count": 5,
+    "scenario_counts": {
+      "error": 0,
+      "failed": 0,
+      "passed": 223,
+      "skipped": 4,
+      "undefined": 0,
+      "untested": 0
+    },
+    "source_hash": "0635c6a8b842a2d4d9edb463c55e6fda748e5b9fbca0e8a3962625f2dc1bbd9e"
+  },
+  "capabilities": [
+    {
+      "hypotheses": [
+        "GH-VER"
+      ],
+      "id": "typed-diagrams",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 7,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/diagram_conformance.feature:7::Accept a minimal well-formed candidate",
+        "features/diagram_conformance.feature:20::Reject a candidate that violates a formal rule -- @1.1 ",
+        "features/diagram_conformance.feature:21::Reject a candidate that violates a formal rule -- @1.2 ",
+        "features/diagram_conformance.feature:22::Reject a candidate that violates a formal rule -- @1.3 ",
+        "features/diagram_conformance.feature:23::Reject a candidate that violates a formal rule -- @1.4 ",
+        "features/diagram_conformance.feature:24::Reject a candidate that violates a formal rule -- @1.5 ",
+        "features/diagram_conformance.feature:26::The same canonical candidate has a deterministic hash"
+      ],
+      "status": "implemented",
+      "tag": "cap_typed_diagrams",
+      "title": "Typed diagrams (W1-W6)"
+    },
+    {
+      "hypotheses": [
+        "GH-VER",
+        "GH-SAF"
+      ],
+      "id": "verified-transformations",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 14,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/kernel.feature:15::Reject a malformed diagram -- @1.1 ",
+        "features/kernel.feature:16::Reject a malformed diagram -- @1.2 ",
+        "features/kernel.feature:17::Reject a malformed diagram -- @1.3 ",
+        "features/kernel.feature:18::Reject a malformed diagram -- @1.4 ",
+        "features/kernel.feature:19::Reject a malformed diagram -- @1.5 ",
+        "features/kernel.feature:20::Reject a malformed diagram -- @1.6 ",
+        "features/kernel.feature:21::Reject a malformed diagram -- @1.7 ",
+        "features/kernel.feature:23::Perform legal closed-name beta application",
+        "features/kernel.feature:33::Reject an ill-typed application",
+        "features/kernel.feature:38::Closed-name application cannot capture",
+        "features/kernel.feature:44::Parameterized names cannot escape parameter scope",
+        "features/kernel.feature:49::Replay a proof certificate independently",
+        "features/kernel.feature:55::Fire a reified rewrite schema",
+        "features/kernel.feature:63::Reject an invalid rule firing despite neural confidence"
+      ],
+      "status": "implemented",
+      "tag": "cap_verified_transformations",
+      "title": "Identity-preserving verified transformations"
+    },
+    {
+      "hypotheses": [
+        "GH-VER",
+        "GH-AUD"
+      ],
+      "id": "replayable-certificates",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 14,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/kernel.feature:15::Reject a malformed diagram -- @1.1 ",
+        "features/kernel.feature:16::Reject a malformed diagram -- @1.2 ",
+        "features/kernel.feature:17::Reject a malformed diagram -- @1.3 ",
+        "features/kernel.feature:18::Reject a malformed diagram -- @1.4 ",
+        "features/kernel.feature:19::Reject a malformed diagram -- @1.5 ",
+        "features/kernel.feature:20::Reject a malformed diagram -- @1.6 ",
+        "features/kernel.feature:21::Reject a malformed diagram -- @1.7 ",
+        "features/kernel.feature:23::Perform legal closed-name beta application",
+        "features/kernel.feature:33::Reject an ill-typed application",
+        "features/kernel.feature:38::Closed-name application cannot capture",
+        "features/kernel.feature:44::Parameterized names cannot escape parameter scope",
+        "features/kernel.feature:49::Replay a proof certificate independently",
+        "features/kernel.feature:55::Fire a reified rewrite schema",
+        "features/kernel.feature:63::Reject an invalid rule firing despite neural confidence"
+      ],
+      "status": "implemented",
+      "tag": "cap_replayable_certificates",
+      "title": "Replayable certificates"
+    },
+    {
+      "hypotheses": [
+        "GH-INT",
+        "GH-EPI"
+      ],
+      "id": "equal-information",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 21,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/bgamma_representations.feature:16::Serialize every required representation -- @1.1 ",
+        "features/bgamma_representations.feature:17::Serialize every required representation -- @1.2 ",
+        "features/bgamma_representations.feature:18::Serialize every required representation -- @1.3 ",
+        "features/bgamma_representations.feature:19::Serialize every required representation -- @1.4 ",
+        "features/bgamma_representations.feature:20::Serialize every required representation -- @1.5 ",
+        "features/bgamma_representations.feature:21::Serialize every required representation -- @1.6 ",
+        "features/bgamma_representations.feature:31::Round-trip without information loss -- @1.1 ",
+        "features/bgamma_representations.feature:32::Round-trip without information loss -- @1.2 ",
+        "features/bgamma_representations.feature:33::Round-trip without information loss -- @1.3 ",
+        "features/bgamma_representations.feature:34::Round-trip without information loss -- @1.4 ",
+        "features/bgamma_representations.feature:35::Round-trip without information loss -- @1.5 ",
+        "features/bgamma_representations.feature:36::Round-trip without information loss -- @1.6 ",
+        "features/bgamma_representations.feature:38::Require perfect released-dataset round trips",
+        "features/bgamma_representations.feature:44::Declare intentionally masked features",
+        "features/representations.feature:17::Accept a lossless representation round trip -- @1.1 ",
+        "features/representations.feature:18::Accept a lossless representation round trip -- @1.2 ",
+        "features/representations.feature:19::Accept a lossless representation round trip -- @1.3 ",
+        "features/representations.feature:20::Accept a lossless representation round trip -- @1.4 ",
+        "features/representations.feature:21::Accept a lossless representation round trip -- @1.5 ",
+        "features/representations.feature:22::Accept a lossless representation round trip -- @1.6 ",
+        "features/representations.feature:24::Reject a representation that changes the canonical item"
+      ],
+      "status": "implemented",
+      "tag": "cap_equal_information",
+      "title": "Equal-information representations"
+    },
+    {
+      "hypotheses": [
+        "GH-GOV",
+        "GH-EPI",
+        "GH-AUD"
+      ],
+      "id": "experiment-governance",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 25,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/bgamma_protocol.feature:7::Freeze the confirmatory protocol",
+        "features/bgamma_protocol.feature:16::Reject an undeclared post-unlock protocol change",
+        "features/bgamma_protocol.feature:25::Require three-valued hypothesis outcomes",
+        "features/protocol.feature:7::Freeze a complete protocol",
+        "features/protocol.feature:15::Reject an incomplete protocol",
+        "features/protocol.feature:21::Reject a protocol missing a confirmatory system arm",
+        "features/protocol.feature:27::Reject binary hypothesis outcomes",
+        "features/protocol.feature:33::Reject a protocol frozen after final-test computation",
+        "features/protocol.feature:39::Repeating the same freeze is idempotent",
+        "features/reproducibility.feature:7::Rebuild the benchmark from a clean environment",
+        "features/reproducibility.feature:13::Recompute reports from raw system outputs",
+        "features/reproducibility.feature:20::Record complete run provenance",
+        "features/reproducibility.feature:24::Fail visibly on corrupted artifacts",
+        "features/reproducibility.feature:30::Preserve negative and incomplete runs",
+        "features/result_accounting.feature:7::Account for all terminal outcomes",
+        "features/result_accounting.feature:26::Reject a result set with a missing outcome",
+        "features/split_integrity.feature:7::No duplicate canonical structures across disallowed splits",
+        "features/split_integrity.feature:20::Enforce a controlled T3 shift -- @1.1 ",
+        "features/split_integrity.feature:21::Enforce a controlled T3 shift -- @1.2 ",
+        "features/split_integrity.feature:22::Enforce a controlled T3 shift -- @1.3 ",
+        "features/split_integrity.feature:23::Enforce a controlled T3 shift -- @1.4 ",
+        "features/split_integrity.feature:24::Enforce a controlled T3 shift -- @1.5 ",
+        "features/split_integrity.feature:25::Enforce a controlled T3 shift -- @1.6 ",
+        "features/split_integrity.feature:27::Prevent schema-family leakage in transfer tests",
+        "features/split_integrity.feature:34::Keep final test answers inaccessible"
+      ],
+      "status": "implemented",
+      "tag": "cap_experiment_governance",
+      "title": "Preregistered experiment governance"
+    },
+    {
+      "hypotheses": [
+        "GH-VER",
+        "GH-AUD",
+        "GH-SAF"
+      ],
+      "id": "trusted-t1-t2-pilot",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 4,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/pilot.feature:7::The unattended pilot completes with full accounting",
+        "features/pilot.feature:15::A proposed transformation is verified end to end",
+        "features/pilot.feature:21::A proposal with a dangling body wire is rejected precisely",
+        "features/pilot.feature:26::A tampered certificate is rejected precisely"
+      ],
+      "status": "implemented",
+      "tag": "cap_t1_t2_pilot",
+      "title": "Trusted T1/T2 pilot"
+    },
+    {
+      "hypotheses": [
+        "GH-LRN",
+        "GH-VER",
+        "GH-INT"
+      ],
+      "id": "term-schema-transfer",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 11,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/schema_transfer.feature:10::Give systems role-blind inputs and expressive comparison rules",
+        "features/schema_transfer.feature:17::Learn schema structure rather than selecting named families",
+        "features/schema_transfer.feature:23::Use lexically distinct generated manifests without overstating independence",
+        "features/schema_transfer.feature:29::Report a descriptive mechanism result",
+        "features/schema_transfer.feature:38::Preserve independently checkable Graphist reuse",
+        "features/schema_transfer_mechanism.feature:10::Infer reusable schemas from unlabeled demonstrations",
+        "features/schema_transfer_mechanism.feature:15::Rebind without supplied semantic roles",
+        "features/schema_transfer_mechanism.feature:21::Instantiate one schema more than once in one problem",
+        "features/schema_transfer_mechanism.feature:27::Resolve cancellation from source evidence among same-sort distractors",
+        "features/schema_transfer_mechanism.feature:33::Compose and verify learned schemas",
+        "features/schema_transfer_mechanism.feature:38::Reject structural near-matches"
+      ],
+      "status": "implemented",
+      "tag": "cap_term_schema_transfer",
+      "title": "Parameterized term-schema transfer"
+    },
+    {
+      "hypotheses": [
+        "GH-LRN",
+        "GH-VER",
+        "GH-INT"
+      ],
+      "id": "graph-schema-transfer",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 17,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/graph_native_transfer.feature:10::Compare equally expressive graph-schema systems",
+        "features/graph_native_transfer.feature:18::Keep graph system input separate from evaluation truth",
+        "features/graph_native_transfer.feature:24::Test genuinely graph-native structure",
+        "features/graph_native_transfer.feature:31::Preserve fair graph information access",
+        "features/graph_native_transfer.feature:37::Report a descriptive graph mechanism result honestly",
+        "features/graph_native_transfer.feature:45::Preserve independently checkable graph execution",
+        "features/graph_native_transfer_mechanism.feature:10::Infer shared identity as structural continuity",
+        "features/graph_native_transfer_mechanism.feature:16::Distinguish shared identity from equal-looking names",
+        "features/graph_native_transfer_mechanism.feature:23::Preserve distinct graph identities",
+        "features/graph_native_transfer_mechanism.feature:29::Respect nested graph scope",
+        "features/graph_native_transfer_mechanism.feature:38::Match complete region topology independently of storage order",
+        "features/graph_native_transfer_mechanism.feature:44::Induce schemas modulo diagram identifiers and tuple order",
+        "features/graph_native_transfer_mechanism.feature:48::Reuse a multi-output graph interface",
+        "features/graph_native_transfer_mechanism.feature:55::Compose overlapping graph schemas safely",
+        "features/graph_native_transfer_mechanism.feature:62::Reject globally different graph connectivity",
+        "features/graph_native_transfer_mechanism.feature:69::Require every advertised graph mechanism property",
+        "features/graph_native_transfer_mechanism.feature:82::Enforce the declared graph search budget"
+      ],
+      "status": "implemented",
+      "tag": "cap_graph_schema_transfer",
+      "title": "Graph-native schema matching"
+    },
+    {
+      "hypotheses": [
+        "GH-LRN",
+        "GH-INT"
+      ],
+      "id": "learned-graphist",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 11,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/architectural_spine/learned_graphist.feature:9::A learned Graphist proposes a valid transformation on an unseen task",
+        "features/architectural_spine/learned_graphist.feature:16::Invalid learned proposals cannot bypass the kernel",
+        "features/architectural_spine/learned_graphist.feature:23::Kernel validity and task correctness remain separate",
+        "features/architectural_spine/learned_graphist.feature:28::The learned policy is not a task lookup table",
+        "features/architectural_spine/learned_graphist.feature:42::Learned proposals tolerate representation-preserving variation -- @1.1 ",
+        "features/architectural_spine/learned_graphist.feature:43::Learned proposals tolerate representation-preserving variation -- @1.2 ",
+        "features/architectural_spine/learned_graphist.feature:44::Learned proposals tolerate representation-preserving variation -- @1.3 ",
+        "features/architectural_spine/learned_graphist.feature:45::Learned proposals tolerate representation-preserving variation -- @1.4 ",
+        "features/architectural_spine/learned_graphist.feature:46::Learned proposals tolerate representation-preserving variation -- @1.5 ",
+        "features/architectural_spine/learned_graphist.feature:47::Learned proposals tolerate representation-preserving variation -- @1.6 ",
+        "features/architectural_spine/learned_graphist.feature:49::Learning and inference provenance is complete"
+      ],
+      "status": "implemented",
+      "tag": "cap_learned_graphist",
+      "title": "Learned Graphist policy"
+    },
+    {
+      "hypotheses": [
+        "GH-CHL",
+        "GH-EXP"
+      ],
+      "id": "grapheus-challenge",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 13,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/architectural_spine/minimal_grapheus.feature:16::Grapheus searches recognized adversarial classes -- @1.1 ",
+        "features/architectural_spine/minimal_grapheus.feature:17::Grapheus searches recognized adversarial classes -- @1.2 ",
+        "features/architectural_spine/minimal_grapheus.feature:18::Grapheus searches recognized adversarial classes -- @1.3 ",
+        "features/architectural_spine/minimal_grapheus.feature:19::Grapheus searches recognized adversarial classes -- @1.4 ",
+        "features/architectural_spine/minimal_grapheus.feature:20::Grapheus searches recognized adversarial classes -- @1.5 ",
+        "features/architectural_spine/minimal_grapheus.feature:21::Grapheus searches recognized adversarial classes -- @1.6 ",
+        "features/architectural_spine/minimal_grapheus.feature:22::Grapheus searches recognized adversarial classes -- @1.7 ",
+        "features/architectural_spine/minimal_grapheus.feature:23::Grapheus searches recognized adversarial classes -- @1.8 ",
+        "features/architectural_spine/minimal_grapheus.feature:25::Invalid and witness-free criticism receives no refutation credit",
+        "features/architectural_spine/minimal_grapheus.feature:31::Exhausting challenge search is not proof",
+        "features/architectural_spine/minimal_grapheus.feature:37::Grapheus has read-only evidence access",
+        "features/architectural_spine/minimal_grapheus.feature:42::A successful refutation produces a verifiable revision lineage",
+        "features/architectural_spine/minimal_grapheus.feature:49::Revision failure ends in abstention"
+      ],
+      "status": "implemented",
+      "tag": "cap_grapheus_challenge",
+      "title": "Grapheus challenge policy"
+    },
+    {
+      "hypotheses": [
+        "GH-CHL",
+        "GH-HMI",
+        "GH-DBG"
+      ],
+      "id": "discovery-revision",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 5,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/architectural_spine/discovery_and_revision.feature:9::Grapheus discovers a defect by inspecting the committed graph",
+        "features/architectural_spine/discovery_and_revision.feature:16::Natural learned errors replace post-inference mutation controls",
+        "features/architectural_spine/discovery_and_revision.feature:23::Graphist revises in response to an adjudicated challenge",
+        "features/architectural_spine/discovery_and_revision.feature:30::Compare paired outcomes on the generated discovery population",
+        "features/architectural_spine/discovery_and_revision.feature:37::Report trust and evidence boundaries precisely"
+      ],
+      "status": "implemented",
+      "tag": "cap_discovery_revision",
+      "title": "Graph-derived discovery and revision"
+    },
+    {
+      "hypotheses": [
+        "GH-LRN",
+        "GH-EFF"
+      ],
+      "id": "scientific-graph-transfer",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 0,
+        "skipped": 4,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/graph_native_transfer_scientific.feature:10::Draw independent graph benchmark manifests",
+        "features/graph_native_transfer_scientific.feature:16::Match graph information and resource budgets",
+        "features/graph_native_transfer_scientific.feature:22::Measure the central graph-native hypothesis",
+        "features/graph_native_transfer_scientific.feature:29::Apply an outcome-neutral graph decision rule"
+      ],
+      "status": "specified",
+      "tag": "cap_scientific_graph_transfer",
+      "title": "Population-backed graph transfer experiment"
+    },
+    {
+      "hypotheses": [
+        "GH-EXP",
+        "GH-AUD",
+        "GH-HMI"
+      ],
+      "id": "human-audit-study",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 4,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/human_audit.feature:7::Recruit the minimum audit sample",
+        "features/human_audit.feature:13::Randomize certificate assignment",
+        "features/human_audit.feature:21::Validate planted flaws",
+        "features/human_audit.feature:27::Capture audit outcomes"
+      ],
+      "status": "implemented",
+      "tag": "cap_human_audit",
+      "title": "Comparative human audit study"
+    },
+    {
+      "hypotheses": [
+        "GH-AUD",
+        "GH-EPI"
+      ],
+      "id": "research-publication",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 12,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/research_pages.feature:7::Prepare canonical GitHub Pages documents",
+        "features/research_pages.feature:15::Reject a source page that is disconnected from generated evidence",
+        "features/research_status.feature:10::Passing acceptance scenarios demonstrate a capability",
+        "features/research_status.feature:17::Partial or skipped work is not presented as implemented",
+        "features/research_status.feature:24::A regression remains visible without rewriting historical evidence",
+        "features/research_status.feature:31::Passing a scientific experiment contract does not decide its hypothesis",
+        "features/research_status.feature:46::A qualified result controls the scientific conclusion -- @1.1 ",
+        "features/research_status.feature:47::A qualified result controls the scientific conclusion -- @1.2 ",
+        "features/research_status.feature:48::A qualified result controls the scientific conclusion -- @1.3 ",
+        "features/research_status.feature:50::Unqualified evidence cannot promote a hypothesis",
+        "features/research_status.feature:56::Unknown hypothesis tags fail before publication",
+        "features/research_status.feature:61::The public projections share one deterministic source"
+      ],
+      "status": "implemented",
+      "tag": "research_status",
+      "title": "Generated research publication"
+    }
+  ],
+  "evidence": [
+    {
+      "artifact": "results.trusted_t1_t2",
+      "hypotheses": [
+        "GH-VER",
+        "GH-AUD",
+        "GH-SAF"
+      ],
+      "id": "EV-T1T2-01",
+      "kind": "mechanism",
+      "maturity": "internal_pilot",
+      "outcome": "not_tested",
+      "qualified": true,
+      "summary": "Exploratory pilot: the comparison is trustworthy (dual oracles, application-side decoding, independent certificate verification, sealed test split), not confirmatory. No superiority claim is made.",
+      "title": "Trusted T1/T2 pilot"
+    },
+    {
+      "artifact": "results.term_schema_transfer",
+      "hypotheses": [
+        "GH-LRN",
+        "GH-VER",
+        "GH-INT"
+      ],
+      "id": "EV-T3-TERM-01",
+      "kind": "mechanism",
+      "maturity": "mechanism",
+      "outcome": "not_tested",
+      "qualified": true,
+      "summary": "Parameterized reuse is demonstrated; scientific advantage is not tested.",
+      "title": "Parameterized term-schema mechanism"
+    },
+    {
+      "artifact": "results.graph_native_transfer",
+      "hypotheses": [
+        "GH-LRN",
+        "GH-VER",
+        "GH-INT"
+      ],
+      "id": "EV-T3-GRAPH-01",
+      "kind": "mechanism",
+      "maturity": "mechanism",
+      "outcome": "not_tested",
+      "qualified": true,
+      "summary": "Graph-native matching and certified reuse are demonstrated; superiority is not tested.",
+      "title": "Graph-native transfer mechanism"
+    },
+    {
+      "artifact": "results.architectural_spine",
+      "hypotheses": [
+        "GH-CHL",
+        "GH-HMI",
+        "GH-EXP",
+        "GH-DBG"
+      ],
+      "id": "EV-SPINE-01",
+      "kind": "mechanism",
+      "maturity": "mechanism",
+      "outcome": "not_tested",
+      "qualified": true,
+      "summary": "Bounded proposal, challenge, adjudication, discovery, and revision mechanisms.",
+      "title": "Graphist-Grapheus architectural spine"
+    },
+    {
+      "artifact": "results.broad_experiment",
+      "hypotheses": [
+        "GH-LRN",
+        "GH-AUD",
+        "GH-EPI",
+        "GH-EFF"
+      ],
+      "id": "EV-HARNESS-01",
+      "kind": "capability",
+      "maturity": "mechanism",
+      "outcome": "not_tested",
+      "qualified": false,
+      "summary": "The harness reports wins, ties, simulations, and quarantined seams separately.",
+      "title": "Broad T1-T5 experiment harness"
+    }
+  ],
+  "hypotheses": [
+    {
+      "capability_status": "partial",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-T3-TERM-01",
+        "EV-T3-GRAPH-01",
+        "EV-HARNESS-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-LRN",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 74,
+        "skipped": 4,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Graph-native representations and Gamma abstractions improve accuracy, structural transfer, sample efficiency, or search relative to equally informed strong baselines.",
+      "summary": "T1/T2 show no basic binding advantage; graph-native T3 mechanisms exist, but the decisive independent comparison has not run.",
+      "title": "Learning and performance",
+      "tracks": [
+        "learn"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-T1T2-01",
+        "EV-T3-TERM-01",
+        "EV-T3-GRAPH-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "internal_pilot",
+      "id": "GH-VER",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 64,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Useful classes of structural operations can be checked independently and accepted with replayable certificates.",
+      "summary": "Strong bounded mechanism evidence exists in the kernel, certificate replay, mutation tests, and differential checker; external utility is untested.",
+      "title": "Verification and assurance",
+      "tracks": [
+        "verify"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-T1T2-01",
+        "EV-HARNESS-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "internal_pilot",
+      "id": "GH-AUD",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 90,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Explicit states, transformations, evidence, authority, and history make consequential activity more reliably reconstructible than ordinary outputs or logs.",
+      "summary": "Strong mechanism evidence exists; comparative operational and human studies remain open.",
+      "title": "Auditability and provenance",
+      "tracks": [
+        "audit"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-SPINE-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-EXP",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 17,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Explanations derived from the operative graph and checked witnesses expose the basis, limits, and consequences of a result more faithfully than post-hoc narrative alone.",
+      "summary": "Partial mechanism support exists; human comprehension, calibration, and actionability are untested.",
+      "title": "Faithful explainability and contestability",
+      "tracks": [
+        "explain"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-SPINE-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-CHL",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 33,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Independently generated, kernel-checked counterexamples or rejection reasons improve error detection, revision, and final decision quality.",
+      "summary": "A bounded discovery-and-revision mechanism exists; there is no externally valid comparative result.",
+      "title": "Challengeability and repair",
+      "tracks": [
+        "explain",
+        "inquire"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-GOV",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 36,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Separating proposal, verification, challenge, adjudication, evaluation, and commitment reduces self-certification and unsafe action.",
+      "summary": "Application and architectural mechanisms exist; organizational effectiveness is untested.",
+      "title": "Governance and authority separation",
+      "tracks": [
+        "govern"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-T3-TERM-01",
+        "EV-T3-GRAPH-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-INT",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 80,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "A shared typed graph IR and small checking boundary can mediate learned, symbolic, human, and tool-based components without trusting their internal reasoning.",
+      "summary": "Multiple ports and representations are implemented; portability across independent ecosystems is untested.",
+      "title": "Interoperability and model independence",
+      "tracks": [
+        "inquire"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-SPINE-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-HMI",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 15,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Explicit proposals, evidence, objections, unknowns, and revisions improve collaborative inquiry compared with polished answers or transcript-only workflows.",
+      "summary": "Bounded inquiry mechanisms exist; comparative human evidence is absent.",
+      "title": "Human-machine inquiry",
+      "tracks": [
+        "inquire"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-SPINE-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-DBG",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 5,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Explicit lineage, typed failures, and replayable transitions reduce the time and ambiguity involved in fault localization, incident reconstruction, and rollback.",
+      "summary": "The mechanism is partly embodied in traces and the rejection taxonomy; an operational study is needed.",
+      "title": "Debuggability and forensics",
+      "tracks": [
+        "explain"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-T1T2-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "internal_pilot",
+      "id": "GH-SAF",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 18,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Independently checking an AI-proposed change before commitment reduces unsafe accepted changes without making useful automation impractical.",
+      "summary": "The core verification mechanism exists; domain-specific safety and cost evidence is untested.",
+      "title": "Safe automation and change control",
+      "tracks": [
+        "verify",
+        "govern"
+      ]
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-HARNESS-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-EPI",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 102,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Explicit evidential states and decision rules reduce conflation of proposed, unrefuted, supported, falsified, and inconclusive claims.",
+      "summary": "The discipline is implemented in experiment and inquiry designs; its effect on real decisions is untested.",
+      "title": "Epistemic discipline",
+      "tracks": [
+        "audit"
+      ]
+    },
+    {
+      "capability_status": "specified",
+      "conclusion": "not_tested",
+      "evidence": [
+        "EV-HARNESS-01"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "GH-EFF",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 28,
+        "skipped": 4,
+        "undefined": 0,
+        "untested": 0
+      },
+      "statement": "Graphist advantages can be obtained at a resource cost appropriate to their setting rather than through dramatically greater search, data, or latency.",
+      "summary": "Resource accounting exists in parts of the harness, but no general efficiency claim is supported.",
+      "title": "Computational practicality",
+      "tracks": [
+        "learn"
+      ]
+    }
+  ],
+  "limitations": [
+    {
+      "id": "LIM-01",
+      "status": "open",
+      "text": "Pilot systems are algorithmic reference arms, not independently developed learned models."
+    },
+    {
+      "id": "LIM-02",
+      "status": "open",
+      "text": "The test-split seal prevents accidental access but is not a defense against a malicious machine operator."
+    },
+    {
+      "id": "LIM-03",
+      "status": "open",
+      "text": "Authority separation is application-enforced inside one process rather than process-isolated."
+    },
+    {
+      "id": "LIM-04",
+      "status": "open",
+      "text": "Human comprehension, calibration, review, and operational-cost benefits have not been tested externally."
+    },
+    {
+      "id": "LIM-05",
+      "status": "open",
+      "text": "Full open-world inquiry and complete endoporeutic game semantics are not implemented."
+    }
+  ],
+  "portfolio": {
+    "last_reviewed": "2026-07-14",
+    "thesis": "Graphist can make machine reasoning and machine action explicit, challengeable, verifiable, and auditable.",
+    "title": "Graphist research portfolio"
+  },
+  "quarantined_evidence": [],
+  "results": {
+    "architectural_spine": {
+      "accounting": {
+        "scheduled": 39,
+        "terminal_counts": {
+          "abstained": 1,
+          "accepted": 37,
+          "rejected": 1
+        }
+      },
+      "contract": {
+        "challenge_budget": 8,
+        "evidence_scope": "bounded_formal_domain_mechanism",
+        "hidden_oracle_fields": [
+          "expected",
+          "sentinel"
+        ],
+        "policy_input_fields": [
+          "task_id",
+          "family",
+          "surface_name",
+          "objective",
+          "candidates",
+          "required_connections"
+        ],
+        "roles": {
+          "adjudicator": "independent_witness_verification",
+          "grapheus": "read_only_witnessed_refutation_search",
+          "graphist": "learned_proposal_only",
+          "hidden_evaluator": "task_scoring_only",
+          "kernel": "independent_legality_and_certificate"
+        },
+        "version": "architectural-spine/1"
+      },
+      "discovery": {
+        "all_submitted_actions_equal_inference": true,
+        "all_witnesses_independently_adjudicated": true,
+        "boundaries": {
+          "certificate": "semantically_replayed",
+          "endoporeutic_game": "not_implemented",
+          "lineage": "integrity_verified",
+          "trust": "application_enforced_not_process_isolated"
+        },
+        "clean_proposal_valid_challenges": 0,
+        "complete_paired_denominators": true,
+        "derived_witness_count": 9,
+        "evidential_status": "discovery_mechanism_demonstrated_scientific_conclusion_not_tested",
+        "input_audit": {
+          "grapheus_fields": [
+            "task",
+            "proposal_projection",
+            "inspection",
+            "budget"
+          ],
+          "inspection_methods": [
+            "interface_wire_ids",
+            "relation_cells",
+            "attachments",
+            "region_parent",
+            "certificate_replays"
+          ]
+        },
+        "inspection_accounting": {
+          "budget_exhaustions": 1,
+          "queries": 111
+        },
+        "metrics": {
+          "graphist_only": {
+            "abstention": 0,
+            "challenge_precision": null,
+            "cost": {
+              "kernel_submissions": 15,
+              "proposal_inferences": 15
+            },
+            "denominator": 15,
+            "false_final_acceptance": 9,
+            "inspection_queries": 0,
+            "repair": 0
+          },
+          "graphist_with_grapheus": {
+            "abstention": 3,
+            "challenge_precision": 1.0,
+            "cost": {
+              "inspection_queries": 111,
+              "kernel_submissions": 15,
+              "proposal_inferences": 15,
+              "revision_submissions": 6
+            },
+            "denominator": 15,
+            "false_final_acceptance": 0,
+            "inspection_queries": 111,
+            "repair": 6
+          }
+        },
+        "natural_kernel_valid_error_count": 9,
+        "only_valid_challenges_change_outcomes": true,
+        "paired_proposal_identity": true,
+        "paired_proposal_set_hash": "5a25d0d719112924161485de6a175d9fb96b8cd569399c00a291044f5ccb001b",
+        "post_inference_control_injection": false,
+        "revision": {
+          "abstentions": 3,
+          "all_repairs_verified": true,
+          "checkpoint_hash": "bfe119019952a8bcfec4248cb71919bc31804be01aa6a72c7f1a1a9dc4898efc",
+          "complete_policy_context": true,
+          "decision_source": "learned_challenge_conditioned_policy",
+          "model_id": "learned-graphist-ensemble-bfe119019952",
+          "repair_decisions": 6,
+          "unavailable_repair_abstains": true
+        },
+        "witness_source": "graph_inspection"
+      },
+      "evidential_status": {
+        "control_design": "injected_faults_not_sampled_model_errors",
+        "mechanism": "mechanism_demonstrated",
+        "population_epistemic": "not_tested",
+        "representation_superiority": "not_tested"
+      },
+      "experiment": {
+        "arms": [
+          "conventional_without_grapheus",
+          "conventional_with_grapheus",
+          "graph_native_without_grapheus",
+          "graph_native_with_grapheus"
+        ],
+        "assurance_separate_from_outcome": true,
+        "claim_rules": {
+          "null_grapheus": "no_superiority_claim"
+        },
+        "claims": {
+          "grapheus": "mechanism_control_detected_not_population_effect",
+          "representation": "no_advantage_demonstrated"
+        },
+        "complete_denominator": true,
+        "effects": {
+          "grapheus": {
+            "estimate": -1.0,
+            "outcome": "false_final_acceptance",
+            "status": "injected_control_effect_only"
+          },
+          "interaction": {
+            "estimate": 0.0,
+            "status": "null_on_mechanism_control"
+          },
+          "learned_proposal": {
+            "estimate": null,
+            "status": "not_identified_without_unlearned_arm"
+          },
+          "representation": {
+            "estimate": 0.0,
+            "status": "null_on_mechanism_control"
+          }
+        },
+        "event_counts": {
+          "duplicate_detections": 0,
+          "kernel_rejections": 1,
+          "valid_refutations": 2
+        },
+        "grapheus_denominator": "kernel_accepted_only",
+        "matched": {
+          "challenge_budgets": true,
+          "evaluators": true,
+          "proposal_budgets": true,
+          "seeds": true,
+          "splits": true,
+          "task_populations": true
+        },
+        "metrics": {
+          "conventional_with_grapheus": {
+            "abstention": 0,
+            "accounted": 1,
+            "control_injected_after_inference": true,
+            "cost": {
+              "challenge_predicates": 6,
+              "proposal_evaluations": 1
+            },
+            "false_final_acceptance": 0,
+            "injected_control_action": "schema_42b",
+            "invalid_challenge": 0,
+            "kernel_accepted_control": true,
+            "latency": {
+              "unit": "deterministic_operation_count",
+              "value": 7
+            },
+            "raw_inferred_action": "schema_17c",
+            "repair": 1,
+            "representation": "conventional",
+            "representation_artifact_hash": "dbbbc3da4cbbe5bbabf144d3e5272f75e0d95569852a092c8c7857cff3288cb4",
+            "scheduled": 1,
+            "valid_refutation": 1
+          },
+          "conventional_without_grapheus": {
+            "abstention": 0,
+            "accounted": 1,
+            "control_injected_after_inference": true,
+            "cost": {
+              "challenge_predicates": 0,
+              "proposal_evaluations": 1
+            },
+            "false_final_acceptance": 1,
+            "injected_control_action": "schema_42b",
+            "invalid_challenge": 0,
+            "kernel_accepted_control": true,
+            "latency": {
+              "unit": "deterministic_operation_count",
+              "value": 1
+            },
+            "raw_inferred_action": "schema_17c",
+            "repair": 0,
+            "representation": "conventional",
+            "representation_artifact_hash": "dbbbc3da4cbbe5bbabf144d3e5272f75e0d95569852a092c8c7857cff3288cb4",
+            "scheduled": 1,
+            "valid_refutation": 0
+          },
+          "graph_native_with_grapheus": {
+            "abstention": 0,
+            "accounted": 1,
+            "control_injected_after_inference": true,
+            "cost": {
+              "challenge_predicates": 6,
+              "proposal_evaluations": 1
+            },
+            "false_final_acceptance": 0,
+            "injected_control_action": "schema_42b",
+            "invalid_challenge": 0,
+            "kernel_accepted_control": true,
+            "latency": {
+              "unit": "deterministic_operation_count",
+              "value": 7
+            },
+            "raw_inferred_action": "schema_17c",
+            "repair": 1,
+            "representation": "graph_native",
+            "representation_artifact_hash": "17e34f2ed5647e15a550a28b7e6e53a9127ecd3c73871e8039c579718f972062",
+            "scheduled": 1,
+            "valid_refutation": 1
+          },
+          "graph_native_without_grapheus": {
+            "abstention": 0,
+            "accounted": 1,
+            "control_injected_after_inference": true,
+            "cost": {
+              "challenge_predicates": 0,
+              "proposal_evaluations": 1
+            },
+            "false_final_acceptance": 1,
+            "injected_control_action": "schema_42b",
+            "invalid_challenge": 0,
+            "kernel_accepted_control": true,
+            "latency": {
+              "unit": "deterministic_operation_count",
+              "value": 1
+            },
+            "raw_inferred_action": "schema_17c",
+            "repair": 0,
+            "representation": "graph_native",
+            "representation_artifact_hash": "17e34f2ed5647e15a550a28b7e6e53a9127ecd3c73871e8039c579718f972062",
+            "scheduled": 1,
+            "valid_refutation": 0
+          }
+        }
+      },
+      "grapheus": {
+        "budget_audit": {
+          "configured": 8,
+          "consumed": 8,
+          "exhausted": true,
+          "strategy": "ordered_public_obligation_search/v1"
+        },
+        "challenge_classes": {
+          "certificate tampering": {
+            "valid": true,
+            "witness": {
+              "predicate": "certificate_replay_failed",
+              "values": [
+                "content_binding"
+              ]
+            }
+          },
+          "illegal overlap": {
+            "valid": true,
+            "witness": {
+              "predicate": "forbidden_overlap",
+              "values": [
+                "region:a",
+                "region:b"
+              ]
+            }
+          },
+          "interface permutation": {
+            "valid": true,
+            "witness": {
+              "predicate": "interface_order_mismatch",
+              "values": [
+                "left",
+                "right",
+                "->",
+                "right",
+                "left"
+              ]
+            }
+          },
+          "invalid identity split": {
+            "valid": true,
+            "witness": {
+              "predicate": "shared_identity_split",
+              "values": [
+                "use:a1",
+                "use:a2"
+              ]
+            }
+          },
+          "missing external connection": {
+            "valid": true,
+            "witness": {
+              "predicate": "required_connection_absent",
+              "values": [
+                "edge:b"
+              ]
+            }
+          },
+          "mistaken identity merge": {
+            "valid": true,
+            "witness": {
+              "predicate": "distinct_identity_merged",
+              "values": [
+                "wire:a",
+                "wire:b"
+              ]
+            }
+          },
+          "scope extrusion": {
+            "valid": true,
+            "witness": {
+              "predicate": "extruded_wire",
+              "values": [
+                "wire:y"
+              ]
+            }
+          },
+          "variable capture": {
+            "valid": true,
+            "witness": {
+              "predicate": "captured_wire",
+              "values": [
+                "wire:x"
+              ]
+            }
+          }
+        },
+        "invalid_challenges": {
+          "mutation": "rejected",
+          "rhetorical": "unverified",
+          "status_unchanged": true
+        },
+        "mutation_rejections": [
+          "task",
+          "proposal",
+          "evaluator",
+          "kernel"
+        ],
+        "mutation_status_unchanged": true,
+        "proved_true": false,
+        "unrefuted_status": "survived_configured_budget"
+      },
+      "kernel_boundary": {
+        "graphist_can_override": false,
+        "legal_wrong_proposal": {
+          "kernel_accepted": true,
+          "success": false,
+          "task_correct": false
+        },
+        "unsafe_proposal": {
+          "certificate_issued": false,
+          "committed": false,
+          "invariant": "host_invalid",
+          "status": "kernel_rejected"
+        }
+      },
+      "leakage_audit": {
+        "audited_policy_material_hash": "543d1ca120532388e512fdbc787bb386849c8dcff413c3d878482878cc371bef",
+        "sentinel_absent": true,
+        "sentinel_access_rule": "invalidate_run"
+      },
+      "learned_graphist": {
+        "checkpoint_hash": "d6461f13cde1ab013ccf6c5492440530c23e629bba346537445c484b41bf3353",
+        "inference_source": "checkpointed_learned_parameters",
+        "model_free_certificate_replay": true,
+        "model_id": "learned-graphist-ensemble-d6461f13cde1",
+        "unseen_kernel_accepted": true,
+        "unseen_task_correct": true
+      },
+      "learning_audit": {
+        "all_proposals_have_model_provenance": true,
+        "contains_task_answer_map": false,
+        "held_out_surface_disjoint": true,
+        "independent_model_count": 5,
+        "parameter_count": 4,
+        "performance": {
+          "seen": {
+            "success": 6,
+            "total": 6
+          },
+          "unseen": {
+            "success": 1,
+            "total": 1
+          }
+        }
+      },
+      "provenance": {
+        "architecture": "linear_ranker_ensemble/v1",
+        "budgets": {
+          "challenge": 8,
+          "proposal": 1,
+          "revision": 1
+        },
+        "checkpoint_hash": "d6461f13cde1ab013ccf6c5492440530c23e629bba346537445c484b41bf3353",
+        "member_checkpoint_hashes": [
+          "4ae82d8b14cee0f9f80283417eee0814c3b1303e930e0e16631194b21f259b80",
+          "dbe7d83c83fb0068c7eb76793b08daf1ffdaa3c773c8b5749f79bbfb1ec61f74",
+          "ee131ad7ea26ee2860b76b2a94752d820854feab50cd3f49bd7b7347cb0b2cdb",
+          "baf57a62d1b85947fe00ad47e57cad7157e0822b3217e1911de66f63b0b4b2e0",
+          "6698f4f3bd410e3d6ecb997b0e04257152c165ce05b780c3e38942eaa4640dee"
+        ],
+        "optimizer": "member_batch_gradient_descent_then_weight_average",
+        "split_seed": 8807,
+        "training_seeds": [
+          101,
+          211,
+          307,
+          401,
+          503
+        ]
+      },
+      "revision": {
+        "checks": {
+          "accumulated_counterexamples": true,
+          "kernel": true,
+          "original_objective": true
+        },
+        "event_count": 4,
+        "exhausted_status": "abstained",
+        "lineage_integrity_verifies": true,
+        "new_identity_linked": true,
+        "refuted_returned_as_success": false,
+        "retains_original_and_counterexample": true,
+        "unresolved_evidence_retained": true
+      },
+      "variation_audit": {
+        "alpha-renaming": {
+          "equivalent_output": true,
+          "kernel_verified": true,
+          "public_task_id": "variation-0-97",
+          "selection_changed": false
+        },
+        "deeper but semantically inert nesting": {
+          "equivalent_output": true,
+          "kernel_verified": true,
+          "public_task_id": "variation-5-582",
+          "selection_changed": false
+        },
+        "equivalent interface naming": {
+          "equivalent_output": true,
+          "kernel_verified": true,
+          "public_task_id": "variation-3-388",
+          "selection_changed": false
+        },
+        "equivalent ordering of independent nodes": {
+          "equivalent_output": true,
+          "kernel_verified": true,
+          "public_task_id": "variation-4-485",
+          "selection_changed": false
+        },
+        "fresh internal identifiers": {
+          "equivalent_output": true,
+          "kernel_verified": true,
+          "public_task_id": "variation-1-194",
+          "selection_changed": false
+        },
+        "graph layout permutation": {
+          "equivalent_output": true,
+          "kernel_verified": true,
+          "public_task_id": "variation-2-291",
+          "selection_changed": false
+        }
+      }
+    },
+    "broad_experiment": {
+      "capture_table": {
+        "s1": {
+          "capture_rate": 1.0,
+          "representation": "token",
+          "t2_accuracy": 0.0
+        },
+        "s2": {
+          "capture_rate": 1.0,
+          "representation": "ast",
+          "t2_accuracy": 0.0
+        },
+        "s4": {
+          "capture_rate": 0.0,
+          "representation": "de_bruijn",
+          "t2_accuracy": 1.0
+        },
+        "s7": {
+          "capture_rate": 0.0,
+          "representation": "bgamma_diagram",
+          "t2_accuracy": 1.0
+        },
+        "s8": {
+          "capture_rate": 0.0,
+          "representation": "bgamma_diagram",
+          "t2_accuracy": 1.0
+        }
+      },
+      "definition_of_done": {
+        "all_eight_arms_registered": true,
+        "all_satisfied": true,
+        "every_item_accounted": true,
+        "kernel_accepts_valid_steps": true,
+        "kernel_rejects_invalid_steps": true,
+        "leakage_checks_pass": true,
+        "released_roundtrip_failures_zero": true,
+        "theory_criteria_separate_from_software": true,
+        "three_valued_reporting": true
+      },
+      "headline": [
+        "WIN  Representation invariance: structural/nameless reps generalize to unseen names (OOD 1.0) where token/AST collapse to chance (OOD 0.5) \u2014 real trained probe",
+        "WIN  Library compression: S6>S5 on deep chains (effect 0.75, 1.0 vs 2.0 decisions)",
+        "TIE  Capture-avoidance: B\u0393 == binding-aware baseline (no additional advantage on pure binding \u2014 honest deflation)"
+      ],
+      "honesty": {
+        "aggregate_ordered_p3": "inconclusive (pools tie strata; the stratified links are the claim)",
+        "measured_ablations": [
+          "A1"
+        ],
+        "negative_controls": [
+          "P1 name-dependent control: the token rep WINS (OOD 1.0) and structural loses (OOD 0.75) \u2014 the probe favours whichever rep fits the task, so it is not rigged toward structure",
+          "P3 in-domain control: S8 shows NO advantage over S6 on shifts both libraries solve (S8-vs-S6 in-domain = falsified) \u2014 the legacy role-assisted effect is not a blanket S8 edge"
+        ],
+        "quarantined_results": [
+          "Legacy S8>S6 cross-domain contrast is role-assisted and retained only for reproducibility; corrected Gamma transfer remains not tested"
+        ],
+        "simulated_seams": [
+          "Neural arms S1-S4 *solving* T3/T4/T5 \u2014 competence model (P1 invariance is now a real learned probe; task-solving by a trained model is pending)",
+          "Battery T1 \u2014 simulated (needs a structured-query contract)",
+          "Ablations ['A2', 'A3', 'A4', 'A5', 'A6'] \u2014 illustrative (need polarity tasks / a fallible proposer / a learned proposer)",
+          "Decision budget is a search-cost proxy (not a branching search)",
+          "Legacy cross-domain S8 receives semantic relation roles unavailable to S6; its apparent transfer effect is quarantined",
+          "P1 probe uses faithful feature abstractions; a learned-feature model (transformer/GNN) would let the effect emerge without them"
+        ],
+        "ties": [
+          "Capture-avoidance parity: B\u0393 == De Bruijn (P2)",
+          "Learning-generalization parity: B\u0393 == De Bruijn on the P1 probe",
+          "Capture floor: B\u0393 eliminates capture, but so does binding-aware (P4)"
+        ],
+        "wins": [
+          "Representation invariance under learning (P1): structural/nameless generalize, name-based don't",
+          "Library compression (S6 > S5, multi-step depth)"
+        ]
+      },
+      "outcome_grid": {
+        "conclusion": "tidy packaging of known invariances",
+        "kernel_results_are_mathematical_not_empirical_ml": true,
+        "kernel_separate_from_ml": true,
+        "permits": [
+          "tidy packaging of known invariances"
+        ],
+        "permits_complete_falsification": true,
+        "permits_tidy_packaging": true,
+        "run_conclusion": "tidy packaging of known invariances",
+        "statuses": {
+          "P1": "supported",
+          "P2": "inconclusive",
+          "P3": "inconclusive",
+          "P4": "supported",
+          "P5": "inconclusive",
+          "P6": "inconclusive"
+        }
+      },
+      "prediction_detail": {
+        "P1": {
+          "binding_aware_matches_structural": true,
+          "compute_and_parameter_matched_reported": true,
+          "learned_probe": {
+            "level": {
+              "gap": 0.0,
+              "in_dist_acc": 1.0,
+              "ood_acc": 1.0
+            },
+            "name": {
+              "gap": 0.5,
+              "in_dist_acc": 1.0,
+              "ood_acc": 0.5
+            },
+            "structural": {
+              "gap": 0.0,
+              "in_dist_acc": 1.0,
+              "ood_acc": 1.0
+            }
+          },
+          "name_based_ood_generalization": 0.5,
+          "name_randomization_reported": true,
+          "negative_control": {
+            "name_based_wins": true,
+            "name_ood": 1.0,
+            "structural_ood": 0.75,
+            "task": "surface-name equality"
+          },
+          "ood_gap_name": 0.5,
+          "ood_gap_structural": 0.0,
+          "outcome": "supported",
+          "reports_task_appropriate_representation": true,
+          "s4_equal_information_control_included": true,
+          "structural_ood_generalization": 1.0
+        },
+        "P2": {
+          "effect": -0.0625,
+          "failure_to_reject_superiority_is_not_equivalence": true,
+          "interval": [
+            -0.185,
+            0.06
+          ],
+          "outcome": "inconclusive",
+          "s4_t2_capture_rate": 0.0,
+          "s7_t2_capture_rate": 0.0,
+          "t2_capture_free_parity": "supported"
+        },
+        "P3": {
+          "in_domain_control_shows_no_advantage": true,
+          "legacy_role_assisted_cross_domain": {
+            "confound": "S8-only held-out semantic relation roles",
+            "effect": 0.9375,
+            "interval": [
+              0.8523,
+              1.0227
+            ],
+            "outcome": "supported",
+            "scientific_evidence": false
+          },
+          "ordered_links": "supported;inconclusive",
+          "outcome": "inconclusive",
+          "parity_s8_s6_falsifies_separation": false,
+          "s6_fewer_decisions_than_s5": {
+            "S5": 2.0,
+            "S6": 1.0
+          },
+          "s6_vs_s5": "inconclusive",
+          "s6_vs_s5_multistep": "supported",
+          "s6_vs_s5_multistep_effect": 0.75,
+          "s6_vs_s5_multistep_interval": [
+            0.4292,
+            1.0708
+          ],
+          "s8_vs_s6": "supported",
+          "s8_vs_s6_cross_domain": "not_tested",
+          "s8_vs_s6_in_domain_control": "falsified",
+          "stratified_by_shift": true
+        },
+        "P4": {
+          "at_parser_floor": true,
+          "binding_aware_reaches_floor": true,
+          "name_based_capture_rate": 1.0,
+          "parser_error_floor": 0.0,
+          "s8_capture_error_rate": 0.0,
+          "verifier_errors_reported_separately": true
+        },
+        "P5": {
+          "complete_matrix_published": true,
+          "each_tested_on_target_metric_only": true,
+          "effect_matrix": {
+            "A1": {
+              "component": "structural identity",
+              "effect": 1.0,
+              "grounding": "token/AST vs B\u0393 on T2",
+              "measured": true,
+              "target_metric": "capture_error_rate"
+            },
+            "A2": {
+              "component": "polarity regions",
+              "measured": false,
+              "needs": "a polarity-sensitive task battery",
+              "target_metric": "polarity_error_rate"
+            },
+            "A3": {
+              "component": "level stratification",
+              "measured": false,
+              "needs": "an ablation run over a reflexive-name construction (the mechanism exists: the kernel's level_coherence check)",
+              "target_metric": "admits_reflexive_names"
+            },
+            "A4": {
+              "component": "formal verifier",
+              "measured": false,
+              "needs": "a fallible proposer that emits invalid steps",
+              "target_metric": "invalid_step_rate"
+            },
+            "A5": {
+              "component": "Gamma abstraction",
+              "effect": 0.9167,
+              "measured": false,
+              "needs": "matched-information population experiment; legacy contrast is role-assisted",
+              "target_metric": "cross_domain_transfer"
+            },
+            "A6": {
+              "component": "neural guidance",
+              "measured": false,
+              "needs": "a learned proposer to contrast with the deterministic search",
+              "target_metric": "search_states"
+            }
+          },
+          "illustrative_ablations": [
+            "A2",
+            "A3",
+            "A4",
+            "A5",
+            "A6"
+          ],
+          "measured_ablations": [
+            "A1"
+          ],
+          "measured_dissociations_hold": true,
+          "off_target_effect_triggers_investigation": true,
+          "outcome": "inconclusive"
+        },
+        "P6": {
+          "large_trace_reversal_reportable": true,
+          "model_includes_format": true,
+          "model_includes_interaction": true,
+          "model_includes_participant_repeated_measures": true,
+          "model_includes_trace_size": true,
+          "small_trace_advantage_reportable": true
+        }
+      },
+      "predictions": {
+        "P1": "supported",
+        "P2": "inconclusive",
+        "P3": "inconclusive",
+        "P4": "supported",
+        "P5": "inconclusive",
+        "P6": "inconclusive"
+      },
+      "protocol": {
+        "frozen": true,
+        "hash": "59bee806a3d44360224ad4aec858e1112d69e0d6b5ff2b6b2c76fa3db7819a37",
+        "timestamp": "2026-07-14T12:00:00+00:00"
+      },
+      "systems_task_accuracy": {
+        "S1": 0.6705,
+        "S2": 0.75,
+        "S3": 0.8182,
+        "S4": 0.8636,
+        "S5": 0.5682,
+        "S6": 0.6591,
+        "S7": 0.5795,
+        "S8": 0.9886
+      },
+      "transfer_table": {
+        "S5": {
+          "arity": 1.0,
+          "chain_depth": 0.25,
+          "chain_transfer": 0.0,
+          "coefficient": 1.0,
+          "cross_domain": 0.08333333333333333,
+          "depth": 1.0,
+          "operand_order": 1.0,
+          "vocabulary": 1.0
+        },
+        "S6": {
+          "arity": 1.0,
+          "chain_depth": 1.0,
+          "chain_transfer": 0.0,
+          "coefficient": 1.0,
+          "cross_domain": 0.08333333333333333,
+          "depth": 1.0,
+          "operand_order": 1.0,
+          "vocabulary": 1.0
+        },
+        "S7": {
+          "arity": 1.0,
+          "chain_depth": 0.25,
+          "chain_transfer": 0.0,
+          "coefficient": 1.0,
+          "cross_domain": 0.08333333333333333,
+          "depth": 1.0,
+          "operand_order": 1.0,
+          "vocabulary": 1.0
+        },
+        "S8": {
+          "arity": 1.0,
+          "chain_depth": 1.0,
+          "chain_transfer": 1.0,
+          "coefficient": 1.0,
+          "cross_domain": 1.0,
+          "depth": 1.0,
+          "operand_order": 1.0,
+          "vocabulary": 1.0
+        }
+      }
+    },
+    "graph_native_transfer": {
+      "adversarial_rejection_reasons": {
+        "connectivity_mismatch": 6,
+        "distinctness_violation": 6,
+        "identity_mismatch": 6,
+        "interface_mismatch": 6,
+        "overlap_conflict": 6,
+        "region_ancestry_violation": 6,
+        "scope_extrusion": 6,
+        "scope_visibility_violation": 6
+      },
+      "all_executions_within_search_budget": true,
+      "all_s8_certificates_replay": true,
+      "all_s8_scope_certificates_bind_regions": true,
+      "all_s8_scope_certificates_replay": true,
+      "all_s8_tampering_rejected": true,
+      "analysis_kind": "descriptive_graph_fixture",
+      "budget_exhaustion_terminal_outcome": true,
+      "complete_accounting": true,
+      "connectivity_adversary_global_difference": true,
+      "connectivity_adversary_local_equivalence": true,
+      "connectivity_selectivity": {
+        "S6": true,
+        "S8": true
+      },
+      "decision_rule_version": "t3-graph-mechanism-v2",
+      "distinct_identity_preserved": {
+        "S6": true,
+        "S8": true
+      },
+      "distinct_wire_constraint_count": 32,
+      "downstream_output_sharing_preserved": true,
+      "empty_regions_matched_explicitly": true,
+      "expected_result_count": 117,
+      "fixture_status": "mechanism_demonstrated",
+      "identifier_invariant_induction": true,
+      "identity_selectivity": {
+        "S6": true,
+        "S8": true
+      },
+      "invalid_s8_certificates": 0,
+      "learned_graph_schema_count": 4,
+      "legal_overlap_success": {
+        "S6": true,
+        "S8": true
+      },
+      "mechanism_checks": {
+        "all_global_connectivity_cases_succeed": true,
+        "all_overlap_certificates_replay": true,
+        "all_overlapping_compositions_succeed": true,
+        "all_s8_certificates_bind_region_embeddings": true,
+        "all_s8_tampering_rejected": true,
+        "all_search_decisions_within_budget": true,
+        "complete_accounting": true,
+        "every_adversarial_rejection": true,
+        "global_connectivity_successes_exist": true,
+        "multi_output_successes_exist": true,
+        "overlap_uses_multiple_schemas": true,
+        "overlapping_compositions_exist": true,
+        "replayable_s8_certificates_exist": true,
+        "scope_successes_exist": true,
+        "shared_identity_successes_exist": true,
+        "zero_invalid_s8_certificates": true
+      },
+      "metrics": {
+        "S6": {
+          "certificate_steps": 0,
+          "false_application_rate": 0.0,
+          "rejection_reasons": {
+            "connectivity_mismatch": 3,
+            "distinctness_violation": 3,
+            "identity_mismatch": 3,
+            "interface_mismatch": 3,
+            "overlap_conflict": 3,
+            "region_ancestry_violation": 3,
+            "scope_extrusion": 3,
+            "scope_visibility_violation": 3
+          },
+          "search_decisions": 294,
+          "verified_task_success_rate": 1.0
+        },
+        "S7": {
+          "certificate_steps": 0,
+          "false_application_rate": 0.0,
+          "rejection_reasons": {
+            "connectivity_mismatch": 6,
+            "distinctness_violation": 3,
+            "identity_mismatch": 6,
+            "interface_mismatch": 3,
+            "region_ancestry_violation": 3,
+            "scope_visibility_violation": 3
+          },
+          "search_decisions": 312,
+          "verified_task_success_rate": 0.0
+        },
+        "S8": {
+          "certificate_steps": 18,
+          "false_application_rate": 0.0,
+          "rejection_reasons": {
+            "connectivity_mismatch": 3,
+            "distinctness_violation": 3,
+            "identity_mismatch": 3,
+            "interface_mismatch": 3,
+            "overlap_conflict": 3,
+            "region_ancestry_violation": 3,
+            "scope_extrusion": 3,
+            "scope_visibility_violation": 3
+          },
+          "search_decisions": 294,
+          "verified_task_success_rate": 1.0
+        }
+      },
+      "multi_output_schema_count": 1,
+      "multi_output_success": {
+        "S6": true,
+        "S8": true
+      },
+      "overlap_case_count": 3,
+      "overlap_s8_certificate_replays": true,
+      "protocol": {
+        "adversaries_by_family": {
+          "multi_output": 6,
+          "nested_scope": 9,
+          "shared_identity": 9
+        },
+        "arms": [
+          "S6",
+          "S7",
+          "S8"
+        ],
+        "evaluation_key_fields": [
+          "target",
+          "family",
+          "shift",
+          "should_apply",
+          "failure_kind"
+        ],
+        "evaluation_key_separate": true,
+        "families": [
+          "shared_identity",
+          "nested_scope",
+          "multi_output"
+        ],
+        "identity_scope_information_equal": true,
+        "inference_budget_by_arm": {
+          "S6": 96,
+          "S7": 96,
+          "S8": 96
+        },
+        "matcher_by_arm": {
+          "S6": "exact_graph_matcher_v2",
+          "S7": "exact_graph_matcher_v2",
+          "S8": "exact_graph_matcher_v2"
+        },
+        "mechanisms": {
+          "S6": {
+            "graphist_kernel": false,
+            "parameterized_graph_schemas": true,
+            "schema_kind": "parameterized"
+          },
+          "S7": {
+            "graphist_kernel": true,
+            "parameterized_graph_schemas": false,
+            "schema_kind": "grounded"
+          },
+          "S8": {
+            "graphist_kernel": true,
+            "parameterized_graph_schemas": true,
+            "schema_kind": "parameterized"
+          }
+        },
+        "opaque_relation_labels": true,
+        "role_tokens_in_test_relation_names": false,
+        "s7_s8_only_schema_parameterization_differs": true,
+        "same_signatures_by_arm": true,
+        "schema_induction_inputs": [
+          "before",
+          "after"
+        ],
+        "shared_parameterized_schema_identity": true,
+        "system_case_fields": [
+          "id",
+          "seed",
+          "input",
+          "signature"
+        ],
+        "test_evaluation_keys_available_to_induction": false,
+        "training_ids_by_arm": {
+          "S6": [
+            "demo-a-0",
+            "demo-a-1",
+            "demo-a-2",
+            "demo-a-3",
+            "demo-b-0",
+            "demo-b-1",
+            "demo-b-2",
+            "demo-b-3"
+          ],
+          "S7": [
+            "demo-a-0",
+            "demo-a-1",
+            "demo-a-2",
+            "demo-a-3",
+            "demo-b-0",
+            "demo-b-1",
+            "demo-b-2",
+            "demo-b-3"
+          ],
+          "S8": [
+            "demo-a-0",
+            "demo-a-1",
+            "demo-a-2",
+            "demo-a-3",
+            "demo-b-0",
+            "demo-b-1",
+            "demo-b-2",
+            "demo-b-3"
+          ]
+        },
+        "valid_cases_by_family": {
+          "multi_output": 6,
+          "nested_scope": 3,
+          "shared_identity": 6
+        }
+      },
+      "reordered_region_matches_preserved": true,
+      "resource_units_comparable": false,
+      "result_count": 117,
+      "s8_certificates_issued": 15,
+      "same_label_distinct_wire_case_count": 3,
+      "scientific_conclusion": "not_tested",
+      "scope_success": {
+        "S6": true,
+        "S8": true
+      },
+      "shared_identity_s8_certified": true,
+      "shared_identity_schema_count": 4,
+      "shared_identity_success": {
+        "S6": true,
+        "S8": true
+      },
+      "shared_wire_case_count": 3,
+      "sibling_to_nested_region_rejected": true
+    },
+    "term_schema_transfer": {
+      "adversarial_family_count": 3,
+      "all_observed_groundings_retained": true,
+      "all_s8_certificates_replay": true,
+      "all_s8_composition_certificates_replay": true,
+      "all_s8_tampering_rejected": true,
+      "analysis_kind": "descriptive_fixture",
+      "cancellation_success": {
+        "S6": true,
+        "S8": true
+      },
+      "complete_accounting": true,
+      "decision_rule_version": "t3-mechanism-v2",
+      "expected_result_count": 260,
+      "fixture_status": "mechanism_demonstrated",
+      "invalid_s8_certificates": 0,
+      "learned_parameterized_schema_count": 3,
+      "learned_schemas": [
+        {
+          "id": "inferred-schema-2",
+          "interface": [
+            "out"
+          ],
+          "interface_inferred": true,
+          "operator_holes": [
+            "op0",
+            "op1",
+            "op2",
+            "op3"
+          ]
+        },
+        {
+          "id": "inferred-schema-0",
+          "interface": [
+            "x0",
+            "x1",
+            "x2",
+            "out"
+          ],
+          "interface_inferred": true,
+          "operator_holes": [
+            "op0",
+            "op1"
+          ]
+        },
+        {
+          "id": "inferred-schema-1",
+          "interface": [
+            "x0",
+            "x1",
+            "x2",
+            "out"
+          ],
+          "interface_inferred": true,
+          "operator_holes": [
+            "op0"
+          ]
+        }
+      ],
+      "mechanism_checks": {
+        "all_adversarial_arms_rejected": true,
+        "all_adversarial_s6_rejected": true,
+        "all_adversarial_s8_rejected": true,
+        "all_genuine_s6_success": true,
+        "all_genuine_s8_success": true,
+        "all_observed_groundings_retained": true,
+        "all_s8_certificates_replay": true,
+        "all_s8_composition_certificates_replay": true,
+        "all_s8_tampering_rejected": true,
+        "complete_accounting": true,
+        "mixed_vocabulary_s6_s8_success": true,
+        "mixed_vocabulary_s8_certificate_replays": true,
+        "no_target_only_operator_holes": true,
+        "s8_certificates_exist": true,
+        "s8_compositions_exist": true,
+        "s8_compositions_use_multiple_schemas": true,
+        "same_sort_distractors_present": true,
+        "three_schemas": true,
+        "zero_invalid_s8_certificates": true
+      },
+      "metrics": {
+        "S4": {
+          "certificate_validity_rate": 0.0,
+          "certificates_issued": 0,
+          "false_application_rate": 0.0,
+          "renaming_robustness": 0.2667,
+          "reuse_frequency": {
+            "inferred-schema-0": 8,
+            "inferred-schema-1": 6,
+            "inferred-schema-2": 0
+          },
+          "search_decisions": 2040,
+          "training_work": {
+            "unit": "logistic_sgd_updates",
+            "value": 48600
+          },
+          "verified_task_success_rate": 0.24
+        },
+        "S6": {
+          "certificate_validity_rate": 0.0,
+          "certificates_issued": 0,
+          "false_application_rate": 0.0,
+          "renaming_robustness": 1.0,
+          "reuse_frequency": {
+            "inferred-schema-0": 20,
+            "inferred-schema-1": 20,
+            "inferred-schema-2": 20
+          },
+          "search_decisions": 3455,
+          "training_work": {
+            "unit": "schema_candidate_comparisons",
+            "value": 27
+          },
+          "verified_task_success_rate": 1.0
+        },
+        "S7": {
+          "certificate_validity_rate": 0.0,
+          "certificates_issued": 0,
+          "false_application_rate": 0.0,
+          "renaming_robustness": 0.0,
+          "reuse_frequency": {
+            "inferred-schema-0": 0,
+            "inferred-schema-1": 0,
+            "inferred-schema-2": 0
+          },
+          "search_decisions": 390,
+          "training_work": {
+            "unit": "schema_candidate_comparisons",
+            "value": 27
+          },
+          "verified_task_success_rate": 0.0
+        },
+        "S8": {
+          "certificate_validity_rate": 1.0,
+          "certificates_issued": 50,
+          "false_application_rate": 0.0,
+          "renaming_robustness": 1.0,
+          "reuse_frequency": {
+            "inferred-schema-0": 20,
+            "inferred-schema-1": 20,
+            "inferred-schema-2": 20
+          },
+          "search_decisions": 391,
+          "training_work": {
+            "unit": "schema_candidate_comparisons",
+            "value": 27
+          },
+          "verified_task_success_rate": 1.0
+        }
+      },
+      "mixed_vocabulary_case_count": 5,
+      "mixed_vocabulary_multiple_bindings": true,
+      "mixed_vocabulary_s8_binding_count": 2,
+      "mixed_vocabulary_s8_certificate_replays": true,
+      "mixed_vocabulary_success": {
+        "S6": true,
+        "S8": true
+      },
+      "protocol": {
+        "arms": [
+          "S4",
+          "S6",
+          "S7",
+          "S8"
+        ],
+        "cryptographically_sealed": false,
+        "evaluation_key_separate": true,
+        "holes_inferred": true,
+        "inference_budget_by_arm": {
+          "S4": 96,
+          "S6": 96,
+          "S7": 96,
+          "S8": 96
+        },
+        "interfaces_inferred": true,
+        "manifest_distinction": "lexical",
+        "mechanisms": {
+          "S4": {
+            "graphist_kernel": false,
+            "kind": "trained_applicability_gate",
+            "parameterized_schemas": true
+          },
+          "S6": {
+            "graphist_kernel": false,
+            "kind": "conventional_parameterized_term_rewriter",
+            "parameterized_schemas": true
+          },
+          "S7": {
+            "graphist_kernel": true,
+            "kind": "grounded_graphist_rules",
+            "parameterized_schemas": false
+          },
+          "S8": {
+            "graphist_kernel": true,
+            "kind": "parameterized_graphist_rules",
+            "parameterized_schemas": true
+          }
+        },
+        "oracle_access": {
+          "fixture_generator": true,
+          "schema_induction": false,
+          "systems": false
+        },
+        "role_tokens_in_test_relation_names": false,
+        "schema_induction_inputs": [
+          "before",
+          "after"
+        ],
+        "seed_status": "fixed_in_source",
+        "semantic_roles_exposed": false,
+        "structurally_independent_manifests": false,
+        "system_case_fields": [
+          "id",
+          "seed",
+          "before",
+          "input",
+          "signature"
+        ],
+        "test_input_metadata": [
+          "relation_names",
+          "relation_sorts"
+        ],
+        "test_manifest_ids_by_seed": {
+          "11": "31f84f5f8019872e1c89aec1c69ebefde9b0c6d092f62dbad1f45914a07f99bc",
+          "23": "42a4c20b317486ff674d12220ca63204f40212f2ad7fffd32edc3678f5c386d0",
+          "37": "387375831cb238e260787db99c225b3ed4d7bc74392ab61250aa351248e42bea",
+          "53": "8b42338406d965a2afe8fa481bce2affc69dcc0b8277549a4b0294a58efce7fb",
+          "71": "1ed611d77cd35d297af1d88eeb563af67e578f6af8f88469b1c3210f4d9248ac"
+        },
+        "test_relation_names_opaque": true,
+        "training_family_labels": false,
+        "training_ids_by_arm": {
+          "S4": [
+            "train-a-0",
+            "train-a-1",
+            "train-a-2",
+            "train-b-0",
+            "train-b-1",
+            "train-b-2",
+            "train-negative-0",
+            "train-negative-1",
+            "train-negative-2"
+          ],
+          "S6": [
+            "train-a-0",
+            "train-a-1",
+            "train-a-2",
+            "train-b-0",
+            "train-b-1",
+            "train-b-2",
+            "train-negative-0",
+            "train-negative-1",
+            "train-negative-2"
+          ],
+          "S7": [
+            "train-a-0",
+            "train-a-1",
+            "train-a-2",
+            "train-b-0",
+            "train-b-1",
+            "train-b-2",
+            "train-negative-0",
+            "train-negative-1",
+            "train-negative-2"
+          ],
+          "S8": [
+            "train-a-0",
+            "train-a-1",
+            "train-a-2",
+            "train-b-0",
+            "train-b-1",
+            "train-b-2",
+            "train-negative-0",
+            "train-negative-1",
+            "train-negative-2"
+          ]
+        },
+        "validation_ids_by_arm": {
+          "S4": [
+            "validation-0",
+            "validation-1",
+            "validation-2",
+            "validation-negative-0",
+            "validation-negative-1",
+            "validation-negative-2"
+          ],
+          "S6": [
+            "validation-0",
+            "validation-1",
+            "validation-2",
+            "validation-negative-0",
+            "validation-negative-1",
+            "validation-negative-2"
+          ],
+          "S7": [
+            "validation-0",
+            "validation-1",
+            "validation-2",
+            "validation-negative-0",
+            "validation-negative-1",
+            "validation-negative-2"
+          ],
+          "S8": [
+            "validation-0",
+            "validation-1",
+            "validation-2",
+            "validation-negative-0",
+            "validation-negative-1",
+            "validation-negative-2"
+          ]
+        }
+      },
+      "resource_units_comparable": false,
+      "result_count": 260,
+      "s8_compositions_use_multiple_schemas": true,
+      "same_sort_distractors": {
+        "binary": true,
+        "nullary": true,
+        "unary": true
+      },
+      "scientific_conclusion": "not_tested",
+      "target_hole_completion_strategy": "require_source_evidence",
+      "target_only_operator_hole_count": 0
+    },
+    "trusted_t1_t2": {
+      "accepted_certificates_by_system": {
+        "graphist_beta": 6,
+        "graphist_registered_names": 6
+      },
+      "accounted_runs": 48,
+      "benchmark_manifest_hash": "1826d116872d87235bfaa3ab9ae85159c239cd53e4ddf33bdfa201e81c6e303d",
+      "experiment_identity": "30921a55e5524a175a7c67e00ce7aea578742fc52e2d67b3987b7c4f1778546f",
+      "exploratory": true,
+      "fully_accounted": true,
+      "kind": "pilot-report/0.1",
+      "outcomes_by_system": {
+        "binding_aware_de_bruijn": {
+          "correct_and_verified": 12
+        },
+        "graphist_beta": {
+          "correct_and_verified": 12
+        },
+        "graphist_registered_names": {
+          "correct_and_verified": 12
+        },
+        "token_naive": {
+          "correct_and_verified": 8,
+          "incorrect": 4
+        }
+      },
+      "protocol_hash": "e03c90029a161717feab89f0636319388dc00bcab77d4daf2b5ac789e5d3ce98",
+      "reading_guide": "Exploratory pilot: the comparison is trustworthy (dual oracles, application-side decoding, independent certificate verification, sealed test split), not confirmatory. No superiority claim is made.",
+      "scheduled_runs": 48
+    }
+  },
+  "schema_version": 1,
+  "studies": [
+    {
+      "criterion": "Fewer unsafe accepted changes than matched checks, independent replay, and acceptable useful completion.",
+      "hypotheses": [
+        "GH-SAF",
+        "GH-VER",
+        "GH-AUD",
+        "GH-EFF"
+      ],
+      "id": "ST-01",
+      "order": 1,
+      "status": "planned",
+      "title": "Verified change-control pilot",
+      "use_cases": [
+        "UC-01",
+        "UC-11"
+      ]
+    },
+    {
+      "criterion": "Better review accuracy or calibration than strong matched dossiers without unacceptable workload.",
+      "hypotheses": [
+        "GH-AUD",
+        "GH-EXP",
+        "GH-HMI",
+        "GH-EFF"
+      ],
+      "id": "ST-02",
+      "order": 2,
+      "status": "planned",
+      "title": "Decision review study",
+      "use_cases": [
+        "UC-07",
+        "UC-09"
+      ]
+    },
+    {
+      "criterion": "Faster or more accurate reconstruction and recovery than ordinary logs under matched information.",
+      "hypotheses": [
+        "GH-DBG",
+        "GH-AUD",
+        "GH-SAF",
+        "GH-EFF"
+      ],
+      "id": "ST-03",
+      "order": 3,
+      "status": "planned",
+      "title": "Incident forensic exercise",
+      "use_cases": [
+        "UC-08"
+      ]
+    },
+    {
+      "criterion": "Better adjudication than score and rule explanations after controlling information and explanation size.",
+      "hypotheses": [
+        "GH-EXP",
+        "GH-CHL",
+        "GH-HMI",
+        "GH-EFF"
+      ],
+      "id": "ST-04",
+      "order": 4,
+      "status": "planned",
+      "title": "Entity-resolution explanation study",
+      "use_cases": [
+        "UC-13",
+        "UC-03"
+      ]
+    },
+    {
+      "criterion": "Two independent proposers share the boundary without proposer-specific trusted acceptance logic.",
+      "hypotheses": [
+        "GH-INT",
+        "GH-VER",
+        "GH-GOV",
+        "GH-EFF"
+      ],
+      "id": "ST-05",
+      "order": 5,
+      "status": "planned",
+      "title": "Independent gateway conformance",
+      "use_cases": [
+        "UC-11"
+      ]
+    },
+    {
+      "criterion": "S8 beats S7 and strong S4/S6 baselines under matched information and resource governance.",
+      "hypotheses": [
+        "GH-LRN",
+        "GH-VER",
+        "GH-EFF"
+      ],
+      "id": "ST-06",
+      "order": 6,
+      "status": "specified_inactive",
+      "title": "T3 schema-transfer experiment",
+      "use_cases": [
+        "UC-04",
+        "UC-06"
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "conclusions": {
+        "falsified": 0,
+        "inconclusive": 0,
+        "not_tested": 2,
+        "supported": 0
+      },
+      "description": "Representation, abstraction, transfer, and search.",
+      "hypotheses": [
+        "GH-LRN",
+        "GH-EFF"
+      ],
+      "id": "learn",
+      "title": "Graphist Learn"
+    },
+    {
+      "conclusions": {
+        "falsified": 0,
+        "inconclusive": 0,
+        "not_tested": 2,
+        "supported": 0
+      },
+      "description": "Independent checking and replayable assurance.",
+      "hypotheses": [
+        "GH-VER",
+        "GH-SAF"
+      ],
+      "id": "verify",
+      "title": "Graphist Verify"
+    },
+    {
+      "conclusions": {
+        "falsified": 0,
+        "inconclusive": 0,
+        "not_tested": 3,
+        "supported": 0
+      },
+      "description": "Faithful explanation, contestability, and fault localization.",
+      "hypotheses": [
+        "GH-EXP",
+        "GH-CHL",
+        "GH-DBG"
+      ],
+      "id": "explain",
+      "title": "Graphist Explain"
+    },
+    {
+      "conclusions": {
+        "falsified": 0,
+        "inconclusive": 0,
+        "not_tested": 2,
+        "supported": 0
+      },
+      "description": "Provenance, reconstruction, and epistemic status.",
+      "hypotheses": [
+        "GH-AUD",
+        "GH-EPI"
+      ],
+      "id": "audit",
+      "title": "Graphist Audit"
+    },
+    {
+      "conclusions": {
+        "falsified": 0,
+        "inconclusive": 0,
+        "not_tested": 2,
+        "supported": 0
+      },
+      "description": "Authority separation and controlled action.",
+      "hypotheses": [
+        "GH-GOV",
+        "GH-SAF"
+      ],
+      "id": "govern",
+      "title": "Graphist Govern"
+    },
+    {
+      "conclusions": {
+        "falsified": 0,
+        "inconclusive": 0,
+        "not_tested": 3,
+        "supported": 0
+      },
+      "description": "Model-independent and human-machine collaboration.",
+      "hypotheses": [
+        "GH-CHL",
+        "GH-INT",
+        "GH-HMI"
+      ],
+      "id": "inquire",
+      "title": "Graphist Inquire"
+    }
+  ],
+  "use_cases": [
+    {
+      "capabilities": [
+        "verified-transformations",
+        "replayable-certificates",
+        "trusted-t1-t2-pilot"
+      ],
+      "capability_statuses": {
+        "replayable-certificates": "implemented",
+        "trusted-t1-t2-pilot": "implemented",
+        "verified-transformations": "implemented"
+      },
+      "hypotheses": [
+        "GH-SAF",
+        "GH-VER",
+        "GH-AUD",
+        "GH-CHL",
+        "GH-GOV",
+        "GH-DBG",
+        "GH-INT",
+        "GH-EFF"
+      ],
+      "id": "UC-01",
+      "implementation": "bounded_mechanism",
+      "implementation_ceiling": "bounded_mechanism",
+      "path": "use-cases/verified_ai_transformations.md",
+      "priority": "tier_1",
+      "specification": "specified",
+      "title": "Verified AI Transformations",
+      "validation": "internal_mechanism"
+    },
+    {
+      "capabilities": [
+        "learned-graphist",
+        "grapheus-challenge",
+        "discovery-revision"
+      ],
+      "capability_statuses": {
+        "discovery-revision": "implemented",
+        "grapheus-challenge": "implemented",
+        "learned-graphist": "implemented"
+      },
+      "hypotheses": [
+        "GH-GOV",
+        "GH-AUD",
+        "GH-DBG",
+        "GH-SAF",
+        "GH-INT",
+        "GH-HMI",
+        "GH-CHL",
+        "GH-EFF"
+      ],
+      "id": "UC-02",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/agent_harness.md",
+      "priority": "tier_2",
+      "specification": "specified",
+      "title": "Structured Agent Runtime / Harness",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "typed-diagrams",
+        "verified-transformations",
+        "replayable-certificates"
+      ],
+      "capability_statuses": {
+        "replayable-certificates": "implemented",
+        "typed-diagrams": "implemented",
+        "verified-transformations": "implemented"
+      },
+      "hypotheses": [
+        "GH-SAF",
+        "GH-VER",
+        "GH-AUD",
+        "GH-DBG",
+        "GH-EXP",
+        "GH-GOV",
+        "GH-INT",
+        "GH-EFF"
+      ],
+      "id": "UC-03",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/knowledge_data_assurance.md",
+      "priority": "domain_extension",
+      "specification": "specified",
+      "title": "Knowledge and Data Change Assurance",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "term-schema-transfer",
+        "graph-schema-transfer",
+        "replayable-certificates"
+      ],
+      "capability_statuses": {
+        "graph-schema-transfer": "implemented",
+        "replayable-certificates": "implemented",
+        "term-schema-transfer": "implemented"
+      },
+      "hypotheses": [
+        "GH-VER",
+        "GH-LRN",
+        "GH-INT",
+        "GH-CHL",
+        "GH-EXP",
+        "GH-EFF"
+      ],
+      "id": "UC-04",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/proof_and_program_synthesis.md",
+      "priority": "research",
+      "specification": "specified",
+      "title": "Proof and Program Synthesis",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "experiment-governance",
+        "research-publication"
+      ],
+      "capability_statuses": {
+        "experiment-governance": "implemented",
+        "research-publication": "implemented"
+      },
+      "hypotheses": [
+        "GH-EPI",
+        "GH-AUD",
+        "GH-HMI",
+        "GH-CHL",
+        "GH-GOV",
+        "GH-EXP",
+        "GH-INT",
+        "GH-EFF"
+      ],
+      "id": "UC-05",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/scientific_hypothesis_management.md",
+      "priority": "research",
+      "specification": "specified",
+      "title": "Scientific Hypothesis Management",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "learned-graphist",
+        "grapheus-challenge",
+        "discovery-revision"
+      ],
+      "capability_statuses": {
+        "discovery-revision": "implemented",
+        "grapheus-challenge": "implemented",
+        "learned-graphist": "implemented"
+      },
+      "hypotheses": [
+        "GH-HMI",
+        "GH-CHL",
+        "GH-EPI",
+        "GH-EXP",
+        "GH-GOV",
+        "GH-AUD",
+        "GH-LRN",
+        "GH-INT",
+        "GH-EFF"
+      ],
+      "id": "UC-06",
+      "implementation": "bounded_mechanism",
+      "implementation_ceiling": "bounded_mechanism",
+      "path": "use-cases/graphist_grapheus_inquiry.md",
+      "priority": "tier_3",
+      "specification": "specified",
+      "title": "Graphist-Grapheus Inquiry",
+      "validation": "internal_mechanism"
+    },
+    {
+      "capabilities": [],
+      "capability_statuses": {},
+      "hypotheses": [
+        "GH-AUD",
+        "GH-EXP",
+        "GH-GOV",
+        "GH-HMI",
+        "GH-EPI",
+        "GH-CHL",
+        "GH-EFF"
+      ],
+      "id": "UC-07",
+      "implementation": "not_started",
+      "implementation_ceiling": "not_started",
+      "path": "use-cases/auditable_decision_dossiers.md",
+      "priority": "tier_1",
+      "specification": "specified",
+      "title": "Auditable Decision Dossiers",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "replayable-certificates",
+        "experiment-governance"
+      ],
+      "capability_statuses": {
+        "experiment-governance": "implemented",
+        "replayable-certificates": "implemented"
+      },
+      "hypotheses": [
+        "GH-DBG",
+        "GH-AUD",
+        "GH-SAF",
+        "GH-VER",
+        "GH-GOV",
+        "GH-EXP",
+        "GH-EFF"
+      ],
+      "id": "UC-08",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/ai_incident_forensics_and_rollback.md",
+      "priority": "tier_1",
+      "specification": "specified",
+      "title": "AI Incident Forensics and Rollback",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "grapheus-challenge",
+        "discovery-revision"
+      ],
+      "capability_statuses": {
+        "discovery-revision": "implemented",
+        "grapheus-challenge": "implemented"
+      },
+      "hypotheses": [
+        "GH-EXP",
+        "GH-CHL",
+        "GH-HMI",
+        "GH-GOV",
+        "GH-AUD",
+        "GH-EPI",
+        "GH-EFF"
+      ],
+      "id": "UC-09",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/human_review_and_dispute_resolution.md",
+      "priority": "explain",
+      "specification": "specified",
+      "title": "Human Review and Dispute Resolution",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "replayable-certificates",
+        "experiment-governance"
+      ],
+      "capability_statuses": {
+        "experiment-governance": "implemented",
+        "replayable-certificates": "implemented"
+      },
+      "hypotheses": [
+        "GH-VER",
+        "GH-AUD",
+        "GH-GOV",
+        "GH-CHL",
+        "GH-EXP",
+        "GH-EPI",
+        "GH-EFF"
+      ],
+      "id": "UC-10",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/safety_and_assurance_cases.md",
+      "priority": "tier_2",
+      "specification": "specified",
+      "title": "Safety and Assurance Cases",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "verified-transformations",
+        "replayable-certificates",
+        "equal-information"
+      ],
+      "capability_statuses": {
+        "equal-information": "implemented",
+        "replayable-certificates": "implemented",
+        "verified-transformations": "implemented"
+      },
+      "hypotheses": [
+        "GH-INT",
+        "GH-VER",
+        "GH-GOV",
+        "GH-SAF",
+        "GH-AUD",
+        "GH-EFF"
+      ],
+      "id": "UC-11",
+      "implementation": "bounded_mechanism",
+      "implementation_ceiling": "bounded_mechanism",
+      "path": "use-cases/model_agnostic_verification_gateway.md",
+      "priority": "tier_2",
+      "specification": "specified",
+      "title": "Model-Agnostic Verification Gateway",
+      "validation": "internal_mechanism"
+    },
+    {
+      "capabilities": [
+        "experiment-governance",
+        "replayable-certificates"
+      ],
+      "capability_statuses": {
+        "experiment-governance": "implemented",
+        "replayable-certificates": "implemented"
+      },
+      "hypotheses": [
+        "GH-GOV",
+        "GH-SAF",
+        "GH-AUD",
+        "GH-VER",
+        "GH-EPI",
+        "GH-INT",
+        "GH-EFF"
+      ],
+      "id": "UC-12",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/compliance_by_construction_workflows.md",
+      "priority": "tier_2",
+      "specification": "specified",
+      "title": "Compliance-by-Construction Workflows",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "typed-diagrams",
+        "grapheus-challenge"
+      ],
+      "capability_statuses": {
+        "grapheus-challenge": "implemented",
+        "typed-diagrams": "implemented"
+      },
+      "hypotheses": [
+        "GH-EXP",
+        "GH-CHL",
+        "GH-HMI",
+        "GH-AUD",
+        "GH-SAF",
+        "GH-EPI",
+        "GH-EFF"
+      ],
+      "id": "UC-13",
+      "implementation": "adjacent_mechanisms",
+      "implementation_ceiling": "adjacent_mechanisms",
+      "path": "use-cases/explainable_entity_resolution_review.md",
+      "priority": "domain_experiment",
+      "specification": "specified",
+      "title": "Explainable Entity-Resolution Review",
+      "validation": "not_run"
+    },
+    {
+      "capabilities": [
+        "experiment-governance",
+        "research-publication"
+      ],
+      "capability_statuses": {
+        "experiment-governance": "implemented",
+        "research-publication": "implemented"
+      },
+      "hypotheses": [
+        "GH-AUD",
+        "GH-EPI",
+        "GH-VER",
+        "GH-GOV",
+        "GH-INT",
+        "GH-LRN",
+        "GH-EFF"
+      ],
+      "id": "UC-14",
+      "implementation": "bounded_mechanism",
+      "implementation_ceiling": "bounded_mechanism",
+      "path": "use-cases/auditable_training_and_evaluation.md",
+      "priority": "research_infrastructure",
+      "specification": "specified",
+      "title": "Auditable Training and Evaluation Traces",
+      "validation": "internal_mechanism"
+    }
+  ]
+}

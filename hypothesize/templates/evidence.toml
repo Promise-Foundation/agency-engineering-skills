@@ -1,0 +1,74 @@
+# Example evidence artifact.
+#
+# Place *.toml files like this under [tool.hypothesize].evidence_dir, or return
+# equivalent records from a [tool.hypothesize.evidence].collector. Each artifact
+# links to one or more registered hypotheses and declares how strong it is.
+#
+# The five fields that decide authority:
+#   kind          What sort of artifact this is:
+#                   mechanism      a bounded mechanism works on fixtures
+#                   study_design   a designed/preregistered study, no outcome yet
+#                   scientific     a study RESULT that bears an outcome
+#                   ... (other project-specific kinds allowed)
+#   maturity      The rung this artifact reaches on the ladder:
+#                   none < design < mechanism < internal_pilot
+#                        < comparative_pilot < external_replication
+#                 The engine takes the STRONGEST admitted artifact per hypothesis.
+#   qualified     true only if the result meets the precommitted quality bar.
+#   preregistered true only if the design was registered before the result.
+#   outcome       not_tested | supported | falsified | inconclusive
+#
+# THE QUARANTINE RULE: an artifact whose `outcome` is anything other than
+# `not_tested` but which is NOT (qualified = true AND preregistered = true) is
+# QUARANTINED. It is listed in the manifest but contributes nothing — it cannot
+# raise maturity and cannot move the conclusion. This is the immune response to
+# premature or unqualified claims. A conclusion changes ONLY via a `scientific`
+# artifact that is qualified AND preregistered AND carries a real outcome.
+
+# --- An ADMITTED mechanism artifact (the common, honest case) ----------------
+# It reaches `mechanism` maturity for HYP-EX-1 but tests no outcome. `qualified`
+# here means "this is a sound mechanism demonstration", not "the hypothesis is
+# validated" — note outcome is not_tested, so nothing touches the conclusion.
+[[evidence]]
+id = "EVD-EXAMPLE-MECHANISM"
+title = "Deterministic scoring mechanism on the synthetic corpus"
+hypotheses = ["HYP-EX-1"]
+kind = "mechanism"
+maturity = "mechanism"
+qualified = true
+preregistered = false
+outcome = "not_tested"
+source = "features/scoring"
+summary = "The scorer runs deterministically on synthetic fixtures; this is a mechanism, not a comparative result."
+
+# --- A study-DESIGN artifact -------------------------------------------------
+# Lifts the linked hypotheses to `design` maturity. No outcome, so no conclusion.
+[[evidence]]
+id = "EVD-EXAMPLE-DESIGN"
+title = "Comparative pilot preregistration (draft)"
+hypotheses = ["HYP-EX-1", "HYP-EX-2"]
+kind = "study_design"
+maturity = "design"
+qualified = false
+preregistered = false
+outcome = "not_tested"
+study = "STUDY-COMPARATIVE-PILOT"
+source = "docs/PILOT_PREREGISTRATION.md"
+summary = "Draft protocol for the comparative pilot; blocked on independently produced gold cases."
+
+# --- A QUARANTINED artifact (illustrative; delete in real use) ---------------
+# This claims `supported` but is neither qualified nor preregistered, so it is
+# quarantined: it appears in `quarantined_evidence` and moves NOTHING. This is
+# exactly what a premature "our tests pass so it works" claim looks like, and
+# exactly why the model refuses to honor it.
+[[evidence]]
+id = "EVD-EXAMPLE-QUARANTINED"
+title = "Internal demo write-up claiming the effect"
+hypotheses = ["HYP-EX-1"]
+kind = "scientific"
+maturity = "comparative_pilot"
+qualified = false
+preregistered = false
+outcome = "supported"
+source = "docs/notes/internal-demo.md"
+summary = "Unqualified, non-preregistered outcome claim; quarantined and powerless until a real study qualifies."

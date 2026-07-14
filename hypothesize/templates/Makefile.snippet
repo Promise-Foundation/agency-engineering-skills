@@ -1,0 +1,25 @@
+# Add to your Makefile. `research-status` regenerates and writes every published
+# target (run it locally, then commit the result). `research-check` is the CI
+# gate: it writes nothing and fails if any committed target is stale. Both run
+# the acceptance suite first so derivation sees a fresh report.
+#
+# This snippet uses the behave adapter; for the pytest adapter, replace the
+# report step with your pytest JSON invocation. The report path must match
+# [tool.hypothesize.runner].report in your config.
+
+.PHONY: research-report research-status research-check
+
+# Run the acceptance suite and write the JSON report hypothesize reads.
+research-report:
+	mkdir -p artifacts/research
+	python -m behave -f json.pretty -o artifacts/research/behave.json
+
+# Regenerate and WRITE all configured targets (JSON manifest, README/doc
+# regions, optional JS data file). Commit the changes this produces.
+research-status: research-report
+	hypothesize sync
+
+# Enforce that the committed publication is current. WRITES NOTHING; exits
+# non-zero on any stale target or broken traceability. This is what CI runs.
+research-check: research-report
+	hypothesize check
