@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ltp"
+version = "0.1.0"
+description = "A self-policing engine for Theory-of-Constraints Logical Thinking Processes: one validated causal model, deterministically rendered."
+requires-python = ">=3.9"
+# The model layer is pure standard library. PyYAML is the single parsing
+# dependency (the authored model is YAML; the stdlib cannot read it), in the
+# same spirit as hypothesize's `tomli`.
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "PyYAML>=6.0"]
+
+[project.scripts]
+ltp = "ltp.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ltp = ["py.typed"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

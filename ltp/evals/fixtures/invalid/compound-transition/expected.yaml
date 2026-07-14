@@ -1,0 +1,5 @@
+description: An action bundling several independent changes.
+expected_errors: []
+expected_warnings:
+- TT-003
+publishable: true

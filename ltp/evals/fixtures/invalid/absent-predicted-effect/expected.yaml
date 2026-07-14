@@ -1,0 +1,5 @@
+description: A root cause with no predicted effect.
+expected_errors: []
+expected_warnings:
+- PRED-001
+publishable: true

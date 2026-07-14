@@ -1,0 +1,5 @@
+description: An NC asserted necessary with no justification.
+expected_errors: []
+expected_warnings:
+- GT-010
+publishable: true

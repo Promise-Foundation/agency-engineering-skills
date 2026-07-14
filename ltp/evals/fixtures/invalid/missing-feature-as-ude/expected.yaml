@@ -1,0 +1,5 @@
+description: A UDE written as a missing feature.
+expected_errors: []
+expected_warnings:
+- CRT-001
+publishable: true

@@ -1,0 +1,5 @@
+description: A recommended action with no path to the goal.
+expected_errors:
+- XTR-004
+expected_warnings: []
+publishable: false

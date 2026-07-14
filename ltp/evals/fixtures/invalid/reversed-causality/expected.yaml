@@ -1,0 +1,5 @@
+description: CLR concludes cause and effect are reversed.
+expected_errors:
+- CLR-006
+expected_warnings: []
+publishable: false

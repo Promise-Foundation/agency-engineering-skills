@@ -1,0 +1,970 @@
+{
+  "$defs": {
+    "AlternativeConstraint": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "rejected_because": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "rejected_because"
+      ],
+      "type": "object"
+    },
+    "Analysis": {
+      "additionalProperties": false,
+      "properties": {
+        "current_constraint": {
+          "type": "string"
+        },
+        "expected_effect": {
+          "type": "string"
+        },
+        "recommended_next_action": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AnalysisPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "current_reality_tree": {
+          "$ref": "#/$defs/PlanItem"
+        },
+        "evaporating_cloud": {
+          "$ref": "#/$defs/PlanItem"
+        },
+        "future_reality_tree": {
+          "$ref": "#/$defs/PlanItem"
+        },
+        "goal_tree": {
+          "$ref": "#/$defs/PlanItem"
+        },
+        "mode": {
+          "enum": [
+            "diagnose",
+            "resolve_conflict",
+            "plan_change",
+            "full",
+            "reconcile"
+          ]
+        },
+        "prerequisite_tree": {
+          "$ref": "#/$defs/PlanItem"
+        },
+        "transition_tree": {
+          "$ref": "#/$defs/PlanItem"
+        }
+      },
+      "type": "object"
+    },
+    "CLR": {
+      "additionalProperties": false,
+      "properties": {
+        "additional_cause": {
+          "$ref": "#/$defs/CLRCheck"
+        },
+        "causality_existence": {
+          "$ref": "#/$defs/CLRCheck"
+        },
+        "cause_effect_reversal": {
+          "$ref": "#/$defs/CLRCheck"
+        },
+        "cause_insufficiency": {
+          "$ref": "#/$defs/CLRCheck"
+        },
+        "clarity": {
+          "$ref": "#/$defs/CLRCheck"
+        },
+        "entity_existence": {
+          "$ref": "#/$defs/CLRCheck"
+        },
+        "predicted_effect_existence": {
+          "$ref": "#/$defs/CLRCheck"
+        },
+        "tautology": {
+          "$ref": "#/$defs/CLRCheck"
+        }
+      },
+      "type": "object"
+    },
+    "CLRCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "proposed_additional_premise": {
+          "type": "string"
+        },
+        "reservation": {
+          "type": "string"
+        },
+        "result": {
+          "enum": [
+            "not_applicable",
+            "untested",
+            "open",
+            "pass",
+            "fail"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "CausalClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "assumption_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "clr": {
+          "$ref": "#/$defs/CLR"
+        },
+        "conclusion": {
+          "type": "string"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "single",
+            "all",
+            "any",
+            "exclusive_any",
+            "magnitudinal"
+          ]
+        },
+        "premises": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "verification": {
+          "$ref": "#/$defs/ClaimVerification"
+        }
+      },
+      "required": [
+        "id",
+        "conclusion"
+      ],
+      "type": "object"
+    },
+    "ClaimVerification": {
+      "additionalProperties": false,
+      "properties": {
+        "empirical_status": {
+          "enum": [
+            "not_tested",
+            "supported",
+            "falsified",
+            "inconclusive"
+          ]
+        },
+        "hypothesis_ref": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "entity_existence",
+            "mechanism",
+            "causal_outcome",
+            "scientific_outcome",
+            "negative_branch_guardrail",
+            "prerequisite_readiness",
+            "transition_acceptance"
+          ]
+        },
+        "statement_hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "hypothesis_ref",
+        "role"
+      ],
+      "type": "object"
+    },
+    "Cloud": {
+      "additionalProperties": false,
+      "properties": {
+        "action_d": {
+          "type": "string"
+        },
+        "action_d_prime": {
+          "type": "string"
+        },
+        "conflict_claim": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "injection_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "necessity_claims": {
+          "$ref": "#/$defs/CloudNecessity"
+        },
+        "need_b": {
+          "type": "string"
+        },
+        "need_c": {
+          "type": "string"
+        },
+        "objective": {
+          "type": "string"
+        },
+        "persistence_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "candidate",
+            "validated_persistent_conflict",
+            "rejected"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "objective",
+        "need_b",
+        "need_c",
+        "action_d",
+        "action_d_prime",
+        "necessity_claims"
+      ],
+      "type": "object"
+    },
+    "CloudNecessity": {
+      "additionalProperties": false,
+      "properties": {
+        "a_requires_b": {
+          "type": "string"
+        },
+        "a_requires_c": {
+          "type": "string"
+        },
+        "b_requires_d": {
+          "type": "string"
+        },
+        "c_requires_d_prime": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "a_requires_b",
+        "a_requires_c",
+        "b_requires_d",
+        "c_requires_d_prime"
+      ],
+      "type": "object"
+    },
+    "ConflictAnalysis": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates_rejected": {
+          "items": {
+            "$ref": "#/$defs/RejectedCloud"
+          },
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "no_validated_persistent_conflict",
+            "validated_persistent_conflict"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object"
+    },
+    "ConflictClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "assumption_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "statement": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "statement"
+      ],
+      "type": "object"
+    },
+    "ConstraintAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "alternative_candidates": {
+          "items": {
+            "$ref": "#/$defs/AlternativeConstraint"
+          },
+          "type": "array"
+        },
+        "elevation_direction": {
+          "type": "string"
+        },
+        "entity": {
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "exploit_direction": {
+          "type": "string"
+        },
+        "focusing_step": {
+          "$ref": "#/$defs/FocusingStepState"
+        },
+        "goal_measure": {
+          "$ref": "#/$defs/Measure"
+        },
+        "limiting_mechanism": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "candidate",
+            "confirmed"
+          ]
+        },
+        "subordinate_direction": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entity",
+        "limiting_mechanism"
+      ],
+      "type": "object"
+    },
+    "Entity": {
+      "additionalProperties": false,
+      "properties": {
+        "assumption_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "atomic": {
+          "type": "boolean"
+        },
+        "atomic_justification": {
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "observed",
+            "inferred",
+            "provisional"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "influence": {
+          "enum": [
+            "control",
+            "influence",
+            "monitor",
+            "outside"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "goal",
+            "critical_success_factor",
+            "necessary_condition",
+            "undesirable_effect",
+            "cause",
+            "root_cause",
+            "constraint",
+            "cloud_objective",
+            "cloud_need",
+            "cloud_action",
+            "injection",
+            "desirable_effect",
+            "negative_branch",
+            "trimming_injection",
+            "obstacle",
+            "intermediate_objective",
+            "existing_reality",
+            "need",
+            "transition_action",
+            "immediate_effect",
+            "assumption",
+            "risk"
+          ]
+        },
+        "measure": {
+          "$ref": "#/$defs/Measure"
+        },
+        "reasoning": {
+          "type": "string"
+        },
+        "review_status": {
+          "enum": [
+            "unreviewed",
+            "corroborated",
+            "user_confirmed",
+            "disputed",
+            "invalidated",
+            "superseded"
+          ]
+        },
+        "satisfaction": {
+          "enum": [
+            "unknown",
+            "satisfied",
+            "partial",
+            "unsatisfied",
+            "not_applicable"
+          ]
+        },
+        "satisfaction_criterion": {
+          "type": "string"
+        },
+        "statement": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "statement"
+      ],
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "interpretation": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "lines": {
+          "type": "string"
+        },
+        "observation": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "observation"
+      ],
+      "type": "object"
+    },
+    "FocusingStepState": {
+      "additionalProperties": false,
+      "properties": {
+        "current": {
+          "enum": [
+            "identify",
+            "exploit",
+            "subordinate",
+            "elevate",
+            "inertia"
+          ]
+        }
+      },
+      "required": [
+        "current"
+      ],
+      "type": "object"
+    },
+    "LtpModel": {
+      "additionalProperties": false,
+      "properties": {
+        "analysis": {
+          "$ref": "#/$defs/Analysis"
+        },
+        "analysis_plan": {
+          "$ref": "#/$defs/AnalysisPlan"
+        },
+        "causal_claims": {
+          "items": {
+            "$ref": "#/$defs/CausalClaim"
+          },
+          "type": "array"
+        },
+        "clouds": {
+          "items": {
+            "$ref": "#/$defs/Cloud"
+          },
+          "type": "array"
+        },
+        "conflict_analysis": {
+          "$ref": "#/$defs/ConflictAnalysis"
+        },
+        "conflict_claims": {
+          "items": {
+            "$ref": "#/$defs/ConflictClaim"
+          },
+          "type": "array"
+        },
+        "constraint_assessment": {
+          "$ref": "#/$defs/ConstraintAssessment"
+        },
+        "contradictions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "coverage_gaps": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "entities": {
+          "items": {
+            "$ref": "#/$defs/Entity"
+          },
+          "type": "array"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "type": "array"
+        },
+        "necessity_claims": {
+          "items": {
+            "$ref": "#/$defs/NecessityClaim"
+          },
+          "type": "array"
+        },
+        "obstacle_resolutions": {
+          "items": {
+            "$ref": "#/$defs/ObstacleResolution"
+          },
+          "type": "array"
+        },
+        "open_questions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "predicted_effects": {
+          "items": {
+            "$ref": "#/$defs/PredictedEffect"
+          },
+          "type": "array"
+        },
+        "project": {
+          "$ref": "#/$defs/Project"
+        },
+        "schema_version": {
+          "type": "integer"
+        },
+        "transitions": {
+          "items": {
+            "$ref": "#/$defs/Transition"
+          },
+          "type": "array"
+        },
+        "views": {
+          "additionalProperties": {
+            "$ref": "#/$defs/View"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "project"
+      ],
+      "type": "object"
+    },
+    "Measure": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "unit"
+      ],
+      "type": "object"
+    },
+    "NecessityClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "assumption_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "objective": {
+          "type": "string"
+        },
+        "prerequisite": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "prerequisite",
+        "objective"
+      ],
+      "type": "object"
+    },
+    "ObstacleResolution": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "intermediate_objective": {
+          "type": "string"
+        },
+        "obstacle": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "obstacle",
+        "intermediate_objective"
+      ],
+      "type": "object"
+    },
+    "PlanItem": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "required",
+            "done",
+            "deferred",
+            "skipped"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "PredictedEffect": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "expectation": {
+          "enum": [
+            "should_exist",
+            "should_not_exist"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "result": {
+          "enum": [
+            "untested",
+            "observed",
+            "absent",
+            "mixed"
+          ]
+        },
+        "source_claim": {
+          "type": "string"
+        },
+        "statement": {
+          "type": "string"
+        },
+        "waived": {
+          "type": "boolean"
+        },
+        "waiver_reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source_claim",
+        "statement"
+      ],
+      "type": "object"
+    },
+    "Project": {
+      "additionalProperties": false,
+      "properties": {
+        "analysis_mode": {
+          "enum": [
+            "forward",
+            "reverse",
+            "reconciliation"
+          ]
+        },
+        "analyzed_path": {
+          "type": "string"
+        },
+        "goal": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "provisional_goal": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "RejectedCloud": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "Transition": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "advances": {
+          "type": "string"
+        },
+        "estimated_size": {
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+        "existing_reality": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "immediate_effect": {
+          "type": "string"
+        },
+        "likely_scope": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "need": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "precondition_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "risk_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rollback": {
+          "type": "string"
+        },
+        "verification": {
+          "$ref": "#/$defs/TransitionVerification"
+        }
+      },
+      "required": [
+        "id",
+        "action",
+        "advances"
+      ],
+      "type": "object"
+    },
+    "TransitionVerification": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptance": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "View": {
+      "additionalProperties": false,
+      "properties": {
+        "claims": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "clouds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "entities": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "obstacle_resolutions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "transitions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "$id": "https://anthropic.local/ltp/ltp-model.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "#/$defs/LtpModel"
+    }
+  ],
+  "description": "Generated from ltp.models by ltp.schema -- do not hand-edit.",
+  "title": "LTP model"
+}

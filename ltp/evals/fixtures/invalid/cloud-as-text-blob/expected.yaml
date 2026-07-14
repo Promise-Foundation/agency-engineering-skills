@@ -1,0 +1,5 @@
+description: A Cloud whose five roles collapse to one entity.
+expected_errors:
+- EC-002
+expected_warnings: []
+publishable: false

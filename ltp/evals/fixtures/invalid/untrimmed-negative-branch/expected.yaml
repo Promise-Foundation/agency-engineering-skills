@@ -1,0 +1,5 @@
+description: A negative branch left undispositioned.
+expected_errors:
+- FRT-006
+expected_warnings: []
+publishable: false

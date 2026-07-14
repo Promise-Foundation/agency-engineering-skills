@@ -1,0 +1,4 @@
+interface:
+  display_name: "LTP"
+  short_description: "Reconstruct a repo's logic as one validated Theory-of-Constraints model"
+  default_prompt: "Use $ltp to analyze this project: build one evidence-backed, logically validated causal model (Goal Tree, Current Reality Tree, and any other warranted views), run `ltp validate`, and recommend the single highest-leverage next action."

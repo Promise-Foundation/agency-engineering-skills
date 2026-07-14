@@ -1,0 +1,5 @@
+description: No persistent conflict; recorded as conflict_analysis, not forced into
+  a Cloud.
+expected_errors: []
+expected_warnings: []
+publishable: true

@@ -1,0 +1,5 @@
+description: CLR marks a cause insufficient.
+expected_errors: []
+expected_warnings:
+- CRT-006
+publishable: true

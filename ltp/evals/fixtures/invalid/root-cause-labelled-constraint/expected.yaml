@@ -1,0 +1,6 @@
+description: A root cause used as the constraint without demonstration.
+expected_errors:
+- CON-002
+expected_warnings:
+- CON-006
+publishable: false

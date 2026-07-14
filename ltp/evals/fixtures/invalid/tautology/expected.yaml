@@ -1,0 +1,5 @@
+description: CLR concludes the claim restates itself.
+expected_errors:
+- CLR-007
+expected_warnings: []
+publishable: false

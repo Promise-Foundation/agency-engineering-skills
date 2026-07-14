@@ -1,0 +1,5 @@
+description: An unsatisfied IO with no path to the injection.
+expected_errors:
+- PRT-006
+expected_warnings: []
+publishable: false

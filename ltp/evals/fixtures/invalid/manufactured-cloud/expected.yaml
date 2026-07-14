@@ -1,0 +1,5 @@
+description: A Cloud resting only on generic resource finitude.
+expected_errors: []
+expected_warnings:
+- EC-009
+publishable: false

@@ -1,0 +1,273 @@
+project:
+  name: Remote-work evidence review
+  goal: G-1
+analysis:
+  current_constraint: CONSTRAINT-1
+  recommended_next_action: TR-1
+  expected_effect: DE-1
+analysis_plan:
+  mode: full
+  goal_tree:
+    status: done
+  current_reality_tree:
+    status: done
+  evaporating_cloud:
+    status: done
+  future_reality_tree:
+    status: done
+  prerequisite_tree:
+    status: done
+  transition_tree:
+    status: done
+entities:
+- id: G-1
+  kind: goal
+  statement: Remote-work decisions reflect evidence and context
+  evidence_refs:
+  - EVD-1
+- id: CSF-1
+  kind: critical_success_factor
+  statement: Productivity claims are scoped by worker and task
+  basis: observed
+  evidence_refs:
+  - EVD-1
+  satisfaction_criterion: each claim names its population and task
+- id: NC-1
+  kind: necessary_condition
+  statement: New evidence accumulates against stable questions
+  basis: observed
+  evidence_refs:
+  - EVD-1
+  satisfaction_criterion: each finding maps to a question node
+- id: RC-1
+  kind: root_cause
+  statement: Findings arrive as isolated claims instead of accumulating against a scaffold
+  evidence_refs:
+  - EVD-1
+- id: AC-1
+  kind: cause
+  statement: Notes give findings no stable node addresses
+  basis: observed
+  evidence_refs:
+  - EVD-1
+- id: UDE-1
+  kind: undesirable_effect
+  statement: A 13% local gain is read as a universal remote-work effect
+  basis: observed
+  evidence_refs:
+  - EVD-1
+- id: UDE-2
+  kind: undesirable_effect
+  statement: Call-centre evidence is generalized to unlike roles
+  basis: observed
+  evidence_refs:
+  - EVD-1
+- id: ASM-1
+  kind: assumption
+  statement: Isolated claims cannot carry their own scope limits
+  evidence_refs:
+  - EVD-1
+- id: INJ-1
+  kind: injection
+  statement: Attach each finding to a stable issue tree
+- id: DE-1
+  kind: desirable_effect
+  statement: Readers see the gain together with its role and task limits
+- id: OBS-1
+  kind: obstacle
+  statement: The current notes give findings no stable addresses
+  basis: observed
+  evidence_refs:
+  - EVD-1
+- id: IO-1
+  kind: intermediate_objective
+  statement: A validated remote-work question tree exists
+  satisfaction: unsatisfied
+- id: ER-1
+  kind: existing_reality
+  statement: Findings live in flat, unaddressed notes
+- id: NEED-1
+  kind: need
+  statement: Findings need stable addresses to accumulate
+- id: ACT-1
+  kind: transition_action
+  statement: Map the three Ctrip findings to the question tree
+- id: IE-1
+  kind: immediate_effect
+  statement: Each finding shows a visible scope, relation, and source
+- id: CONSTRAINT-1
+  kind: constraint
+  statement: No stable scaffold admits accumulating remote-work evidence
+  evidence_refs:
+  - EVD-1
+- id: A-1
+  kind: cloud_objective
+  statement: Make a timely, defensible decision
+evidence:
+- id: EVD-1
+  source: claim-tree-annotation.md
+  observation: The process defines a stable claim tree to which fragments are mapped
+  lines: 1-24
+  kind: readme
+necessity_claims:
+- id: NEC-1
+  prerequisite: CSF-1
+  objective: G-1
+- id: NEC-2
+  prerequisite: NC-1
+  objective: CSF-1
+- id: NEC-3
+  prerequisite: IO-1
+  objective: INJ-1
+- id: NEC-C1
+  prerequisite: A-1
+  objective: A-1
+causal_claims:
+- id: CLM-1
+  conclusion: UDE-1
+  premises:
+  - RC-1
+  - AC-1
+  operator: all
+  assumption_refs:
+  - ASM-1
+  clr:
+    clarity:
+      result: pass
+    entity_existence:
+      result: pass
+    causality_existence:
+      result: pass
+    cause_insufficiency:
+      result: pass
+    additional_cause:
+      result: pass
+    cause_effect_reversal:
+      result: pass
+    predicted_effect_existence:
+      result: pass
+    tautology:
+      result: pass
+- id: CLM-2
+  conclusion: UDE-2
+  premises:
+  - RC-1
+  assumption_refs:
+  - ASM-1
+  clr:
+    clarity:
+      result: pass
+    entity_existence:
+      result: pass
+    causality_existence:
+      result: pass
+    cause_insufficiency:
+      result: pass
+    additional_cause:
+      result: pass
+    cause_effect_reversal:
+      result: pass
+    predicted_effect_existence:
+      result: pass
+    tautology:
+      result: pass
+- id: CLM-3
+  conclusion: DE-1
+  premises:
+  - INJ-1
+  assumption_refs:
+  - ASM-1
+  clr:
+    clarity:
+      result: pass
+    entity_existence:
+      result: pass
+    causality_existence:
+      result: pass
+    cause_insufficiency:
+      result: pass
+    additional_cause:
+      result: pass
+    cause_effect_reversal:
+      result: pass
+    predicted_effect_existence:
+      result: pass
+    tautology:
+      result: pass
+- id: CLM-4
+  conclusion: NC-1
+  premises:
+  - DE-1
+  clr:
+    clarity:
+      result: pass
+    entity_existence:
+      result: pass
+    causality_existence:
+      result: pass
+    cause_insufficiency:
+      result: pass
+    additional_cause:
+      result: pass
+    cause_effect_reversal:
+      result: pass
+    predicted_effect_existence:
+      result: pass
+    tautology:
+      result: pass
+clouds:
+- id: EC-1
+  objective: A-1
+  need_b: A-1
+  need_c: A-1
+  action_d: A-1
+  action_d_prime: A-1
+  necessity_claims:
+    a_requires_b: NEC-C1
+    a_requires_c: NEC-C1
+    b_requires_d: NEC-C1
+    c_requires_d_prime: NEC-C1
+predicted_effects:
+- id: PRED-1
+  source_claim: CLM-1
+  statement: Unqualified generalizations recur across reports
+  result: observed
+  evidence_refs:
+  - EVD-1
+obstacle_resolutions:
+- id: OR-1
+  obstacle: OBS-1
+  intermediate_objective: IO-1
+transitions:
+- id: TR-1
+  action: ACT-1
+  advances: IO-1
+  existing_reality: ER-1
+  need: NEED-1
+  immediate_effect: IE-1
+  verification:
+    kind: manual_check
+    acceptance: each finding shows its scope
+  likely_scope:
+  - notes/tree.md
+  estimated_size: small
+constraint_assessment:
+  entity: CONSTRAINT-1
+  limiting_mechanism: No scaffold admits accumulating evidence, so each study restarts the debate
+  goal_measure:
+    name: Qualified comparisons completed
+    unit: comparisons
+    period: month
+  evidence_refs:
+  - EVD-1
+  alternative_candidates:
+  - entity: RC-1
+    rejected_because: addressing isolation alone does not admit evidence
+  focusing_step:
+    current: exploit
+  exploit_direction: Use the existing question tree before building new tooling
+open_questions:
+- Which productivity measure matters most to the decision-maker?
+coverage_gaps:
+- No long-term or collaborative-role evidence is in the toy source set
+schema_version: 2
