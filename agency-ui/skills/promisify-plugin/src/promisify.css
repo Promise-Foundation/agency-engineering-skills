@@ -1,0 +1,576 @@
+/* Normative Promises explorer. Dark, quiet, built entirely on the ui-kit design
+   tokens (--ak-*). The route fills the shell's main area; each pane, the
+   explanation panel, and the draft form scroll independently. */
+
+.pf-muted {
+  color: var(--ak-muted);
+}
+.pf-link {
+  background: none;
+  border: none;
+  color: var(--ak-accent);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+.pf-addr {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--ak-text);
+  background: var(--ak-surface-2);
+  border: 1px solid var(--ak-border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  word-break: break-all;
+}
+.pf-eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ak-muted);
+}
+
+/* --- overall layout --- */
+.pf-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+}
+.pf-panes {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 236px minmax(0, 1.05fr) minmax(0, 1.3fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 12px;
+}
+.pf-pane {
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--ak-border);
+  border-radius: var(--ak-radius);
+  background: var(--ak-surface);
+}
+.pf-pane__title {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ak-text);
+  background: var(--ak-surface);
+  border-bottom: 1px solid var(--ak-border);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.pf-pane__sub {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ak-muted);
+  word-break: break-all;
+}
+
+/* --- trust header --- */
+.pf-trust {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--ak-border);
+  border-radius: var(--ak-radius);
+  background: var(--ak-surface);
+}
+.pf-trust__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pf-observer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pf-observer__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ak-muted);
+}
+.pf-trust__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ak-muted);
+}
+.pf-metric {
+  white-space: nowrap;
+}
+.pf-metric + .pf-metric::before {
+  content: "·";
+  margin: 0 8px;
+  color: var(--ak-border);
+}
+.pf-metric__v {
+  color: var(--ak-text);
+  font-weight: 600;
+}
+
+/* --- form controls --- */
+.pf-select,
+.pf-input {
+  background: var(--ak-surface-2);
+  border: 1px solid var(--ak-border);
+  border-radius: 8px;
+  color: var(--ak-text);
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 10px;
+}
+.pf-select {
+  min-width: 180px;
+  cursor: pointer;
+}
+.pf-input:focus,
+.pf-select:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--ak-accent) 55%, transparent);
+}
+.pf-textarea {
+  resize: vertical;
+  width: 100%;
+  font-family: inherit;
+}
+
+/* --- buttons --- */
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--ak-border);
+  background: var(--ak-surface-2);
+  color: var(--ak-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+}
+.pf-btn:hover {
+  border-color: color-mix(in srgb, var(--ak-accent) 45%, transparent);
+}
+.pf-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.pf-btn--primary {
+  border-color: color-mix(in srgb, var(--ak-accent) 55%, transparent);
+  color: var(--ak-accent);
+}
+.pf-btn--sm {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+.pf-icon-btn {
+  background: none;
+  border: none;
+  color: var(--ak-muted);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 4px;
+}
+.pf-icon-btn:hover {
+  color: var(--ak-text);
+}
+
+/* --- pane 1: domain tree --- */
+.pf-tree__list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pf-tree__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: none;
+  color: var(--ak-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+}
+.pf-tree__row:hover {
+  background: var(--ak-surface-2);
+  color: var(--ak-text);
+}
+.pf-tree__row.is-active {
+  background: color-mix(in srgb, var(--ak-accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--ak-accent) 45%, transparent);
+  color: var(--ak-text);
+}
+.pf-tree__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pf-badge {
+  flex: 0 0 auto;
+  min-width: 20px;
+  text-align: center;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--ak-muted);
+  background: var(--ak-surface-2);
+  border: 1px solid var(--ak-border);
+}
+.pf-tree__row.is-active .pf-badge {
+  color: var(--ak-text);
+}
+
+/* --- pane 2: effective promises --- */
+.pf-effective,
+.pf-explain {
+  display: block;
+}
+.pf-group {
+  padding: 10px 12px 4px;
+}
+.pf-group__heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ak-muted);
+}
+.pf-group__count {
+  min-width: 18px;
+  text-align: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: var(--ak-surface-2);
+  border: 1px solid var(--ak-border);
+}
+.pf-group__empty {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--ak-muted);
+}
+.pf-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--ak-border);
+  border-left: 3px solid var(--ak-border);
+  border-radius: 8px;
+  background: var(--ak-surface-2);
+  color: var(--ak-text);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+.pf-card:hover {
+  border-color: color-mix(in srgb, var(--ak-accent) 40%, transparent);
+}
+.pf-card.is-active {
+  border-left-color: var(--ak-accent);
+  border-color: color-mix(in srgb, var(--ak-accent) 55%, transparent);
+}
+.pf-card__title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.pf-card__statement {
+  font-size: 12px;
+  color: var(--ak-muted);
+  line-height: 1.4;
+}
+.pf-card__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 2px;
+}
+.pf-card__assessor {
+  font-size: 12px;
+  color: var(--ak-muted);
+}
+
+/* --- pane 3: explanation --- */
+.pf-explain__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+}
+.pf-explain__head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pf-explain__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ak-text);
+}
+.pf-explain__statement {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ak-muted);
+  line-height: 1.45;
+}
+.pf-crit__kind {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--ak-text);
+}
+.pf-crit__note {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ak-muted);
+  line-height: 1.45;
+}
+.pf-section {
+  margin-top: 4px;
+  border-top: 1px solid color-mix(in srgb, var(--ak-border) 70%, transparent);
+  padding-top: 10px;
+}
+.pf-subhead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ak-text);
+}
+.pf-count {
+  min-width: 18px;
+  text-align: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--ak-muted);
+  background: var(--ak-surface-2);
+  border: 1px solid var(--ak-border);
+}
+
+/* --- claims --- */
+.pf-claim {
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--ak-border);
+  border-radius: 8px;
+  background: var(--ak-surface-2);
+}
+.pf-claim__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.pf-claim__assessor {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ak-text);
+}
+.pf-claim__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ak-muted);
+}
+.pf-claim__scope {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.pf-claim__rationale {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--ak-text);
+  line-height: 1.45;
+}
+.pf-evidence {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--ak-muted);
+}
+.pf-evidence__kind {
+  color: var(--ak-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+
+/* --- trust effect --- */
+.pf-effect {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ak-text);
+  line-height: 1.6;
+}
+.pf-effect__flag {
+  color: var(--ak-warning);
+}
+
+/* --- dashboard card bits --- */
+.pf-card-trust {
+  margin-top: 10px;
+}
+.pf-card-domain {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--ak-muted);
+}
+
+/* --- inspector detail (PromiseView) --- */
+.pf-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pf-statement {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--ak-text);
+  line-height: 1.5;
+}
+.pf-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* --- draft modal --- */
+.pf-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10vh 16px 16px;
+  z-index: 80;
+}
+.pf-modal {
+  width: min(560px, 96vw);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ak-surface);
+  border: 1px solid var(--ak-border);
+  border-radius: var(--ak-radius);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+.pf-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--ak-border);
+}
+.pf-modal__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.pf-modal__body {
+  overflow: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.pf-field__label {
+  font-size: 12px;
+  color: var(--ak-muted);
+}
+.pf-hint {
+  font-size: 11px;
+}
+.pf-hint--warn {
+  color: var(--ak-warning);
+}
+.pf-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--ak-border);
+  border-radius: 8px;
+  background: var(--ak-surface-2);
+}
+.pf-compose {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pf-compose__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pf-instruction {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--ak-border);
+  border-radius: 8px;
+  background: var(--ak-bg);
+  color: var(--ak-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.pf-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ak-muted);
+  line-height: 1.45;
+}
+.pf-note code,
+.pf-effect code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}

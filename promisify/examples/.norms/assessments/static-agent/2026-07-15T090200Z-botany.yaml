@@ -1,0 +1,18 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-static-botany-001
+  assessor: agent/static-classifier
+  observedAt: 2026-07-15T09:02:00Z
+  revision: "1111111111111111111111111111111111111111"
+  toolVersion: classifier-example-0.1
+spec:
+  promise: /biology/botany/_relates_to_plants
+  effectiveDomain: /biology/botany/bryology
+  verdict: broken
+  confidence: 0.51
+  rationale: The classifier did not find the literal token "plant" in the hypothetical indexed label.
+  evidence:
+    - kind: classifier-output
+      reference: example-classifier-run
+      summary: The lexical classifier matched "bryophytes" but lacked an ontology edge from bryophytes to plants.

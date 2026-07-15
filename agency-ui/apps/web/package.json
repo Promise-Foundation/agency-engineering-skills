@@ -12,6 +12,7 @@
     "@agency/core": "*",
     "@agency/hypothesize-plugin": "*",
     "@agency/ltp-plugin": "*",
+    "@agency/promisify-plugin": "*",
     "@agency/skill-sdk": "*",
     "@agency/ui-kit": "*",
     "@dagrejs/dagre": "^2.0.0",

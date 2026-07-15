@@ -1,0 +1,17 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-human-botany-001
+  assessor: person/human-reviewer
+  observedAt: 2026-07-15T09:01:00Z
+  revision: "1111111111111111111111111111111111111111"
+spec:
+  promise: /biology/botany/_relates_to_plants
+  effectiveDomain: /biology/botany/bryology
+  verdict: kept
+  confidence: 0.99
+  rationale: Bryophytes are plants, so bryology materially relates to plants.
+  evidence:
+    - kind: semantic-review
+      reference: example-domain-description
+      summary: Bryology is represented as the study of bryophytes.

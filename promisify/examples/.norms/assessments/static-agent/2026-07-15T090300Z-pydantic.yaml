@@ -1,0 +1,23 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-static-pydantic-001
+  assessor: agent/static-analysis
+  observedAt: 2026-07-15T09:03:00Z
+  revision: "1111111111111111111111111111111111111111"
+  toolVersion: python-ast-example-0.1
+spec:
+  promise: /software/python/_classes_use_pydantic
+  effectiveDomain: /software/python/models
+  subject:
+    kind: python.class
+    id: Customer
+    path: src/models/customer.py
+  verdict: broken
+  confidence: 1.0
+  rationale: The hypothetical Customer domain model does not inherit from pydantic.BaseModel.
+  evidence:
+    - kind: source
+      path: src/models/customer.py
+      lines: 1-8
+      summary: Customer is declared with no Pydantic base class.

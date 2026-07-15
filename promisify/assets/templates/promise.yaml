@@ -1,0 +1,22 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /replace/domain
+  name: _replace_with_promise_name
+  title: Replace with a concise title
+  tags: []
+spec:
+  statement: >-
+    Subjects in this scope OUGHT to satisfy the stated expectation.
+  scope:
+    subjects: []
+    paths: []
+    conditions: []
+  criteria:
+    kind: replace-with-assessment-kind
+    instructions: >-
+      Describe evidence sufficient to assess this promise without placing a verdict here.
+  source:
+    authority: replace-with-authority
+    kind: repository-policy
+    reference: docs/replace-me.md

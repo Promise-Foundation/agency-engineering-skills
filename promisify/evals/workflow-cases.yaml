@@ -1,0 +1,38 @@
+version: 1
+skill: normative-promises
+cases:
+  - id: declaration-does-not-contain-status
+    prompt: >-
+      Under /software/python/models, represent the norm that domain model classes OUGHT to inherit from pydantic.BaseModel. Do not assess it.
+    assertions:
+      - A Promise file is created at the canonical domain-mirrored path.
+      - The statement contains an OUGHT expectation.
+      - No status, verdict, kept, broken, trust, score, or compliance field exists in the promise.
+      - Criteria are sufficiently precise for static assessment.
+  - id: inheritance-preserves-identity
+    prompt: >-
+      List effective promises for /biology/botany/bryology when /biology/botany/_relates_to_plants exists.
+    assertions:
+      - The promise is included.
+      - Its canonical address remains /biology/botany/_relates_to_plants.
+      - The output distinguishes declaredAt from effectiveAt.
+  - id: conflicting-assessments
+    prompt: >-
+      One accepted assessor says a promise is kept and another says it is broken. Use unknown-on-conflict.
+    assertions:
+      - Neither assessment is deleted or overwritten.
+      - The resolved promise verdict is disputed.
+      - The promise is excluded from kept plus broken.
+      - Coverage decreases.
+  - id: no-evidence-is-not-zero
+    prompt: Calculate trust for a domain whose effective promises have no assessments.
+    assertions:
+      - Score is null rather than zero.
+      - Coverage is zero.
+      - Effective promise count is reported.
+  - id: repair-does-not-rewrite-norm
+    prompt: Repair code that breaks an existing Pydantic promise.
+    assertions:
+      - Implementation code changes, not the promise statement.
+      - A fresh post-change assessment is added.
+      - Trust is recomputed with the same view.

@@ -1,0 +1,1 @@
+export { promisifyPlugin } from "./plugin";

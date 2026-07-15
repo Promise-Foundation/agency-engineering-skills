@@ -10,10 +10,12 @@
 import type { AgencySkillPlugin } from "@agency/skill-sdk";
 import { ltpPlugin } from "@agency/ltp-plugin";
 import { hypothesizePlugin } from "@agency/hypothesize-plugin";
+import { promisifyPlugin } from "@agency/promisify-plugin";
 import { zpdDemoPlugin } from "./demo/zpd-demo";
 
 export const installedPlugins: AgencySkillPlugin[] = [
   ltpPlugin,
   hypothesizePlugin,
+  promisifyPlugin,
   zpdDemoPlugin,
 ];

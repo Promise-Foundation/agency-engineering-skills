@@ -1,0 +1,17 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-human-biology-001
+  assessor: person/human-reviewer
+  observedAt: 2026-07-15T09:00:00Z
+  revision: "1111111111111111111111111111111111111111"
+spec:
+  promise: /biology/_concerns_living_systems
+  effectiveDomain: /biology/botany/bryology
+  verdict: kept
+  confidence: 0.98
+  rationale: Bryology concerns mosses, liverworts, and hornworts, which are living systems.
+  evidence:
+    - kind: semantic-review
+      reference: example-domain-description
+      summary: The domain description concerns bryophytes and their study.

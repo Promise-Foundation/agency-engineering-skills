@@ -1,0 +1,11 @@
+apiVersion: norms/v1
+kind: Repository
+metadata:
+  name: normative-promises-example
+  description: Demonstrates inherited promises, conflicting assessments, and observer-relative trust.
+spec:
+  promiseRoot: .norms/promises
+  assessmentRoot: .norms/assessments
+  trustViewRoot: .norms/views
+  reportRoot: .norms/reports
+  defaultView: default

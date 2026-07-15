@@ -1,0 +1,23 @@
+apiVersion: norms/v1
+kind: TrustView
+metadata:
+  name: human-only
+  description: Accept only the named human reviewer.
+spec:
+  observer: team/example-maintainers
+  domain: /biology/botany/bryology
+  snapshot:
+    revision: "1111111111111111111111111111111111111111"
+  assessmentSelection:
+    assessors:
+      - person/human-reviewer
+    latestPerAssessor: true
+    requireEvidence: true
+  conflictPolicy: latest
+  scoring:
+    unit: effective-promise
+    weighting: equal
+    excludeVerdicts:
+      - unknown
+      - not_applicable
+      - disputed

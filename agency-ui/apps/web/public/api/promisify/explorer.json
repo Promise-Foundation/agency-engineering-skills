@@ -1,0 +1,753 @@
+{
+  "apiVersion": "norms/v1",
+  "kind": "Explorer",
+  "generatedAt": "2026-07-15T21:00:44.073744Z",
+  "toolVersion": "norms.py/0.1.0",
+  "repository": {
+    "name": "normative-promises-example",
+    "description": "Demonstrates inherited promises, conflicting assessments, and observer-relative trust.",
+    "defaultView": "default"
+  },
+  "domains": [
+    {
+      "domain": "/",
+      "parent": null,
+      "depth": 0,
+      "children": [
+        "/biology",
+        "/software"
+      ],
+      "declaredCount": 0,
+      "effectivePromiseCount": 0
+    },
+    {
+      "domain": "/biology",
+      "parent": "/",
+      "depth": 1,
+      "children": [
+        "/biology/botany"
+      ],
+      "declaredCount": 1,
+      "effectivePromiseCount": 1
+    },
+    {
+      "domain": "/software",
+      "parent": "/",
+      "depth": 1,
+      "children": [
+        "/software/python"
+      ],
+      "declaredCount": 0,
+      "effectivePromiseCount": 0
+    },
+    {
+      "domain": "/biology/botany",
+      "parent": "/biology",
+      "depth": 2,
+      "children": [
+        "/biology/botany/bryology"
+      ],
+      "declaredCount": 1,
+      "effectivePromiseCount": 2
+    },
+    {
+      "domain": "/software/python",
+      "parent": "/software",
+      "depth": 2,
+      "children": [
+        "/software/python/models"
+      ],
+      "declaredCount": 1,
+      "effectivePromiseCount": 1
+    },
+    {
+      "domain": "/biology/botany/bryology",
+      "parent": "/biology/botany",
+      "depth": 3,
+      "children": [],
+      "declaredCount": 0,
+      "effectivePromiseCount": 2
+    },
+    {
+      "domain": "/software/python/models",
+      "parent": "/software/python",
+      "depth": 3,
+      "children": [],
+      "declaredCount": 0,
+      "effectivePromiseCount": 1
+    }
+  ],
+  "effective": {
+    "/": [],
+    "/biology": [
+      {
+        "promise": "/biology/_concerns_living_systems",
+        "declaredAt": "/biology",
+        "inherited": false,
+        "title": "Biology concerns living systems",
+        "statement": "Subjects represented within this domain OUGHT to concern living systems or their traces, structures, processes, or relationships."
+      }
+    ],
+    "/software": [],
+    "/biology/botany": [
+      {
+        "promise": "/biology/_concerns_living_systems",
+        "declaredAt": "/biology",
+        "inherited": true,
+        "title": "Biology concerns living systems",
+        "statement": "Subjects represented within this domain OUGHT to concern living systems or their traces, structures, processes, or relationships."
+      },
+      {
+        "promise": "/biology/botany/_relates_to_plants",
+        "declaredAt": "/biology/botany",
+        "inherited": false,
+        "title": "Botany relates to plants",
+        "statement": "Subjects represented within this domain OUGHT to relate to plants, plant-like organisms, or the study of them."
+      }
+    ],
+    "/software/python": [
+      {
+        "promise": "/software/python/_classes_use_pydantic",
+        "declaredAt": "/software/python",
+        "inherited": false,
+        "title": "Domain model classes use Pydantic",
+        "statement": "Python classes classified as domain models OUGHT to inherit from pydantic.BaseModel."
+      }
+    ],
+    "/biology/botany/bryology": [
+      {
+        "promise": "/biology/_concerns_living_systems",
+        "declaredAt": "/biology",
+        "inherited": true,
+        "title": "Biology concerns living systems",
+        "statement": "Subjects represented within this domain OUGHT to concern living systems or their traces, structures, processes, or relationships."
+      },
+      {
+        "promise": "/biology/botany/_relates_to_plants",
+        "declaredAt": "/biology/botany",
+        "inherited": true,
+        "title": "Botany relates to plants",
+        "statement": "Subjects represented within this domain OUGHT to relate to plants, plant-like organisms, or the study of them."
+      }
+    ],
+    "/software/python/models": [
+      {
+        "promise": "/software/python/_classes_use_pydantic",
+        "declaredAt": "/software/python",
+        "inherited": true,
+        "title": "Domain model classes use Pydantic",
+        "statement": "Python classes classified as domain models OUGHT to inherit from pydantic.BaseModel."
+      }
+    ]
+  },
+  "promises": [
+    {
+      "address": "/biology/_concerns_living_systems",
+      "domain": "/biology",
+      "name": "_concerns_living_systems",
+      "title": "Biology concerns living systems",
+      "tags": [
+        "biology"
+      ],
+      "statement": "Subjects represented within this domain OUGHT to concern living systems or their traces, structures, processes, or relationships.",
+      "subjects": [
+        "domain content"
+      ],
+      "criteria": {
+        "kind": "human-semantic-review",
+        "instructions": "Review the subject matter represented in the target domain and determine whether it concerns living systems or their traces, structures, processes, or relationships."
+      },
+      "source": {
+        "authority": "example/ontology-author",
+        "kind": "example-definition",
+        "rationale": "A broad illustrative promise inherited by biological subdomains."
+      }
+    },
+    {
+      "address": "/biology/botany/_relates_to_plants",
+      "domain": "/biology/botany",
+      "name": "_relates_to_plants",
+      "title": "Botany relates to plants",
+      "tags": [
+        "biology",
+        "botany"
+      ],
+      "statement": "Subjects represented within this domain OUGHT to relate to plants, plant-like organisms, or the study of them.",
+      "subjects": [
+        "domain content"
+      ],
+      "criteria": {
+        "kind": "semantic-classification",
+        "instructions": "Determine whether the represented subject has a material relation to plants, plant-like organisms, or their study. Record ambiguous boundary cases as unknown rather than forcing a binary judgment."
+      },
+      "source": {
+        "authority": "example/ontology-author",
+        "kind": "example-definition",
+        "rationale": "Demonstrates a promise inherited by /biology/botany descendants."
+      }
+    },
+    {
+      "address": "/software/python/_classes_use_pydantic",
+      "domain": "/software/python",
+      "name": "_classes_use_pydantic",
+      "title": "Domain model classes use Pydantic",
+      "tags": [
+        "python",
+        "architecture"
+      ],
+      "statement": "Python classes classified as domain models OUGHT to inherit from pydantic.BaseModel.",
+      "subjects": [
+        "python.class"
+      ],
+      "criteria": {
+        "kind": "python-inherits",
+        "parameters": {
+          "qualifiedBase": "pydantic.BaseModel"
+        },
+        "instructions": "Resolve imports and direct or indirect base classes. A domain model class is kept when pydantic.BaseModel is in its resolved inheritance chain."
+      },
+      "source": {
+        "authority": "example/architecture-team",
+        "kind": "repository-policy",
+        "reference": "docs/architecture.md"
+      }
+    }
+  ],
+  "assessments": [
+    {
+      "id": "assessment-human-biology-001",
+      "assessor": "person/human-reviewer",
+      "observedAt": "2026-07-15T09:00:00Z",
+      "revision": "1111111111111111111111111111111111111111",
+      "promise": "/biology/_concerns_living_systems",
+      "effectiveDomain": "/biology/botany/bryology",
+      "verdict": "kept",
+      "confidence": 0.98,
+      "rationale": "Bryology concerns mosses, liverworts, and hornworts, which are living systems.",
+      "evidence": [
+        {
+          "kind": "semantic-review",
+          "reference": "example-domain-description",
+          "summary": "The domain description concerns bryophytes and their study."
+        }
+      ]
+    },
+    {
+      "id": "assessment-human-botany-001",
+      "assessor": "person/human-reviewer",
+      "observedAt": "2026-07-15T09:01:00Z",
+      "revision": "1111111111111111111111111111111111111111",
+      "promise": "/biology/botany/_relates_to_plants",
+      "effectiveDomain": "/biology/botany/bryology",
+      "verdict": "kept",
+      "confidence": 0.99,
+      "rationale": "Bryophytes are plants, so bryology materially relates to plants.",
+      "evidence": [
+        {
+          "kind": "semantic-review",
+          "reference": "example-domain-description",
+          "summary": "Bryology is represented as the study of bryophytes."
+        }
+      ]
+    },
+    {
+      "id": "assessment-static-botany-001",
+      "assessor": "agent/static-classifier",
+      "observedAt": "2026-07-15T09:02:00Z",
+      "revision": "1111111111111111111111111111111111111111",
+      "promise": "/biology/botany/_relates_to_plants",
+      "effectiveDomain": "/biology/botany/bryology",
+      "verdict": "broken",
+      "confidence": 0.51,
+      "rationale": "The classifier did not find the literal token \"plant\" in the hypothetical indexed label.",
+      "evidence": [
+        {
+          "kind": "classifier-output",
+          "reference": "example-classifier-run",
+          "summary": "The lexical classifier matched \"bryophytes\" but lacked an ontology edge from bryophytes to plants."
+        }
+      ]
+    },
+    {
+      "id": "assessment-static-pydantic-001",
+      "assessor": "agent/static-analysis",
+      "observedAt": "2026-07-15T09:03:00Z",
+      "revision": "1111111111111111111111111111111111111111",
+      "promise": "/software/python/_classes_use_pydantic",
+      "effectiveDomain": "/software/python/models",
+      "verdict": "broken",
+      "confidence": 1.0,
+      "rationale": "The hypothetical Customer domain model does not inherit from pydantic.BaseModel.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "src/models/customer.py",
+          "lines": "1-8",
+          "summary": "Customer is declared with no Pydantic base class."
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "name": "default",
+      "description": "Accept all assessors and leave disagreements unscored.",
+      "observer": "team/example-maintainers",
+      "domain": "/biology/botany/bryology",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "assessmentSelection": {
+        "assessors": "*",
+        "latestPerAssessor": true,
+        "requireEvidence": true
+      }
+    },
+    {
+      "name": "human-only",
+      "description": "Accept only the named human reviewer.",
+      "observer": "team/example-maintainers",
+      "domain": "/biology/botany/bryology",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "conflictPolicy": "latest",
+      "assessmentSelection": {
+        "assessors": [
+          "person/human-reviewer"
+        ],
+        "latestPerAssessor": true,
+        "requireEvidence": true
+      }
+    }
+  ],
+  "trust": [
+    {
+      "view": "default",
+      "domain": "/",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 0,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 0,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [],
+      "unresolved": [],
+      "results": []
+    },
+    {
+      "view": "default",
+      "domain": "/biology",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 1,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 1,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/biology/_concerns_living_systems"
+      ],
+      "results": [
+        {
+          "promise": "/biology/_concerns_living_systems",
+          "verdict": "unknown",
+          "assessmentIds": []
+        }
+      ]
+    },
+    {
+      "view": "default",
+      "domain": "/software",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 0,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 0,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [],
+      "unresolved": [],
+      "results": []
+    },
+    {
+      "view": "default",
+      "domain": "/biology/botany",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 2,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 2,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/biology/_concerns_living_systems",
+        "/biology/botany/_relates_to_plants"
+      ],
+      "results": [
+        {
+          "promise": "/biology/_concerns_living_systems",
+          "verdict": "unknown",
+          "assessmentIds": []
+        },
+        {
+          "promise": "/biology/botany/_relates_to_plants",
+          "verdict": "unknown",
+          "assessmentIds": []
+        }
+      ]
+    },
+    {
+      "view": "default",
+      "domain": "/software/python",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 1,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 1,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/software/python/_classes_use_pydantic"
+      ],
+      "results": [
+        {
+          "promise": "/software/python/_classes_use_pydantic",
+          "verdict": "unknown",
+          "assessmentIds": []
+        }
+      ]
+    },
+    {
+      "view": "default",
+      "domain": "/biology/botany/bryology",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": 1.0,
+      "coverage": 0.5,
+      "effectivePromiseCount": 2,
+      "counts": {
+        "kept": 1,
+        "broken": 0,
+        "unknown": 0,
+        "not_applicable": 0,
+        "disputed": 1
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [
+        "assessment-human-biology-001",
+        "assessment-human-botany-001",
+        "assessment-static-botany-001"
+      ],
+      "unresolved": [
+        "/biology/botany/_relates_to_plants"
+      ],
+      "results": [
+        {
+          "promise": "/biology/_concerns_living_systems",
+          "verdict": "kept",
+          "assessmentIds": [
+            "assessment-human-biology-001"
+          ]
+        },
+        {
+          "promise": "/biology/botany/_relates_to_plants",
+          "verdict": "disputed",
+          "assessmentIds": [
+            "assessment-human-botany-001",
+            "assessment-static-botany-001"
+          ]
+        }
+      ]
+    },
+    {
+      "view": "default",
+      "domain": "/software/python/models",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": 0.0,
+      "coverage": 1.0,
+      "effectivePromiseCount": 1,
+      "counts": {
+        "kept": 0,
+        "broken": 1,
+        "unknown": 0,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [
+        "assessment-static-pydantic-001"
+      ],
+      "unresolved": [],
+      "results": [
+        {
+          "promise": "/software/python/_classes_use_pydantic",
+          "verdict": "broken",
+          "assessmentIds": [
+            "assessment-static-pydantic-001"
+          ]
+        }
+      ]
+    },
+    {
+      "view": "human-only",
+      "domain": "/",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 0,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 0,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "latest",
+      "selectedAssessmentIds": [],
+      "unresolved": [],
+      "results": []
+    },
+    {
+      "view": "human-only",
+      "domain": "/biology",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 1,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 1,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "latest",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/biology/_concerns_living_systems"
+      ],
+      "results": [
+        {
+          "promise": "/biology/_concerns_living_systems",
+          "verdict": "unknown",
+          "assessmentIds": []
+        }
+      ]
+    },
+    {
+      "view": "human-only",
+      "domain": "/software",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 0,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 0,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "latest",
+      "selectedAssessmentIds": [],
+      "unresolved": [],
+      "results": []
+    },
+    {
+      "view": "human-only",
+      "domain": "/biology/botany",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 2,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 2,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "latest",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/biology/_concerns_living_systems",
+        "/biology/botany/_relates_to_plants"
+      ],
+      "results": [
+        {
+          "promise": "/biology/_concerns_living_systems",
+          "verdict": "unknown",
+          "assessmentIds": []
+        },
+        {
+          "promise": "/biology/botany/_relates_to_plants",
+          "verdict": "unknown",
+          "assessmentIds": []
+        }
+      ]
+    },
+    {
+      "view": "human-only",
+      "domain": "/software/python",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 1,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 1,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "latest",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/software/python/_classes_use_pydantic"
+      ],
+      "results": [
+        {
+          "promise": "/software/python/_classes_use_pydantic",
+          "verdict": "unknown",
+          "assessmentIds": []
+        }
+      ]
+    },
+    {
+      "view": "human-only",
+      "domain": "/biology/botany/bryology",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": 1.0,
+      "coverage": 1.0,
+      "effectivePromiseCount": 2,
+      "counts": {
+        "kept": 2,
+        "broken": 0,
+        "unknown": 0,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "latest",
+      "selectedAssessmentIds": [
+        "assessment-human-biology-001",
+        "assessment-human-botany-001"
+      ],
+      "unresolved": [],
+      "results": [
+        {
+          "promise": "/biology/_concerns_living_systems",
+          "verdict": "kept",
+          "assessmentIds": [
+            "assessment-human-biology-001"
+          ]
+        },
+        {
+          "promise": "/biology/botany/_relates_to_plants",
+          "verdict": "kept",
+          "assessmentIds": [
+            "assessment-human-botany-001"
+          ]
+        }
+      ]
+    },
+    {
+      "view": "human-only",
+      "domain": "/software/python/models",
+      "observer": "team/example-maintainers",
+      "snapshot": {
+        "revision": "1111111111111111111111111111111111111111"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 1,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 1,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "latest",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/software/python/_classes_use_pydantic"
+      ],
+      "results": [
+        {
+          "promise": "/software/python/_classes_use_pydantic",
+          "verdict": "unknown",
+          "assessmentIds": []
+        }
+      ]
+    }
+  ]
+}

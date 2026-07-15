@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/norms/v1/trust-report.schema.json",
+  "title": "Generated trust report",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"const": "norms/v1"},
+    "kind": {"const": "TrustReport"},
+    "metadata": {
+      "type": "object",
+      "required": ["generatedAt", "toolVersion", "view"],
+      "properties": {
+        "generatedAt": {"type": "string", "format": "date-time"},
+        "toolVersion": {"type": "string"},
+        "view": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["observer", "domain", "score", "coverage", "counts", "effectivePromiseCount", "selectedAssessmentIds", "conflictPolicy"],
+      "properties": {
+        "observer": {"type": "string"},
+        "domain": {"type": "string"},
+        "snapshot": {"type": "object"},
+        "score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "effectivePromiseCount": {"type": "integer", "minimum": 0},
+        "counts": {
+          "type": "object",
+          "required": ["kept", "broken", "unknown", "not_applicable", "disputed"],
+          "properties": {
+            "kept": {"type": "integer", "minimum": 0},
+            "broken": {"type": "integer", "minimum": 0},
+            "unknown": {"type": "integer", "minimum": 0},
+            "not_applicable": {"type": "integer", "minimum": 0},
+            "disputed": {"type": "integer", "minimum": 0}
+          },
+          "additionalProperties": false
+        },
+        "conflictPolicy": {"type": "string"},
+        "selectedAssessmentIds": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "unresolved": {"type": "array", "items": {"type": "string"}},
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["promise", "verdict"],
+            "properties": {
+              "promise": {"type": "string"},
+              "verdict": {"enum": ["kept", "broken", "unknown", "not_applicable", "disputed"]},
+              "assessmentIds": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,20 @@
+apiVersion: norms/v1
+kind: TrustView
+metadata:
+  name: default
+  description: Default observer-relative trust policy.
+spec:
+  observer: team/replace-me
+  domain: /
+  assessmentSelection:
+    assessors: "*"
+    latestPerAssessor: true
+    requireEvidence: true
+  conflictPolicy: unknown-on-conflict
+  scoring:
+    unit: effective-promise
+    weighting: equal
+    excludeVerdicts:
+      - unknown
+      - not_applicable
+      - disputed

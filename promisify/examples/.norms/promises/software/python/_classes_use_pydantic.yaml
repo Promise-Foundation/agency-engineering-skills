@@ -1,0 +1,29 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /software/python
+  name: _classes_use_pydantic
+  title: Domain model classes use Pydantic
+  tags:
+    - python
+    - architecture
+spec:
+  statement: >-
+    Python classes classified as domain models OUGHT to inherit from pydantic.BaseModel.
+  scope:
+    subjects:
+      - python.class
+    paths:
+      - src/**/*.py
+    conditions:
+      - The class is classified by the repository as a domain model.
+  criteria:
+    kind: python-inherits
+    parameters:
+      qualifiedBase: pydantic.BaseModel
+    instructions: >-
+      Resolve imports and direct or indirect base classes. A domain model class is kept when pydantic.BaseModel is in its resolved inheritance chain.
+  source:
+    authority: example/architecture-team
+    kind: repository-policy
+    reference: docs/architecture.md

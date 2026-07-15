@@ -1,0 +1,23 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /biology/botany
+  name: _relates_to_plants
+  title: Botany relates to plants
+  tags:
+    - biology
+    - botany
+spec:
+  statement: >-
+    Subjects represented within this domain OUGHT to relate to plants, plant-like organisms, or the study of them.
+  scope:
+    subjects:
+      - domain content
+  criteria:
+    kind: semantic-classification
+    instructions: >-
+      Determine whether the represented subject has a material relation to plants, plant-like organisms, or their study. Record ambiguous boundary cases as unknown rather than forcing a binary judgment.
+  source:
+    authority: example/ontology-author
+    kind: example-definition
+    rationale: Demonstrates a promise inherited by /biology/botany descendants.

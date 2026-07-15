@@ -1,0 +1,22 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /biology
+  name: _concerns_living_systems
+  title: Biology concerns living systems
+  tags:
+    - biology
+spec:
+  statement: >-
+    Subjects represented within this domain OUGHT to concern living systems or their traces, structures, processes, or relationships.
+  scope:
+    subjects:
+      - domain content
+  criteria:
+    kind: human-semantic-review
+    instructions: >-
+      Review the subject matter represented in the target domain and determine whether it concerns living systems or their traces, structures, processes, or relationships.
+  source:
+    authority: example/ontology-author
+    kind: example-definition
+    rationale: A broad illustrative promise inherited by biological subdomains.

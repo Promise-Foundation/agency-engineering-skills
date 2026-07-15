@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/norms/v1/trust-view.schema.json",
+  "title": "Observer-relative trust view",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"const": "norms/v1"},
+    "kind": {"const": "TrustView"},
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+        "description": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["observer", "domain", "assessmentSelection", "conflictPolicy", "scoring"],
+      "properties": {
+        "observer": {"type": "string", "minLength": 1},
+        "domain": {"$ref": "#/$defs/domain"},
+        "snapshot": {
+          "type": "object",
+          "properties": {
+            "revision": {"type": "string", "minLength": 1},
+            "atOrBefore": {"type": "string", "format": "date-time"}
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "assessmentSelection": {
+          "type": "object",
+          "required": ["assessors", "latestPerAssessor"],
+          "properties": {
+            "assessors": {
+              "oneOf": [
+                {"const": "*"},
+                {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1, "uniqueItems": true}
+              ]
+            },
+            "latestPerAssessor": {"type": "boolean"},
+            "requireEvidence": {"type": "boolean", "default": true}
+          },
+          "additionalProperties": false
+        },
+        "conflictPolicy": {
+          "enum": ["unknown-on-conflict", "latest", "majority", "conservative", "all"]
+        },
+        "scoring": {
+          "type": "object",
+          "required": ["unit", "weighting", "excludeVerdicts"],
+          "properties": {
+            "unit": {"const": "effective-promise"},
+            "weighting": {"const": "equal"},
+            "excludeVerdicts": {
+              "type": "array",
+              "items": {"enum": ["unknown", "not_applicable", "disputed"]},
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "extensions": {"type": "object"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "domain": {
+      "type": "string",
+      "pattern": "^/$|^/(?:[a-z0-9][a-z0-9_-]*)(?:/[a-z0-9][a-z0-9_-]*)*$"
+    }
+  }
+}

@@ -230,3 +230,8 @@ agency-ui/content/*/ltp/generated/
 
 # ltp migrate backups
 *.v1.bak
+
+# Emacs temp/lock/autosave
+\#*\#
+.\#*
+*~

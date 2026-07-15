@@ -1,0 +1,11 @@
+apiVersion: norms/v1
+kind: Repository
+metadata:
+  name: replace-with-repository-name
+  description: Normative declarations, assessments, and trust views.
+spec:
+  promiseRoot: .norms/promises
+  assessmentRoot: .norms/assessments
+  trustViewRoot: .norms/views
+  reportRoot: .norms/reports
+  defaultView: default

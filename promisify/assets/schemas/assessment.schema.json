@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/norms/v1/assessment.schema.json",
+  "title": "Promise assessment claim",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"const": "norms/v1"},
+    "kind": {"const": "Assessment"},
+    "metadata": {
+      "type": "object",
+      "required": ["id", "assessor", "observedAt"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "assessor": {"type": "string", "minLength": 1},
+        "observedAt": {"type": "string", "format": "date-time"},
+        "revision": {"type": "string", "minLength": 1},
+        "toolVersion": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["promise", "effectiveDomain", "verdict", "rationale"],
+      "properties": {
+        "promise": {"$ref": "#/$defs/address"},
+        "effectiveDomain": {"$ref": "#/$defs/domain"},
+        "subject": {
+          "type": "object",
+          "properties": {
+            "kind": {"type": "string"},
+            "id": {"type": "string"},
+            "path": {"type": "string"},
+            "scope": {"type": "string"}
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "verdict": {
+          "enum": ["kept", "broken", "unknown", "not_applicable", "disputed"]
+        },
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "rationale": {"type": "string", "minLength": 1},
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "summary"],
+            "properties": {
+              "kind": {"type": "string", "minLength": 1},
+              "summary": {"type": "string", "minLength": 1},
+              "path": {"type": "string"},
+              "lines": {"type": "string"},
+              "command": {"type": "string"},
+              "exitCode": {"type": "integer"},
+              "reference": {"type": "string"},
+              "digest": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "extensions": {"type": "object"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "domain": {
+      "type": "string",
+      "pattern": "^/$|^/(?:[a-z0-9][a-z0-9_-]*)(?:/[a-z0-9][a-z0-9_-]*)*$"
+    },
+    "address": {
+      "type": "string",
+      "pattern": "^/_[a-z][a-z0-9_]*$|^/(?:[a-z0-9][a-z0-9_-]*/)+_[a-z][a-z0-9_]*$"
+    }
+  }
+}

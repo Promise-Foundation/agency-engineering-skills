@@ -1,0 +1,18 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: replace-with-unique-id
+  assessor: agent/replace-me
+  observedAt: 2026-07-15T00:00:00Z
+  revision: replace-with-full-git-commit
+spec:
+  promise: /replace/domain/_replace_with_promise_name
+  effectiveDomain: /replace/domain
+  verdict: unknown
+  confidence: 0.5
+  rationale: Explain why the assessor reached this verdict.
+  evidence:
+    - kind: source
+      path: path/to/file
+      lines: 1-10
+      summary: Concise evidence summary.

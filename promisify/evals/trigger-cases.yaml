@@ -1,0 +1,18 @@
+version: 1
+skill: normative-promises
+shouldTrigger:
+  - Encode the rule that all Python domain models ought to inherit from Pydantic BaseModel.
+  - Add a promise under /security that credentials ought never be committed.
+  - Which promises are inherited by /biology/botany/bryology?
+  - Assess the promises in /software/python and show which are kept or broken.
+  - Calculate the trust score for /payments using the architecture-team view.
+  - Fix every broken promise accepted by the default observer and reassess the repository.
+  - Create the .norms structure for this repo.
+  - Two assessors disagree about a promise. Preserve both claims and update the trust report.
+shouldNotTrigger:
+  - Fix this failing unit test.
+  - Explain how Python inheritance works.
+  - Review this pull request for ordinary bugs.
+  - Calculate 17 divided by 23.
+  - Create a generic lint configuration without representing it as a promise.
+  - Summarize the README.

@@ -1,0 +1,22 @@
+apiVersion: norms/v1
+kind: TrustView
+metadata:
+  name: default
+  description: Accept all assessors and leave disagreements unscored.
+spec:
+  observer: team/example-maintainers
+  domain: /biology/botany/bryology
+  snapshot:
+    revision: "1111111111111111111111111111111111111111"
+  assessmentSelection:
+    assessors: "*"
+    latestPerAssessor: true
+    requireEvidence: true
+  conflictPolicy: unknown-on-conflict
+  scoring:
+    unit: effective-promise
+    weighting: equal
+    excludeVerdicts:
+      - unknown
+      - not_applicable
+      - disputed

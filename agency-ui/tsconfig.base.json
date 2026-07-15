@@ -20,7 +20,8 @@
       "@agency/skill-sdk": ["packages/agency-skill-sdk/src/index.ts"],
       "@agency/skill-sdk/testing": ["packages/agency-skill-sdk/src/testing.ts"],
       "@agency/core": ["packages/agency-core/src/index.ts"],
-      "@agency/ui-kit": ["packages/ui-kit/src/index.ts"]
+      "@agency/ui-kit": ["packages/ui-kit/src/index.ts"],
+      "@agency/promisify-plugin": ["skills/promisify-plugin/src/index.ts"]
     }
   }
 }

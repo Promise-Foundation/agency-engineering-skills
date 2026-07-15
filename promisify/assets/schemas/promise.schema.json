@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/norms/v1/promise.schema.json",
+  "title": "Normative promise",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"const": "norms/v1"},
+    "kind": {"const": "Promise"},
+    "metadata": {
+      "type": "object",
+      "required": ["domain", "name"],
+      "properties": {
+        "domain": {"$ref": "#/$defs/domain"},
+        "name": {"type": "string", "pattern": "^_[a-z][a-z0-9_]*$"},
+        "title": {"type": "string", "minLength": 1},
+        "tags": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["statement"],
+      "properties": {
+        "statement": {"type": "string", "minLength": 1},
+        "scope": {
+          "type": "object",
+          "properties": {
+            "subjects": {"type": "array", "items": {"type": "string"}},
+            "paths": {"type": "array", "items": {"type": "string"}},
+            "conditions": {"type": "array", "items": {"type": "string"}}
+          },
+          "additionalProperties": false
+        },
+        "criteria": {
+          "type": "object",
+          "properties": {
+            "kind": {"type": "string", "minLength": 1},
+            "parameters": {"type": "object"},
+            "instructions": {"type": "string", "minLength": 1},
+            "command": {"type": "string", "minLength": 1},
+            "success": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "authority": {"type": "string"},
+            "kind": {"type": "string"},
+            "reference": {"type": "string"},
+            "rationale": {"type": "string"}
+          },
+          "additionalProperties": false,
+          "minProperties": 1
+        },
+        "extensions": {"type": "object"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "domain": {
+      "type": "string",
+      "pattern": "^/$|^/(?:[a-z0-9][a-z0-9_-]*)(?:/[a-z0-9][a-z0-9_-]*)*$"
+    }
+  }
+}

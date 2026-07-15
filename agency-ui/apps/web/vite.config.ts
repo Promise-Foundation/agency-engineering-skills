@@ -18,6 +18,7 @@ export default defineConfig({
       "@agency/ui-kit": at("../../packages/ui-kit/src/index.ts"),
       "@agency/ltp-plugin": at("../../skills/ltp-plugin/src/index.ts"),
       "@agency/hypothesize-plugin": at("../../skills/hypothesize-plugin/src/index.ts"),
+      "@agency/promisify-plugin": at("../../skills/promisify-plugin/src/index.ts"),
     },
   },
   server: { port: 5178, host: "127.0.0.1" },
