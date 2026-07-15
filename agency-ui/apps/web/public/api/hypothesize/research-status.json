@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "portfolio": {
+    "title": "Remote-work evidence review",
+    "thesis": "Productivity claims are only meaningful when scoped by worker and task.",
+    "last_reviewed": "2026-07-14"
+  },
+  "build": { "source_hash": "demo-hypothesize-0001" },
+  "hypotheses": [
+    {
+      "id": "HYP-REMOTE-SCOPE",
+      "title": "A local productivity gain does not generalize across roles",
+      "summary": "The 13% Ctrip gain is specific to solo call-centre work.",
+      "capability_status": "implemented",
+      "evidence_maturity": "comparative_pilot",
+      "conclusion": "supported",
+      "evidence_health": "current"
+    },
+    {
+      "id": "HYP-STABLE-TREE",
+      "title": "A stable question tree lets evidence accumulate",
+      "summary": "Findings mapped to fixed nodes retain their scope limits.",
+      "capability_status": "partial",
+      "evidence_maturity": "mechanism",
+      "conclusion": "not_tested",
+      "evidence_health": "current"
+    }
+  ]
+}

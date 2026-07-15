@@ -1,0 +1,76 @@
+.zpd-page header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.zpd-page h1 {
+  margin: 0;
+  font-size: 20px;
+}
+.zpd-page .muted {
+  color: var(--ak-muted);
+  font-size: 13px;
+  max-width: 60ch;
+}
+.zpd-input {
+  flex: 1;
+  background: var(--ak-surface-2);
+  border: 1px solid var(--ak-border);
+  border-radius: 8px;
+  color: var(--ak-text);
+  padding: 8px 10px;
+  font: inherit;
+}
+.zpd-btn {
+  background: var(--ak-accent);
+  color: #0f1216;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.zpd-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+.zpd-job {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  background: var(--ak-surface);
+  border: 1px solid var(--ak-border);
+  border-radius: var(--ak-radius);
+  padding: 12px;
+  color: var(--ak-text);
+  cursor: pointer;
+  font: inherit;
+}
+.zpd-job:hover {
+  border-color: var(--ak-accent);
+}
+.zpd-job__q {
+  font-size: 13px;
+}
+.zpd-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.zpd-detail__q {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+.zpd-link {
+  background: none;
+  border: none;
+  color: var(--ak-accent);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}

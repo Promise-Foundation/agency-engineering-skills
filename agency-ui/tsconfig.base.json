@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@agency/skill-sdk": ["packages/agency-skill-sdk/src/index.ts"],
+      "@agency/skill-sdk/testing": ["packages/agency-skill-sdk/src/testing.ts"],
+      "@agency/core": ["packages/agency-core/src/index.ts"],
+      "@agency/ui-kit": ["packages/ui-kit/src/index.ts"]
+    }
+  }
+}

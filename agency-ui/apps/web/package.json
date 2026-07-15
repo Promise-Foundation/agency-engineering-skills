@@ -1,0 +1,23 @@
+{
+  "name": "@agency/web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p ../../tsconfig.json && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@agency/core": "*",
+    "@agency/hypothesize-plugin": "*",
+    "@agency/ltp-plugin": "*",
+    "@agency/skill-sdk": "*",
+    "@agency/ui-kit": "*",
+    "@dagrejs/dagre": "^2.0.0",
+    "@xyflow/react": "^12.9.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.1.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@agency/ltp-plugin",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@agency/core": "*",
+    "@agency/skill-sdk": "*",
+    "@agency/ui-kit": "*"
+  },
+  "peerDependencies": {
+    "@dagrejs/dagre": "^2.0.0",
+    "@xyflow/react": "^12.9.3",
+    "react": ">=18"
+  }
+}

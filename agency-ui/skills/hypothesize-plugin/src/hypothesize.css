@@ -1,0 +1,56 @@
+.hyp-table h1 {
+  margin: 0 0 2px;
+  font-size: 20px;
+}
+.hyp-sub {
+  margin: 0 0 14px;
+  color: var(--ak-muted);
+  font-size: 13px;
+}
+.hyp-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.hyp-table th,
+.hyp-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--ak-border);
+}
+.hyp-table th {
+  color: var(--ak-muted);
+  font-weight: 500;
+  font-size: 12px;
+}
+.hyp-table tbody tr {
+  cursor: pointer;
+}
+.hyp-table tbody tr:hover {
+  background: var(--ak-surface-2);
+}
+.hyp-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hyp-summary {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--ak-text);
+}
+.hyp-note {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--ak-muted);
+  border-top: 1px solid var(--ak-border);
+  padding-top: 8px;
+}
+.hyp-link {
+  background: none;
+  border: none;
+  color: var(--ak-accent);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}

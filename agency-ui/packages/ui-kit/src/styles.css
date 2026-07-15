@@ -1,0 +1,99 @@
+/* Shared design tokens + primitives. Imported once by the shell app. */
+:root {
+  --ak-bg: #0f1216;
+  --ak-surface: #171b21;
+  --ak-surface-2: #1e242c;
+  --ak-border: #2a323c;
+  --ak-text: #e6eaef;
+  --ak-muted: #9aa5b1;
+  --ak-accent: #6ea8fe;
+  --ak-positive: #4caf7f;
+  --ak-warning: #d9a441;
+  --ak-negative: #e0645a;
+  --ak-radius: 10px;
+}
+
+.ak-card {
+  background: var(--ak-surface);
+  border: 1px solid var(--ak-border);
+  border-radius: var(--ak-radius);
+  overflow: hidden;
+}
+.ak-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--ak-border);
+}
+.ak-card__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ak-text);
+}
+.ak-card__subtitle {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--ak-muted);
+}
+.ak-card__actions {
+  display: flex;
+  gap: 8px;
+}
+.ak-card__body {
+  padding: 14px;
+}
+
+.ak-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.6;
+  border: 1px solid var(--ak-border);
+  background: var(--ak-surface-2);
+  color: var(--ak-text);
+}
+.ak-chip--positive { color: var(--ak-positive); border-color: color-mix(in srgb, var(--ak-positive) 40%, transparent); }
+.ak-chip--warning { color: var(--ak-warning); border-color: color-mix(in srgb, var(--ak-warning) 40%, transparent); }
+.ak-chip--negative { color: var(--ak-negative); border-color: color-mix(in srgb, var(--ak-negative) 40%, transparent); }
+.ak-chip--info { color: var(--ak-accent); border-color: color-mix(in srgb, var(--ak-accent) 40%, transparent); }
+
+.ak-field {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ak-border) 60%, transparent);
+  font-size: 13px;
+}
+.ak-field__label {
+  flex: 0 0 40%;
+  color: var(--ak-muted);
+}
+.ak-field__value {
+  flex: 1;
+  color: var(--ak-text);
+}
+
+.ak-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px;
+  color: var(--ak-muted);
+}
+.ak-empty strong { color: var(--ak-text); }
+
+.ak-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
