@@ -13,7 +13,8 @@
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
     "build": "npm run build --workspace @agency/web",
-    "dev": "npm run dev --workspace @agency/web"
+    "dev": "npm run dev --workspace @agency/web",
+    "content:pull": "node scripts/pull-ltp-content.mjs"
   },
   "dependencies": {
     "@dagrejs/dagre": "^2.0.0",

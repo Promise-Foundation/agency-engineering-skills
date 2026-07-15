@@ -1,0 +1,537 @@
+schema_version: 2
+project:
+  name: Graphist
+  analyzed_path: ~/github/graphist
+  analysis_mode: forward
+  goal: G-1
+analysis:
+  current_constraint: CONSTRAINT-1
+  recommended_next_action: TR-1
+  expected_effect: DE-2
+analysis_plan:
+  mode: full
+  goal_tree: {status: done}
+  current_reality_tree: {status: done}
+  evaporating_cloud: {status: done}
+  future_reality_tree: {status: done}
+  prerequisite_tree: {status: done}
+  transition_tree: {status: done}
+
+evidence:
+  - id: EVD-1
+    source: README.md
+    lines: "16-24"
+    kind: readme
+    observation: >
+      Central thesis: Graphist makes machine reasoning explicit, challengeable, verifiable,
+      auditable; "Success or failure on one [pathway] must not be reported as success or
+      failure of all the others."
+  - id: EVD-2
+    source: README.md
+    lines: "41-43"
+    kind: readme
+    observation: >
+      "Success means the software can run fair, preregistered tests and report supported,
+      falsified, or inconclusive hypotheses without conflating architectural mechanism,
+      product utility, human outcomes, and comparative ML performance. It does not mean S8
+      must win."
+  - id: EVD-3
+    source: README.md
+    lines: "52-67"
+    kind: readme
+    observation: >
+      The generated hypothesis portfolio lists twelve GH-* hypotheses; every one has
+      conclusion "not_tested". Capability and mechanism evidence exist; no scientific
+      conclusion has been reached.
+  - id: EVD-4
+    source: README.md
+    lines: "152-159"
+    kind: readme
+    observation: >
+      The legacy cross-domain S8 comparison is quarantined (only S8 received held-out
+      semantic roles); "neural task solvers, T1 structured-query path, and five of the six
+      ablation effects remain documented simulation seams."
+  - id: EVD-5
+    source: README.md
+    lines: "105-118"
+    kind: readme
+    observation: >
+      A "Conflicts and tradeoffs" table holds tensions rather than erasing them, including
+      "Reproducibility vs. experimentation speed" (confirmatory artifacts are content-addressed
+      and immutable) and "Neural flexibility vs. formal validity".
+  - id: EVD-6
+    source: README.md
+    lines: "438-446"
+    kind: readme
+    observation: >
+      Near-term roadmap: "The current constraint is evidential strength on T3.... The next
+      increment is an independently generated, population-backed benchmark with enforced test
+      access, independently developed and tuned neural and e-graph systems ... before any
+      empirical Gamma-support ... claim is made."
+  - id: EVD-7
+    source: README.md
+    lines: "421-436"
+    kind: readme
+    observation: >
+      Definition of done includes "every scheduled item remains in denominators" and
+      "conclusions distinguish mathematical kernel properties from empirical ML performance".
+  - id: EVD-8
+    source: docs/pilot-report.md
+    kind: architecture
+    observation: >
+      Pilot readout: the naive token baseline fails under shadowing/capture; the binding-aware
+      baseline and both verified diagram arms tie on T1/T2; only the diagram arms produce
+      independently checkable certificates. T3 remains the open scientific question.
+  - id: EVD-9
+    source: README.md
+    lines: "240-252"
+    kind: readme
+    observation: >
+      The learned-spine mechanism fixture "uses injected defects and therefore makes no
+      population or representation-superiority claim"; results are "a mechanism result rather
+      than a scientific win".
+
+entities:
+  # -- Goal Tree -------------------------------------------------------------
+  - id: G-1
+    kind: goal
+    statement: >
+      Graphist produces fair, preregistered evidence that separates architectural mechanism
+      from comparative ML performance, reporting supported / falsified / inconclusive honestly
+      without conflating tracks.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    evidence_refs: [EVD-1, EVD-2]
+  - id: CSF-1
+    kind: critical_success_factor
+    statement: Comparisons are fair and preregistered (sealed split, leakage checks, matched budgets).
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-6, EVD-7]
+  - id: CSF-2
+    kind: critical_success_factor
+    statement: Evidential claims never conflate mechanism, product utility, human outcomes, and ML performance.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-1, EVD-2]
+  - id: CSF-3
+    kind: critical_success_factor
+    statement: Every arm in a decisive comparison is a real, independently developed system, not a simulation seam.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-4, EVD-6]
+  - id: CSF-4
+    kind: critical_success_factor
+    statement: Results are reproducible and auditable (content-addressed, immutable, kernel-checked).
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-5]
+  - id: NC-1
+    kind: necessary_condition
+    statement: A realistic learned arm can enter the sealed comparison.
+    basis: observed
+    confidence: high
+    satisfaction: unsatisfied
+    influence: control
+    evidence_refs: [EVD-4]
+    satisfaction_criterion: A trained, non-stub policy returns terminal results for T2/T3 items under the lock.
+  - id: NC-2
+    kind: necessary_condition
+    statement: A population-backed benchmark with enforced test access exists.
+    basis: observed
+    confidence: high
+    satisfaction: unsatisfied
+    influence: control
+    evidence_refs: [EVD-6]
+    satisfaction_criterion: The T3 battery draws from a generated population whose test split is unlocked once.
+  - id: NC-3
+    kind: necessary_condition
+    statement: Runs are deterministic and content-addressed end to end.
+    basis: observed
+    confidence: high
+    satisfaction: satisfied
+    influence: control
+    evidence_refs: [EVD-5]
+    satisfaction_criterion: Immutable artifacts re-verify their hashes when read; two runs regenerate identical records.
+  - id: NC-4
+    kind: necessary_condition
+    statement: Each claim is separated by track, with an explicit not_tested wherever a qualified study has not run.
+    basis: observed
+    confidence: high
+    satisfaction: satisfied
+    influence: control
+    evidence_refs: [EVD-3, EVD-7]
+    satisfaction_criterion: The generated portfolio shows per-hypothesis conclusion, never a blended verdict.
+
+  # -- Current Reality Tree --------------------------------------------------
+  - id: UDE-1
+    kind: undesirable_effect
+    statement: The project cannot yet report a single supported or falsified scientific conclusion.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-3]
+  - id: UDE-2
+    kind: undesirable_effect
+    statement: The decisive learned-vs-graph comparison cannot run, because key competing arms are simulation seams.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-4, EVD-6]
+  - id: UDE-3
+    kind: undesirable_effect
+    statement: The one cross-domain comparison that ran is quarantined for leakage (only S8 received held-out roles).
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-4]
+  - id: RC-1
+    kind: root_cause
+    statement: >
+      The harness demonstrates mechanisms but ships no real, independently developed learned
+      arm, so any arm difference is evidentially invalid.
+    basis: inferred
+    confidence: high
+    evidence_refs: [EVD-4, EVD-9]
+    reasoning: The spine fixtures use injected defects and stubs; every readout emits mechanism_demonstrated / not_tested.
+  - id: AC-1
+    kind: cause
+    statement: No population-backed benchmark with enforced test access has been generated.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-6]
+  - id: AC-2
+    kind: cause
+    statement: The legacy comparison gave held-out semantic-relation roles only to S8.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-4]
+
+  # -- assumptions -----------------------------------------------------------
+  - id: ASM-1
+    kind: assumption
+    statement: A realistic learned model necessarily makes the experiment non-deterministic and non-reproducible in CI.
+    basis: inferred
+    confidence: medium
+    evidence_refs: [EVD-5]
+  - id: ASM-2
+    kind: assumption
+    statement: Mechanism demonstrations on injected-defect fixtures cannot substitute for a real comparison.
+    basis: inferred
+    confidence: high
+    evidence_refs: [EVD-9]
+  - id: ASM-3
+    kind: assumption
+    statement: A publishable comparison must be reproducible and auditable to be trusted.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-5]
+  - id: ASM-4
+    kind: assumption
+    statement: A decisive comparison must include realistic learned arms, or there is nothing to compare.
+    basis: inferred
+    confidence: high
+    evidence_refs: [EVD-6]
+
+  # -- Evaporating Cloud roles ----------------------------------------------
+  - id: A-1
+    kind: cloud_objective
+    statement: Produce a decisive, publishable comparison of the reasoning systems.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-2, EVD-6]
+  - id: B-1
+    kind: cloud_need
+    statement: The comparison must be reproducible, deterministic, and auditable.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-5]
+  - id: C-1
+    kind: cloud_need
+    statement: The comparison must include realistic learned arms.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-6]
+  - id: D-1
+    kind: cloud_action
+    statement: Keep every arm deterministic and content-addressed (simulation seams / fixed-rule stand-ins).
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-4]
+  - id: DP-1
+    kind: cloud_action
+    statement: Introduce real trained learned models (nondeterministic training, heavyweight ML dependencies).
+    basis: inferred
+    confidence: high
+    evidence_refs: [EVD-6]
+
+  # -- Future Reality Tree ---------------------------------------------------
+  - id: INJ-1
+    kind: injection
+    statement: >
+      Admit a real learned arm as a frozen, content-addressed, deterministically-evaluated
+      trained artifact (train once on the sealed train split; pin seeds and precision; ship
+      weights by hash).
+    basis: inferred
+    confidence: medium
+    assumption_refs: [ASM-1]
+  - id: DE-1
+    kind: desirable_effect
+    statement: A realistic learned arm participates in the sealed comparison without breaking reproducibility.
+    basis: inferred
+    confidence: medium
+  - id: DE-2
+    kind: desirable_effect
+    statement: The T3 comparison can yield a supported, falsified, or inconclusive scientific conclusion.
+    basis: inferred
+    confidence: medium
+  - id: NBR-1
+    kind: negative_branch
+    statement: A frozen learned arm could overfit or be gamed against the fixed benchmark, giving a misleading result.
+    basis: inferred
+    confidence: medium
+  - id: TRIM-1
+    kind: trimming_injection
+    statement: Unlock the test split only once under the experiment lock, report on enforced-access test data, and keep negative controls.
+    basis: inferred
+    confidence: medium
+    evidence_refs: [EVD-7]
+
+  # -- Prerequisite Tree -----------------------------------------------------
+  - id: OBS-1
+    kind: obstacle
+    statement: No minimal deterministic ML dependency and trained artifact is admitted into the sealed pipeline.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-4]
+  - id: OBS-2
+    kind: obstacle
+    statement: No population-backed T3 benchmark with enforced test access has been built.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-6]
+  - id: IO-1
+    kind: intermediate_objective
+    statement: A minimal, pinned, deterministic ML dependency and a content-addressed trained artifact are admitted.
+    basis: inferred
+    confidence: medium
+    satisfaction: unsatisfied
+  - id: IO-2
+    kind: intermediate_objective
+    statement: A population-backed T3 benchmark with enforced test access exists.
+    basis: inferred
+    confidence: medium
+    satisfaction: unsatisfied
+
+  # -- Transition Tree -------------------------------------------------------
+  - id: ER-1
+    kind: existing_reality
+    statement: Learned arms are documented simulation seams behind the runner protocol.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-4]
+  - id: NEED-1
+    kind: need
+    statement: A real learned arm that stays deterministic and replayable.
+    basis: inferred
+    confidence: high
+  - id: ACT-1
+    kind: transition_action
+    statement: >
+      Train one small policy on the sealed train split, freeze and content-address its weights,
+      and add a deterministic inference adapter behind the application port.
+    basis: inferred
+    confidence: medium
+  - id: IE-1
+    kind: immediate_effect
+    statement: The learned arm returns byte-identical terminal records for T2 items across two runs.
+    basis: inferred
+    confidence: medium
+  - id: RISK-1
+    kind: risk
+    statement: Nondeterministic kernels or unpinned precision reintroduce run-to-run variance.
+    basis: inferred
+    confidence: medium
+
+  # -- Constraint ------------------------------------------------------------
+  - id: CONSTRAINT-1
+    kind: constraint
+    statement: >
+      Evidential strength on T3: no realistic learned arm can enter the sealed comparison, so
+      no decisive comparative conclusion can be produced.
+    basis: observed
+    confidence: high
+    evidence_refs: [EVD-6]
+
+necessity_claims:
+  - {id: NEC-1, prerequisite: CSF-1, objective: G-1}
+  - {id: NEC-2, prerequisite: CSF-2, objective: G-1}
+  - {id: NEC-3, prerequisite: CSF-3, objective: G-1}
+  - {id: NEC-4, prerequisite: CSF-4, objective: G-1}
+  - {id: NEC-5, prerequisite: NC-1, objective: CSF-3}
+  - {id: NEC-6, prerequisite: NC-2, objective: CSF-1}
+  - {id: NEC-7, prerequisite: NC-3, objective: CSF-4}
+  - {id: NEC-8, prerequisite: NC-4, objective: CSF-2}
+  - {id: NEC-C1, prerequisite: B-1, objective: A-1, assumption_refs: [ASM-3]}
+  - {id: NEC-C2, prerequisite: C-1, objective: A-1, assumption_refs: [ASM-4]}
+  - {id: NEC-C3, prerequisite: D-1, objective: B-1, assumption_refs: [ASM-3]}
+  - {id: NEC-C4, prerequisite: DP-1, objective: C-1, assumption_refs: [ASM-1]}
+  - {id: NEC-P1, prerequisite: IO-1, objective: INJ-1}
+  - {id: NEC-P2, prerequisite: IO-2, objective: INJ-1}
+
+causal_claims:
+  - id: CLM-1
+    premises: [RC-1, AC-1]
+    operator: all
+    conclusion: UDE-2
+    assumption_refs: [ASM-2]
+    confidence: high
+    clr:
+      clarity: {result: pass}
+      entity_existence: {result: pass, evidence_refs: [EVD-4, EVD-6]}
+      causality_existence: {result: pass}
+      cause_insufficiency: {result: pass}
+      additional_cause: {result: pass}
+      cause_effect_reversal: {result: pass}
+      predicted_effect_existence: {result: pass}
+      tautology: {result: pass}
+  - id: CLM-2
+    premises: [RC-1]
+    operator: single
+    conclusion: UDE-1
+    assumption_refs: [ASM-2]
+    confidence: high
+    clr:
+      clarity: {result: pass}
+      entity_existence: {result: pass, evidence_refs: [EVD-3]}
+      causality_existence: {result: pass}
+      cause_insufficiency: {result: pass}
+      additional_cause: {result: open, reservation: epistemic discipline also keeps conclusions not_tested by policy}
+      cause_effect_reversal: {result: pass}
+      predicted_effect_existence: {result: pass}
+      tautology: {result: pass}
+  - id: CLM-3
+    premises: [AC-2]
+    operator: single
+    conclusion: UDE-3
+    confidence: high
+    clr:
+      clarity: {result: pass}
+      entity_existence: {result: pass, evidence_refs: [EVD-4]}
+      causality_existence: {result: pass}
+      cause_insufficiency: {result: pass}
+      additional_cause: {result: pass}
+      cause_effect_reversal: {result: pass}
+      predicted_effect_existence: {result: not_applicable}
+      tautology: {result: pass}
+  - id: CLM-4
+    premises: [INJ-1]
+    operator: single
+    conclusion: DE-1
+    assumption_refs: [ASM-1]
+    confidence: medium
+  - id: CLM-5
+    premises: [DE-1]
+    operator: single
+    conclusion: NC-1
+    confidence: medium
+  - id: CLM-6
+    premises: [INJ-1]
+    operator: single
+    conclusion: DE-2
+    assumption_refs: [ASM-4]
+    confidence: medium
+  - id: CLM-7
+    premises: [DE-2]
+    operator: single
+    conclusion: G-1
+    confidence: low
+  - id: CLM-8
+    premises: [TRIM-1]
+    operator: single
+    conclusion: NBR-1
+    confidence: medium
+
+conflict_claims:
+  - id: CON-1
+    statement: >
+      Deterministic content-addressing (D) and real nondeterministic training (D') cannot both
+      be fully performed as the pipeline is currently built.
+    assumption_refs: [ASM-1]
+    evidence_refs: [EVD-4, EVD-5]
+
+clouds:
+  - id: EC-1
+    status: validated_persistent_conflict
+    objective: A-1
+    need_b: B-1
+    need_c: C-1
+    action_d: D-1
+    action_d_prime: DP-1
+    necessity_claims:
+      a_requires_b: NEC-C1
+      a_requires_c: NEC-C2
+      b_requires_d: NEC-C3
+      c_requires_d_prime: NEC-C4
+    conflict_claim: CON-1
+    persistence_evidence: [EVD-4, EVD-5]
+    injection_refs: [INJ-1]
+
+predicted_effects:
+  - id: PRED-1
+    source_claim: CLM-1
+    statement: If RC-1 holds, every pilot and spine report should read mechanism_demonstrated / not_tested, never a comparative win.
+    expectation: should_exist
+    result: observed
+    evidence_refs: [EVD-8, EVD-9]
+
+obstacle_resolutions:
+  - {id: OR-1, obstacle: OBS-1, intermediate_objective: IO-1}
+  - {id: OR-2, obstacle: OBS-2, intermediate_objective: IO-2}
+
+transitions:
+  - id: TR-1
+    existing_reality: ER-1
+    need: NEED-1
+    action: ACT-1
+    immediate_effect: IE-1
+    advances: IO-1
+    verification:
+      kind: automated_test
+      command: uv run bgamma experiment
+      acceptance: The learned arm produces content-addressed identical terminal records across two runs.
+    likely_scope:
+      - src/bgamma/domain/systems
+      - src/bgamma/infrastructure
+    estimated_size: medium
+    risk_refs: [RISK-1]
+    rollback: Keep the learned arm disabled in the system registry; fall back to the simulation seam.
+
+constraint_assessment:
+  entity: CONSTRAINT-1
+  status: candidate
+  limiting_mechanism: >
+    Because the competing arms are simulation seams, every scheduled comparison can only report
+    mechanism_demonstrated / not_tested; the throughput of decisive scientific conclusions is
+    zero until a real learned arm enters the sealed comparison.
+  goal_measure:
+    name: Hypotheses with a qualified, preregistered scientific conclusion
+    unit: hypotheses
+    period: per study
+  evidence_refs: [EVD-3, EVD-6]
+  alternative_candidates:
+    - entity: CSF-4
+      rejected_because: Reproducibility is already satisfied by the kernel and lock; strengthening it further does not enable a decisive comparison.
+    - entity: RC-1
+      rejected_because: The root cause explains the UDEs, but the throughput limit is specifically the absence of a real arm in the sealed comparison.
+  focusing_step: {current: exploit}
+  exploit_direction: Use the existing sealed protocol, kernel, and pilot harness; add the minimum real arm rather than expanding the framework.
+  subordinate_direction: Defer broad harness expansion and additional verification work until the real arm is admitted.
+  elevation_direction: Add the minimum deterministic ML dependency and a content-addressed trained artifact.
+
+open_questions:
+  - Which single T3 task battery is the highest-signal first target for a real learned arm?
+  - Can deterministic inference be guaranteed across the CI hardware the study will run on?
+contradictions:
+  - The project needs realistic learned arms for a decisive result, yet its reproducibility stance keeps those arms as deterministic simulation seams.
+coverage_gaps:
+  - The formal/ Rocq proofs and the bgamma internals were classified from the README, not read line by line.
+  - Runtime behavior of `bgamma experiment` was not executed during this analysis.

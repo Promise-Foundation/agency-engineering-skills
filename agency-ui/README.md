@@ -44,6 +44,23 @@ The dev server reads two generated manifests from `apps/web/public/api/` — LTP
 `dashboard-model.json` and hypothesize's `research-status.json` — exactly the
 files those skills' engines already produce.
 
+## Serving real skill content
+
+The shell renders whatever the engines *previously generated*; it never
+re-derives anything. To point it at a real LTP analysis:
+
+```bash
+ltp --root /path/to/project sync        # the LTP engine writes <project>/ltp/generated/
+npm run content:pull -- /path/to/project # copy dashboard-model.json into the app
+npm run dev                              # the shell serves it at /api/ltp/dashboard-model.json
+```
+
+With no argument, `content:pull` uses the committed demo project in
+`content/ltp-demo/` (its `ltp-model.yaml` is the source; run `ltp --root
+content/ltp-demo sync` to regenerate). The file the app serves is byte-identical
+to `ltp sync` output — provenance travels with it (`build.source_hash`,
+`build.generator`), and the inspector shows a `generated · read-only` badge.
+
 ## Adding a skill
 
 1. Create `skills/<name>-plugin` exporting an `AgencySkillPlugin`.

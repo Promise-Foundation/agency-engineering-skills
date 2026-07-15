@@ -34,3 +34,36 @@ def test_migration_drops_generic_links_for_typed_claims():
     # necessary_for links became necessity claims; causal links became causal claims.
     assert migrated.get("necessity_claims"), "expected necessity claims from necessary_for links"
     assert migrated.get("causal_claims"), "expected causal claims from causes links"
+
+
+def test_migration_handles_structured_v1_extensions():
+    """Real-world v1 models (e.g. Graphist) carry candidate_goals, a top-level
+    assumptions list, and structured (dict) notes -- migrate must fold them in."""
+    v1 = {
+        "project": {"name": "X"},
+        "candidate_goals": [
+            {"id": "G-1", "label": "Ship", "statement": "The goal", "status": "inferred", "selected": True, "evidence": ["EVD-1"]},
+            {"id": "G-alt", "statement": "Alternative", "status": "provisional"},
+        ],
+        "entities": [{"id": "UDE-1", "type": "undesirable_effect", "statement": "bad", "status": "observed"}],
+        "assumptions": [{"id": "ASM-1", "statement": "an assumption", "status": "observed", "confidence": "high"}],
+        "links": [{"id": "L1", "from": "UDE-1", "to": "G-1", "relation": "causes", "logic": "sufficient"}],
+        "open_questions": [{"id": "OQ-1", "question": "which fork?", "impact": "big"}],
+        "contradictions": [{"id": "C-1", "statement": "a tension"}],
+        "coverage_gaps": ["a plain string gap"],
+        "weird_field": {"unexpected": True},
+    }
+    migrated = migrate_dict(v1)
+    model = parse_model(migrated)  # must parse as typed v2
+
+    kinds = {e.id: e.kind.value for e in model.entities}
+    assert kinds.get("G-1") == "goal" and kinds.get("G-alt") == "goal"
+    assert kinds.get("ASM-1") == "assumption"
+    assert model.project.provisional_goal == "G-1"
+    # structured notes are flattened to strings
+    assert all(isinstance(q, str) for q in model.open_questions)
+    assert any("which fork" in q for q in model.open_questions)
+    assert all(isinstance(c, str) for c in model.contradictions)
+    # an unrecognized v1 field is dropped but noted, not passed through
+    assert "weird_field" not in migrated
+    assert any("weird_field" in q for q in model.open_questions)

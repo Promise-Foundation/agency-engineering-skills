@@ -47,3 +47,25 @@ def test_explain_missing_id_returns_error(tmp_path):
     main(["--root", root, "init"])
     assert main(["--root", root, "explain", "NOPE-1"]) == 2
     assert main(["--root", root, "explain", "G-1"]) == 0
+
+
+def test_explain_dependents_include_analysis_and_constraint():
+    from ltp.cli import _dependents
+    from ltp.models import parse_model
+
+    model = parse_model(
+        {
+            "project": {"name": "T", "goal": "G-1"},
+            "analysis": {"current_constraint": "CON-E"},
+            "entities": [
+                {"id": "G-1", "kind": "goal", "statement": "g"},
+                {"id": "CON-E", "kind": "constraint", "statement": "the limit"},
+            ],
+            "constraint_assessment": {"entity": "CON-E", "limiting_mechanism": "why"},
+        }
+    )
+    hits = _dependents(model, "CON-E")
+    assert any("current_constraint" in hit for hit in hits)
+    assert any("constraint_assessment" in hit for hit in hits)
+    # the goal is referenced by project.goal
+    assert any("project goal" in hit for hit in _dependents(model, "G-1"))

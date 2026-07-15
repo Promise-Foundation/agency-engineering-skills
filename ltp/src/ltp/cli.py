@@ -243,6 +243,22 @@ def _dependents(model: LtpModel, target: str) -> "list[str]":
     for pred in model.predicted_effects:
         if target == pred.source_claim:
             hits.append(f"predicted_effect {pred.id}")
+    analysis = model.analysis
+    for field, label in (
+        ("current_constraint", "analysis.current_constraint"),
+        ("recommended_next_action", "analysis.recommended_next_action"),
+        ("expected_effect", "analysis.expected_effect"),
+    ):
+        if getattr(analysis, field) == target:
+            hits.append(label)
+    if target in (model.project.goal, model.project.provisional_goal):
+        hits.append("project goal")
+    assessment = model.constraint_assessment
+    if assessment is not None:
+        if assessment.entity == target:
+            hits.append("constraint_assessment")
+        if any(alt.entity == target for alt in assessment.alternative_candidates):
+            hits.append("constraint_assessment alternative")
     return hits
 
 
