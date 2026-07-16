@@ -75,7 +75,12 @@ function assessmentSummary(model: Explorer, address: string, domain: string): st
 export function PromisesWorkspace({ host }: HostProps) {
   const model = useExplorer(host);
   const [activeView, setActiveView] = useState<string | null>(null);
-  const [selectedDomain, setSelectedDomain] = useState<string>("/");
+  // `null` means "no explicit choice yet" -- the workspace opens on the active
+  // view's own target domain (where it has something to show) rather than an
+  // empty root. Once the user picks a domain, that choice sticks even if they
+  // then switch observer/view, since changing observer should only change the
+  // trust interpretation, not jump the user elsewhere.
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
   const [selectedPromise, setSelectedPromise] = useState<string | null>(null);
   const [drafting, setDrafting] = useState(false);
 
@@ -85,11 +90,12 @@ export function PromisesWorkspace({ host }: HostProps) {
   const defaultViewName = model.repository.defaultView ?? views[0]?.name ?? "";
   const viewName =
     activeView && views.some((v) => v.name === activeView) ? activeView : defaultViewName;
+  const activeViewDomain = views.find((v) => v.name === viewName)?.domain ?? "/";
+  const domain = selectedDomain ?? activeViewDomain;
 
   const ordered = orderDomains(model.domains);
-  const trustEntry =
-    model.trust.find((t) => t.view === viewName && t.domain === selectedDomain) ?? null;
-  const effective = model.effective[selectedDomain] ?? [];
+  const trustEntry = model.trust.find((t) => t.view === viewName && t.domain === domain) ?? null;
+  const effective = model.effective[domain] ?? [];
   const inherited = effective.filter((e) => e.inherited);
   const declared = effective.filter((e) => !e.inherited);
   const selected = selectedPromise
@@ -137,7 +143,7 @@ export function PromisesWorkspace({ host }: HostProps) {
         ) : (
           <div className="pf-trust__line">
             <span className="pf-muted">
-              No trust entry for {viewName || "this view"} × {selectedDomain}.
+              No trust entry for {viewName || "this view"} × {domain}.
             </span>
           </div>
         )}
@@ -150,7 +156,7 @@ export function PromisesWorkspace({ host }: HostProps) {
             {ordered.map((record) => (
               <li key={record.domain}>
                 <button
-                  className={`pf-tree__row${record.domain === selectedDomain ? " is-active" : ""}`}
+                  className={`pf-tree__row${record.domain === domain ? " is-active" : ""}`}
                   style={{ paddingLeft: 10 + record.depth * 14 }}
                   onClick={() => {
                     setSelectedDomain(record.domain);
@@ -170,7 +176,7 @@ export function PromisesWorkspace({ host }: HostProps) {
         <section className="pf-pane pf-effective">
           <h2 className="pf-pane__title">
             Effective promises
-            <span className="pf-pane__sub">{selectedDomain}</span>
+            <span className="pf-pane__sub">{domain}</span>
           </h2>
           {effective.length === 0 ? (
             <EmptyState
@@ -183,7 +189,7 @@ export function PromisesWorkspace({ host }: HostProps) {
                 heading="Inherited from ancestors"
                 entries={inherited}
                 model={model}
-                domain={selectedDomain}
+                domain={domain}
                 trustEntry={trustEntry}
                 selected={selectedPromise}
                 onSelect={setSelectedPromise}
@@ -192,7 +198,7 @@ export function PromisesWorkspace({ host }: HostProps) {
                 heading="Declared here"
                 entries={declared}
                 model={model}
-                domain={selectedDomain}
+                domain={domain}
                 trustEntry={trustEntry}
                 selected={selectedPromise}
                 onSelect={setSelectedPromise}
@@ -207,7 +213,7 @@ export function PromisesWorkspace({ host }: HostProps) {
             <ExplanationPanel
               model={model}
               promise={selected}
-              domain={selectedDomain}
+              domain={domain}
               trustEntry={trustEntry}
             />
           ) : (
@@ -222,7 +228,7 @@ export function PromisesWorkspace({ host }: HostProps) {
       {drafting ? (
         <DraftDialog
           model={model}
-          defaultDomain={selectedDomain}
+          defaultDomain={domain}
           host={host}
           onClose={() => setDrafting(false)}
         />
@@ -370,22 +376,22 @@ function ExplanationPanel({
         {!trustEntry ? (
           <p className="pf-muted">No trust view is active for this domain.</p>
         ) : result ? (
-          <p className="pf-effect">
-            Resolves to <Chip tone={verdictTone(result.verdict)}>{result.verdict}</Chip> under{" "}
-            <strong>{trustEntry.view}</strong>
-            {result.assessmentIds.length > 0
-              ? ` from ${result.assessmentIds.length} selected assessment${
-                  result.assessmentIds.length > 1 ? "s" : ""
-                }`
-              : " with no selected assessments"}
-            .
+          <>
+            <p className="pf-effect">
+              Under <strong>{trustEntry.view}</strong>, this promise resolves to{" "}
+              <Chip tone={verdictTone(result.verdict)}>{result.verdict}</Chip>
+              {result.assessmentIds.length > 0
+                ? `, drawing on ${result.assessmentIds.length} selected assessment${
+                    result.assessmentIds.length > 1 ? "s" : ""
+                  }.`
+                : ", with no selected assessments."}
+            </p>
             {unresolved ? (
-              <span className="pf-effect__flag">
-                {" "}
-                Counted as unresolved — excluded from the score.
-              </span>
+              <p className="pf-effect__flag">
+                Counted as unresolved for this view — excluded from the trust score.
+              </p>
             ) : null}
-          </p>
+          </>
         ) : (
           <p className="pf-muted">This promise is not part of this domain's trust calculation.</p>
         )}
