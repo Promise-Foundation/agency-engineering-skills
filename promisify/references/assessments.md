@@ -74,6 +74,21 @@ A promise can apply to many concrete subjects. Version 1 supports two patterns:
 
 The default trust calculation counts resolved effective promises, not raw subject records. Therefore subject records need an explicit aggregation policy before contributing to trust.
 
+## Type and token assessment
+
+An assessment may concern the promise-bearing type itself or a concrete token.
+Always make the level explicit:
+
+- **type assessment**: a maintainer or framework assessor judges whether the
+  type's declared capacity or design norm is credible;
+- **token assessment**: an assessor judges one concrete host-owned instance,
+  attempt, artifact, learner, or revision.
+
+Token assessments should normally be more numerous. They do not automatically
+roll up into a type judgment; that requires an explicit aggregation policy.
+Subjective judgments are valid assessment claims when their assessor, criteria,
+evidence, rationale, and uncertainty remain visible.
+
 ## Conflicting assessments
 
 Preserve all claims. A trust view chooses a conflict policy such as:
@@ -89,6 +104,19 @@ No policy is globally correct. The chosen policy must be visible in the trust vi
 ## Confidence
 
 Confidence is optional and never a substitute for evidence. Version 1 does not weight trust by confidence unless a future extension declares that policy.
+
+## Nuanced and subjective judgment
+
+The version 1 verdict is an index for selection and aggregation, not the whole
+judgment. Preserve nuance in the assessor's rationale, confidence, evidence,
+criteria, and profile-specific `extensions`. For example, a human may judge an
+LTP node useful enough to retain while also recording concerns about atomicity,
+falsifiability, placement, or framing. Those dimensions need not collapse into
+an allegedly objective valid/invalid fact.
+
+When a consumer needs graded or multi-axis assessment, define the axes and
+interpretation policy in an extension before recording values. Do not smuggle a
+new universal scale into the meaning of `kept` or `broken`.
 
 ## Assessment lifecycle
 

@@ -43,15 +43,18 @@ export function createMemorySource(options: MemorySourceOptions): ResourceSource
   }
   for (const relation of options.seedRelations ?? []) relations.set(relation.id, relation);
 
-  function matches(query: ResourceQuery, ref: ResourceRef): boolean {
-    if (query.type === undefined) return true;
-    const types = Array.isArray(query.type) ? query.type : [query.type];
-    return types.includes(ref.type);
+  function matches(query: ResourceQuery, change: ResourceChange): boolean {
+    if (query.type !== undefined) {
+      const types = Array.isArray(query.type) ? query.type : [query.type];
+      if (!types.includes(change.ref.type)) return false;
+    }
+    if (query.domain && change.resource?.domain !== query.domain) return false;
+    return true;
   }
 
   function notify(change: ResourceChange): void {
     for (const watcher of watchers) {
-      if (matches(watcher.query, change.ref)) watcher.onChange(change);
+      if (matches(watcher.query, change)) watcher.onChange(change);
     }
   }
 
@@ -81,17 +84,18 @@ export function createMemorySource(options: MemorySourceOptions): ResourceSource
     },
     async apply(mutation: ResourceMutation): Promise<AgencyActionResult> {
       const key = refString(mutation.ref);
+      const existing = resources.get(key);
       if (mutation.kind === "deleted") {
         resources.delete(key);
-        notify({ kind: "deleted", ref: mutation.ref });
+        notify({ kind: "deleted", ref: mutation.ref, resource: existing });
         return { summary: `deleted ${key}` };
       }
       const now = new Date().toISOString();
-      const existing = resources.get(key);
       const resource: AgencyResource = {
         id: mutation.ref.id,
         type: mutation.ref.type,
         ownerSkill: options.ownerSkill,
+        domain: mutation.domain ?? existing?.domain,
         schemaVersion: 1,
         createdAt: existing?.createdAt ?? now,
         updatedAt: now,

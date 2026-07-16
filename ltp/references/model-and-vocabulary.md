@@ -86,6 +86,19 @@ necessary condition outside the project's control is kept in the tree and marked
 Goal-Tree leaves also carry `satisfaction_criterion` (how you would observe the
 condition holds) and may be `atomic: true` with an `atomic_justification`.
 
+### Necessary-condition ownership
+
+A `necessary_condition` is an LTP node asserting that a condition must hold for
+an objective to be achieved. Its meaning is fixed by a `necessity_claim` whose
+`prerequisite` is the condition and whose `objective` is the goal, critical
+success factor, or intermediate objective it constrains. LTP owns this entity,
+the claim, satisfaction, influence, evidence, assumptions, and logical scrutiny.
+
+Promisify may project the **type** `necessary_condition` to an inherited domain
+and assess a concrete node such as `NC-17` as a subject. That projection does not
+turn a promise into a necessary condition, duplicate `NC-17`, or transfer LTP's
+logical authority to Promisify.
+
 ## Typed claims (there are no generic edges)
 
 ### Necessity

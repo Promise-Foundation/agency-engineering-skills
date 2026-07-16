@@ -435,9 +435,20 @@ def build_explorer(documents: list[LoadedDocument]) -> dict[str, Any]:
     view_docs = by_kind(documents, "TrustView")
     assessment_docs = by_kind(documents, "Assessment")
 
+    repository_docs = by_kind(documents, "Repository")
+    repo_meta = repository_docs[0].data.get("metadata", {}) if repository_docs else {}
+    repo_spec = repository_docs[0].data.get("spec", {}) if repository_docs else {}
+    explicit_domains = repo_spec.get("domains", [])
+    subjects_by_domain = {
+        item["path"]: item["subjects"]
+        for item in explicit_domains
+        if isinstance(item, dict) and isinstance(item.get("path"), str)
+    }
+
     mentioned = {doc.data["metadata"]["domain"] for doc in by_kind(documents, "Promise")}
     mentioned |= {doc.data["spec"]["effectiveDomain"] for doc in assessment_docs}
     mentioned |= {doc.data["spec"]["domain"] for doc in view_docs}
+    mentioned |= set(subjects_by_domain)
     domains = all_domains_with_ancestors(mentioned)
     domain_set = set(domains)
 
@@ -465,6 +476,7 @@ def build_explorer(documents: list[LoadedDocument]) -> dict[str, Any]:
                 "parent": domain_parent(domain),
                 "depth": domain_depth(domain),
                 "children": sorted(child for child in domain_set if domain_parent(child) == domain),
+                "subjects": subjects_by_domain.get(domain, []),
                 "declaredCount": len(declared_by_domain.get(domain, [])),
                 "effectivePromiseCount": len(effective),
             }
@@ -529,9 +541,6 @@ def build_explorer(documents: list[LoadedDocument]) -> dict[str, Any]:
                 continue
             trust.append({"view": view_doc.data["metadata"]["name"], "domain": domain, **report["spec"]})
 
-    repository = by_kind(documents, "Repository")
-    repo_meta = repository[0].data.get("metadata", {}) if repository else {}
-    repo_spec = repository[0].data.get("spec", {}) if repository else {}
     return {
         "apiVersion": "norms/v1",
         "kind": "Explorer",
@@ -558,7 +567,13 @@ def command_explorer(args: argparse.Namespace) -> int:
         for error in errors:
             print(f"ERROR: {error}", file=sys.stderr)
         return 1
-    print(json.dumps(build_explorer(documents), indent=2, ensure_ascii=False))
+    output = json.dumps(build_explorer(documents), indent=2, ensure_ascii=False) + "\n"
+    if args.output:
+        destination = Path(args.output).resolve()
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(output, encoding="utf-8")
+    else:
+        print(output, end="")
     return 0
 
 
@@ -639,6 +654,7 @@ def build_parser() -> argparse.ArgumentParser:
         "explorer", help="Emit one normalized JSON model for the read-only explorer UI."
     )
     explorer_parser.add_argument("repository", help="Repository root containing .norms/")
+    explorer_parser.add_argument("--output", help="Write the generated explorer JSON to this path")
     explorer_parser.set_defaults(handler=command_explorer)
 
     return parser

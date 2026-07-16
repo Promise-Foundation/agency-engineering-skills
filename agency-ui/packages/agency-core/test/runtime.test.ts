@@ -97,6 +97,31 @@ describe("federation", () => {
     const relations = await resources.relations({ type: "hypothesis", id: "HYP-1" });
     expect(relations.map((r) => r.id)).toContain("rel-1");
   });
+
+  it("does not return unscoped or differently scoped resources for a domain query", async () => {
+    const resources = new FederatedResourceService();
+    resources.registerSource(
+      createMemorySource({
+        id: "scoped:store",
+        ownerSkill: "example",
+        types: ["example.item"],
+        seedResources: [
+          { id: "global", type: "example.item", ownerSkill: "example", schemaVersion: 1, data: {} },
+          {
+            id: "ltp",
+            type: "example.item",
+            ownerSkill: "example",
+            domain: "/skills/ltp",
+            schemaVersion: 1,
+            data: {},
+          },
+        ],
+      }),
+    );
+
+    const scoped = await resources.list({ type: "example.item", domain: "/skills/ltp" });
+    expect(scoped.map((resource) => resource.id)).toEqual(["ltp"]);
+  });
 });
 
 function plugin(
@@ -134,6 +159,18 @@ describe("plugin host", () => {
     );
     await host.activateAll();
     expect(host.contributions().routes.map((r) => r.id)).toEqual(["ltp.home"]);
+  });
+
+  it("does not block a plugin when a recommended dependency is absent", async () => {
+    const host = new PluginHost();
+    host.register(
+      plugin("ltp", {
+        recommendedDependencies: [{ capability: "norms.read.v1" }],
+      }),
+    );
+    const result = await host.activateAll();
+    expect(result.activated).toContain("ltp");
+    expect(result.failed).toEqual([]);
   });
 });
 

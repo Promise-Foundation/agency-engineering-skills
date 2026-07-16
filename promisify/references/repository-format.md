@@ -21,6 +21,22 @@
 
 `.norms/repository.yaml` identifies format version and roots. Copy `assets/templates/repository.yaml`.
 
+It may also explicitly register domains and the repository-relative subjects
+they describe. This lets Promisify publish a domain even before that domain has
+its own promise, and gives downstream skills a stable scope to analyze:
+
+```yaml
+spec:
+  domains:
+    - path: /skills/hypothesize
+      subjects: [hypothesize]
+    - path: /skills/zpd
+      subjects: [zpd]
+```
+
+Domain registration does not declare a promise or imply a verdict. It only
+connects a normative namespace to the body of work it names.
+
 ## Promise files
 
 A promise file contains one `Promise` document. File placement mirrors `metadata.domain`; the filename equals `metadata.name` plus `.yaml`.

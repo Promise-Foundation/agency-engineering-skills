@@ -98,6 +98,7 @@ export function checkPluginManifest(plugin: AgencySkillPlugin): ConformanceProbl
     ...(c.resourceViews ?? []),
     ...(c.inspectors ?? []),
     ...(c.dashboardCards ?? []),
+    ...(c.promiseTypes ?? []),
   ].map((item) => item.id);
   const seen = new Set<string>();
   for (const id of ids) {

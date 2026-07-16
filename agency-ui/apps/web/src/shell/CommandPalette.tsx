@@ -8,7 +8,7 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import type { AgencyResource } from "@agency/skill-sdk";
+import { DOMAIN_RESOURCE_TYPE, type AgencyResource } from "@agency/skill-sdk";
 import { useHost } from "./host-context";
 
 type Item =
@@ -83,6 +83,9 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       } catch (error) {
         host.notifications.error(`Command "${item.title}" failed: ${String(error)}`);
       }
+    } else if (item.resource.type === DOMAIN_RESOURCE_TYPE) {
+      const params = new URLSearchParams({ domain: item.resource.id });
+      host.navigation.navigate(`${host.navigation.currentPath()}?${params.toString()}`);
     } else {
       host.selection.select({ type: item.resource.type, id: item.resource.id });
     }

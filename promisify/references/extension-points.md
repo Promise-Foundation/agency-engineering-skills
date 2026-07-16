@@ -14,6 +14,19 @@ Potential future relations:
 
 Version 1 does not infer any of these from matching names or domain placement.
 
+## Host type projection
+
+Agency Engineering plugins may declare host-owned entity or relation types as
+Promisify subdomains. A declaration needs a stable host resource type, a domain
+prefix, a subtype discriminator when applicable, and separate type/token
+assessment permissions. The host remains authoritative for object identity and
+meaning. The projection only supplies inherited promise context.
+
+The agency UI SDK carries this declaration as a `promiseTypes` contribution.
+Persisting those declarations into `.norms/`, authoring assessments, and syncing
+them through a shared runtime remain planned; the prototype shell must not claim
+those operations are already available.
+
 ## Exceptions
 
 Inheritance currently has no implicit opt-out. A future exception record should identify authority, scope, justification, and the promise being excepted. Until such a record type is specified, represent exceptions as separate promises or documented assessment applicability decisions rather than silently suppressing inheritance.

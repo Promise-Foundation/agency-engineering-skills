@@ -83,6 +83,14 @@ export interface HypothesizeManifest {
   build?: { source_hash?: string };
 }
 
+export interface HypothesizeArtifactBundle {
+  artifacts: { domain: string; manifest: HypothesizeManifest }[];
+}
+
+export function scopedHypothesisId(domain: string, localId: string): string {
+  return `${encodeURIComponent(domain)}::${localId}`;
+}
+
 function capabilityRelation(status?: string): string {
   if (status === "implemented") return "demonstrates capability";
   if (status === "partial") return "demonstrates mechanism";
@@ -163,41 +171,54 @@ export const hypothesizeMapping: ManifestMapping = {
   types: ["hypothesis"],
 
   toResources(manifest: unknown): AgencyResource[] {
-    const data = manifest as HypothesizeManifest;
-    const capabilities = data.capabilities ?? [];
-    const evidenceById = new Map((data.evidence ?? []).map((item) => [item.id, item]));
-    const provenance = {
-      determinism: "static" as const,
-      sourceId: "hypothesize:research-status",
-      sourceHash: data.build?.source_hash,
-    };
+    const resources: AgencyResource[] = [];
+    for (const { domain, manifest: data } of (manifest as HypothesizeArtifactBundle).artifacts ?? []) {
+      const capabilities = data.capabilities ?? [];
+      const evidenceById = new Map((data.evidence ?? []).map((item) => [item.id, item]));
+      const provenance = {
+        determinism: "static" as const,
+        sourceId: `hypothesize:research-status:${domain}`,
+        sourceHash: data.build?.source_hash,
+      };
 
-    return (data.hypotheses ?? []).map((hypothesis) => ({
-      id: hypothesis.id,
-      type: "hypothesis",
-      ownerSkill: "hypothesize",
-      schemaVersion: 1,
-      title: hypothesis.title,
-      status: hypothesis.conclusion,
-      data: { ...hypothesis, trace: buildTrace(hypothesis, capabilities, evidenceById) },
-      provenance,
-    }));
+      for (const hypothesis of data.hypotheses ?? []) {
+        resources.push({
+          id: scopedHypothesisId(domain, hypothesis.id),
+          type: "hypothesis",
+          ownerSkill: "hypothesize",
+          domain,
+          schemaVersion: 1,
+          title: hypothesis.title,
+          status: hypothesis.conclusion,
+          data: { ...hypothesis, trace: buildTrace(hypothesis, capabilities, evidenceById) },
+          provenance,
+        });
+      }
+    }
+    return resources;
   },
 
   // Cross-skill relations are authored on each hypothesis (illustrative links to
   // the LTP claims, promises, and ZPD probes the surface sits alongside). We only
   // republish them as federated relations; we never invent or rewrite them.
   toRelations(manifest: unknown): AgencyRelation[] {
-    const data = manifest as HypothesizeManifest;
     const relations: AgencyRelation[] = [];
-    for (const hypothesis of data.hypotheses ?? []) {
-      for (const [type, ref] of hypothesis.relations ?? []) {
-        relations.push({
-          id: `hypothesize:${hypothesis.id}:${type}:${ref}`,
-          type,
-          from: { type: "hypothesis", id: hypothesis.id },
-          to: parseRef(ref),
-        });
+    for (const { domain, manifest: data } of (manifest as HypothesizeArtifactBundle).artifacts ?? []) {
+      for (const hypothesis of data.hypotheses ?? []) {
+        for (const [type, ref] of hypothesis.relations ?? []) {
+          const target = parseRef(ref);
+          const scopedTarget =
+            target.type.startsWith("ltp.") || target.type.startsWith("zpd.")
+              ? { ...target, id: `${encodeURIComponent(domain)}::${target.id}` }
+              : target;
+          relations.push({
+            id: `hypothesize:${encodeURIComponent(domain)}:${hypothesis.id}:${type}:${ref}`,
+            type,
+            from: { type: "hypothesis", id: scopedHypothesisId(domain, hypothesis.id) },
+            to: scopedTarget,
+            metadata: { domain },
+          });
+        }
       }
     }
     return relations;

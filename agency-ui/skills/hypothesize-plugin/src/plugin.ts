@@ -12,6 +12,12 @@ export const hypothesizePlugin: AgencySkillPlugin = {
     name: "Hypothesize",
     version: "0.1.0",
     description: "Track an honest empirical status for each hypothesis, apart from any logic.",
+    recommendedDependencies: [
+      {
+        capability: "norms.read.v1",
+        reason: "Reuse Promisify's normative domain context without making it epistemic evidence.",
+      },
+    ],
     provides: ["hypothesis.read.v1"],
     contributions: {
       navigation: [{ id: "hyp.nav", label: "Hypotheses", to: "/hypotheses", order: 20 }],
@@ -28,15 +34,15 @@ export const hypothesizePlugin: AgencySkillPlugin = {
       id: "hypothesize:research-status",
       ownerSkill: "hypothesize",
       load: async () => {
-        const response = await fetch("/api/hypothesize/research-status.json", { cache: "no-store" });
-        if (!response.ok) throw new Error(`hypothesize manifest not found (${response.status})`);
+        const response = await fetch("/api/hypothesize/artifacts.json", { cache: "no-store" });
+        if (!response.ok) throw new Error(`hypothesize artifact bundle not found (${response.status})`);
         return response.json();
       },
       mapping: hypothesizeMapping,
     });
     const unregisterSource = context.resources.registerSource(source);
     const unregisterCapability = context.capabilities.register("hypothesis.read.v1", {
-      list: () => context.resources.list({ type: "hypothesis" }),
+      list: (domain: string) => context.resources.list({ type: "hypothesis", domain }),
     });
     const unregisterCommand = context.commands.register("hypothesize.open", () => {
       context.navigation.navigate("/hypotheses");

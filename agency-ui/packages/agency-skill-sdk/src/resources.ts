@@ -14,6 +14,24 @@ import type { AgencyActionResult } from "./actions";
 export type SkillId = string;
 export type ResourceType = string;
 
+/**
+ * The shared resource type for a workspace domain. A domain provider (currently
+ * Promisify) owns discovery and hierarchy; the shell and every skill consume
+ * only this neutral resource contract.
+ */
+export const DOMAIN_RESOURCE_TYPE = "agency.domain";
+
+export interface DomainResourceData {
+  path: string;
+  parent: string | null;
+  depth: number;
+  children: string[];
+  /** Repository-relative paths this domain describes, supplied by Promisify. */
+  subjects: string[];
+  declaredCount?: number;
+  effectivePromiseCount?: number;
+}
+
 /** A stable reference to a resource, e.g. `hypothesis:71`. */
 export interface ResourceRef {
   type: ResourceType;
@@ -60,6 +78,8 @@ export interface AgencyResource<T = unknown> {
   id: string;
   type: ResourceType;
   ownerSkill: SkillId;
+  /** Domain this generated or live artifact applies to. Unscoped resources never satisfy a domain query. */
+  domain?: string;
   schemaVersion: number;
   title?: string;
   status?: string;
@@ -82,6 +102,7 @@ export interface AgencyRelation {
 export interface ResourceQuery {
   type?: ResourceType | ResourceType[];
   ownerSkill?: SkillId;
+  domain?: string;
   ids?: string[];
   search?: string;
 }
@@ -98,6 +119,7 @@ export interface ResourceChange {
 export interface ResourceMutation {
   kind: ResourceChangeKind;
   ref: ResourceRef;
+  domain?: string;
   data?: unknown;
   /** Optimistic-concurrency guard for `live` sources. */
   expectedVersion?: number;

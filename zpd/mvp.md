@@ -4,6 +4,22 @@ The MVP should be a **thin vertical slice** that proves one claim:
 
 It should not try to become a complete learning management system.
 
+## Agency Engineering dependency and ontology
+
+ZPD has a hard dependency on Promisify. Unlike LTP and Hypothesize, it must not run
+without a validated promise domain model because its learner estimates assess capacity
+promises effective in that domain.
+
+A ZPD capacity promise states what a learner or role can be expected to do under stated
+conditions. This is not necessarily a hypothesis and does not require an LTP model. The
+domain describes the capability **type** and inherits promises hierarchically; the learner,
+attempt, or work product is the assessed **token**. ZPD assessments may be graded,
+uncertain, and subjective. They must retain assessor, evidence, conditions, and revision
+rather than collapsing into a kept/broken fact on the promise.
+
+The current document specifies an MVP; the live UI demo is not a shipped ZPD skill or a
+complete learning-assessment implementation.
+
 # MVP user flow
 
 ```text

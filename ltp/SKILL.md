@@ -26,6 +26,21 @@ covers the **judgment** work: interpreting a repository, proposing meaning,
 scrutinizing causality, and repairing the model. Ordinary regeneration is not
 your job -- developers and CI run `sync`/`check`.
 
+## Agency Engineering composition
+
+LTP implements the Change Loop and remains usable on its own. Promisify is recommended,
+not required. Before starting, determine whether the current scope already has Promisify
+context (an explicit result for this task or a `.norms/` model covering the scope). If it
+does not, ask whether the user wants to run Promisify first. Continue standalone when the
+user declines.
+
+LTP owns goals, critical success factors, necessary conditions, causal claims, and their
+logical status. When Promisify context exists, expose LTP entity and relation **types** as
+subdomains and their concrete records as assessable **subjects**. Never infer an LTP
+necessary condition merely because a promise exists, and never copy an LTP entity into a
+second promise-owned object model. Hypothesize is an optional empirical envelope around
+LTP-owned assertions.
+
 ## Why this exists
 
 An ordinary diagram expresses someone's perception. The Categories of Legitimate

@@ -83,16 +83,31 @@ body {
   align-items: center;
   gap: 8px;
   font-weight: 600;
+  color: var(--ak-text);
+  text-decoration: none;
 }
 .shell__brand-mark {
   color: var(--ak-accent);
 }
-.shell__skills {
+.shell__context {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  gap: 8px;
   flex: 1;
+  min-width: 0;
+  color: var(--ak-muted);
+}
+.shell__context-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.shell__context code {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ak-text);
+  font-size: 12px;
 }
 
 /* --- nav --- */
@@ -102,8 +117,77 @@ body {
   padding: 12px 8px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 12px;
   overflow: auto;
+}
+.navsection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+}
+.navsection--domains {
+  flex: 1 1 50%;
+  overflow: auto;
+}
+.navsection--skills {
+  flex: 1 1 50%;
+  overflow: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--ak-border);
+}
+.navsection__title {
+  margin: 0;
+  padding: 0 10px 6px;
+  color: var(--ak-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.domain-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.domain-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ak-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+}
+.domain-link:hover {
+  background: var(--ak-surface-2);
+  color: var(--ak-text);
+}
+.domain-link.is-active {
+  background: color-mix(in srgb, var(--ak-accent) 18%, transparent);
+  color: var(--ak-text);
+}
+.domain-link__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.domain-link__count {
+  min-width: 20px;
+  padding: 0 6px;
+  border: 1px solid var(--ak-border);
+  border-radius: 999px;
+  color: var(--ak-muted);
+  background: var(--ak-surface-2);
+  font-size: 11px;
+  text-align: center;
 }
 .navlink {
   display: block;

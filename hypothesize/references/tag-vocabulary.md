@@ -1,6 +1,6 @@
 # Tag vocabulary
 
-The controlled vocabulary for acceptance features/tests. `hypothesize` reads these tags from the acceptance report to derive capability status and evidence maturity, and to enforce traceability. Tags are the interface between the tests and the registry — use them exactly as defined here. Under behave they are Gherkin `@tags`; under pytest they are the adapter's equivalent markers.
+The controlled vocabulary for acceptance features/tests. `hypothesize` reads these tags from an acceptance report, or directly from source-only Gherkin through the `gherkin` adapter, to derive capability status and evidence maturity and enforce traceability. Tags are the interface between tests and the registry — use them exactly as defined here. Source-only Gherkin is always untested/skipped and can never claim implementation evidence.
 
 ## Contents
 - [Domain / architecture tags](#domain--architecture-tags)

@@ -9,7 +9,7 @@ The portable unit is this directory, whose required entrypoint is `SKILL.md`. Su
 Repository installation:
 
 ```text
-<repo>/.agents/skills/normative-promises/SKILL.md
+<repo>/.agents/skills/promisify/SKILL.md
 ```
 
 Codex can select the skill implicitly from its description or explicitly through the skill picker or mention mechanism supported by the client.
@@ -21,10 +21,10 @@ Use `AGENTS.md` for small, always-loaded repository guidance. The skill itself i
 Repository installation:
 
 ```text
-<repo>/.claude/skills/normative-promises/SKILL.md
+<repo>/.claude/skills/promisify/SKILL.md
 ```
 
-Claude Code can select the skill when relevant or invoke it as `/normative-promises`.
+Claude Code can select the skill when relevant or invoke it as `/promisify`.
 
 Claude Code reads `CLAUDE.md` rather than `AGENTS.md`. To share root guidance, create:
 
@@ -36,11 +36,11 @@ or use the provided snippets.
 
 ## One canonical copy
 
-In a repository supporting both clients, keep the canonical skill under `.agents/skills/normative-promises` and symlink `.claude/skills/normative-promises` to it, or copy the same directory to both locations.
+In a repository supporting both clients, keep the canonical skill under `.agents/skills/promisify` and symlink `.claude/skills/promisify` to it, or copy the same directory to both locations.
 
 ## Hosted skill upload
 
-The downloadable zip contains one top-level `normative-promises/` directory, matching hosted skill bundle expectations.
+The downloadable zip contains one top-level `promisify/` directory, matching hosted skill bundle expectations.
 
 ## Verification prompts
 

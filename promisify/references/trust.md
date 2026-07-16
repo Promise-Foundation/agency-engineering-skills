@@ -8,7 +8,7 @@ A domain has no single objective trust score. A trust result is always relative 
 trust(domain, observer, accepted assessments, resolution policy, snapshot)
 ```
 
-## Default score
+## Version 1 baseline ratio
 
 After resolving one scorable verdict for each effective promise in the target domain:
 
@@ -19,6 +19,16 @@ score = kept / (kept + broken)
 Exclude `unknown`, `not_applicable`, and unresolved `disputed` verdicts from the denominator by default.
 
 When `kept + broken == 0`, return `score: null`.
+
+This ratio is the simplest demonstration of an observer-relative trust view. It
+is already more informative than a flat reputation score because the underlying
+promise dimensions, domains, verdicts, evidence, disagreement, and coverage
+remain inspectable. It is not an adequate general model of trust.
+
+Equal weighting allows trivial promises to outnumber a critical broken promise.
+Excluding disputes can raise the ratio even while uncertainty increases. For
+those reasons, never publish the scalar alone, rank domains by it alone, or use
+it as an authorization decision without an explicit consumer policy.
 
 ## Coverage
 
@@ -96,9 +106,25 @@ Only compare scores when the following are compatible or differences are explici
 
 A rise in score caused by lower coverage is not necessarily an improvement.
 
+Every presentation must retain the promise-by-promise verdict vector and call
+out broken and disputed promises. Coverage is a separate dimension, not a
+confidence decoration on the score.
+
 ## Weighting
 
-Version 1's default is equal weight per effective promise. Weighted trust is an extension policy, not intrinsic promise truth. A future view may map promise addresses or tags to weights, but reports must include the mapping.
+Version 1's default is equal weight per effective promise. Weighted, severity-aware,
+and decision-specific trust are planned extension policies, not intrinsic promise
+truth. A future view may map promise addresses or tags to weights, but reports
+must include the mapping and must preserve the unweighted vector.
+
+## Staleness
+
+An assessment is current only for the subject revision or digest it identifies.
+A revision-pinned view excludes nonmatching assessments. An unpinned view may
+select the newest claim for exploration, but must label the result cross-time and
+potentially stale. Consumers must not treat that exploratory result as current
+authorization. Automatic digest comparison and expiry windows remain planned
+policies; until implemented, re-assess after a material subject change.
 
 ## Generated report requirements
 

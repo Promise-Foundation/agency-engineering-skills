@@ -67,69 +67,85 @@ export interface LtpModel {
   [key: string]: unknown;
 }
 
+export interface LtpArtifactBundle {
+  artifacts: { domain: string; manifest: LtpModel }[];
+}
+
 const OWNER = "ltp";
+
+export function scopedLtpId(domain: string, localId: string): string {
+  return `${encodeURIComponent(domain)}::${localId}`;
+}
 
 export const ltpMapping: ManifestMapping = {
   types: ["ltp.model", "ltp.entity", "ltp.claim"],
 
   toResources(manifest: unknown): AgencyResource[] {
-    const model = manifest as LtpModel;
-    const provenance = {
-      determinism: "static" as const,
-      sourceId: "ltp:dashboard",
-      sourceHash: model.build?.source_hash,
-    };
-    const resources: AgencyResource[] = [
-      {
-        id: "model",
+    const resources: AgencyResource[] = [];
+    for (const artifact of (manifest as LtpArtifactBundle).artifacts ?? []) {
+      const { domain, manifest: model } = artifact;
+      const provenance = {
+        determinism: "static" as const,
+        sourceId: `ltp:dashboard:${domain}`,
+        sourceHash: model.build?.source_hash,
+      };
+      resources.push({
+        id: scopedLtpId(domain, "model"),
         type: "ltp.model",
         ownerSkill: OWNER,
+        domain,
         schemaVersion: 2,
         title: model.project?.name ?? "LTP model",
         status: model.health?.publishable ? "publishable" : "invalid",
         data: model,
         provenance,
-      },
-    ];
-    for (const entity of model.entities ?? []) {
-      resources.push({
-        id: entity.id,
-        type: "ltp.entity",
-        ownerSkill: OWNER,
-        schemaVersion: 2,
-        title: entity.statement,
-        status: entity.review_status,
-        data: entity,
-        provenance,
       });
-    }
-    for (const claim of model.causal_claims ?? []) {
-      resources.push({
-        id: claim.id,
-        type: "ltp.claim",
-        ownerSkill: OWNER,
-        schemaVersion: 2,
-        title: claim.id,
-        status: claim.logic_status,
-        data: claim,
-        provenance,
-      });
+      for (const entity of model.entities ?? []) {
+        resources.push({
+          id: scopedLtpId(domain, entity.id),
+          type: "ltp.entity",
+          ownerSkill: OWNER,
+          domain,
+          schemaVersion: 2,
+          title: entity.statement,
+          status: entity.review_status,
+          data: entity,
+          provenance,
+        });
+      }
+      for (const claim of model.causal_claims ?? []) {
+        resources.push({
+          id: scopedLtpId(domain, claim.id),
+          type: "ltp.claim",
+          ownerSkill: OWNER,
+          domain,
+          schemaVersion: 2,
+          title: claim.id,
+          status: claim.logic_status,
+          data: claim,
+          provenance,
+        });
+      }
     }
     return resources;
   },
 
   toRelations(manifest: unknown): AgencyRelation[] {
-    const model = manifest as LtpModel;
     const relations: AgencyRelation[] = [];
-    for (const claim of model.causal_claims ?? []) {
-      if (claim.verification?.hypothesis_ref) {
-        relations.push({
-          id: `ltp:verified-by:${claim.id}`,
-          type: "VERIFIED_BY",
-          from: { type: "ltp.claim", id: claim.id },
-          to: { type: "hypothesis", id: claim.verification.hypothesis_ref },
-          metadata: { role: claim.verification.role },
-        });
+    for (const { domain, manifest: model } of (manifest as LtpArtifactBundle).artifacts ?? []) {
+      for (const claim of model.causal_claims ?? []) {
+        if (claim.verification?.hypothesis_ref) {
+          relations.push({
+            id: `ltp:${encodeURIComponent(domain)}:verified-by:${claim.id}`,
+            type: "VERIFIED_BY",
+            from: { type: "ltp.claim", id: scopedLtpId(domain, claim.id) },
+            to: {
+              type: "hypothesis",
+              id: `${encodeURIComponent(domain)}::${claim.verification.hypothesis_ref}`,
+            },
+            metadata: { role: claim.verification.role, domain },
+          });
+        }
       }
     }
     return relations;

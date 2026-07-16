@@ -1,5 +1,5 @@
 version: 1
-skill: normative-promises
+skill: promisify
 cases:
   - id: declaration-does-not-contain-status
     prompt: >-

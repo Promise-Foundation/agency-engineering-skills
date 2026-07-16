@@ -1,4 +1,4 @@
-/** Read-only views for the Normative Promises explorer: the dashboard card and
+/** Read-only views for the Promisify explorer: the dashboard card and
  * the promise inspector, plus the shared model hook and formatting helpers the
  * workspace reuses. Nothing here recomputes inheritance, assessment selection,
  * or trust — it renders exactly what `norms.py explorer` already produced. */
@@ -56,7 +56,7 @@ export function verdictTone(verdict: Verdict | null | undefined): Tone {
 }
 
 /** Compact dashboard summary: repository, counts, and the default view's trust. */
-export function PromisesCard({ host }: HostProps) {
+export function PromisesCard({ host, domain: domainRef }: HostProps) {
   const model = useExplorer(host);
   if (!model)
     return (
@@ -68,8 +68,13 @@ export function PromisesCard({ host }: HostProps) {
   const repository = model.repository;
   const defaultView = repository.defaultView ?? model.views[0]?.name ?? "";
   const view = model.views.find((v) => v.name === defaultView) ?? model.views[0] ?? null;
-  const domain = view?.domain ?? "/";
+  const requestedDomain = domainRef?.id ?? view?.domain ?? "/";
+  const domain = model.domains.some((item) => item.domain === requestedDomain)
+    ? requestedDomain
+    : (view?.domain ?? "/");
   const entry = model.trust.find((t) => t.view === defaultView && t.domain === domain) ?? null;
+  const effective = model.effective[domain] ?? [];
+  const declared = effective.filter((promise) => !promise.inherited).length;
 
   return (
     <Card
@@ -82,8 +87,8 @@ export function PromisesCard({ host }: HostProps) {
       }
     >
       <Toolbar>
-        <Chip tone="info">{model.domains.length} domains</Chip>
-        <Chip tone="info">{model.promises.length} promises</Chip>
+        <Chip tone="info">{effective.length} effective</Chip>
+        <Chip tone="info">{declared} declared here</Chip>
       </Toolbar>
       <div className="pf-card-trust">
         <Field label={`Default view · ${defaultView || "—"}`}>

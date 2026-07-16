@@ -42,7 +42,7 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 236px minmax(0, 1.05fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.35fr);
   grid-template-rows: minmax(0, 1fr);
   gap: 12px;
 }
@@ -192,61 +192,7 @@
   color: var(--ak-text);
 }
 
-/* --- pane 1: domain tree --- */
-.pf-tree__list {
-  list-style: none;
-  margin: 0;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.pf-tree__row {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 7px 10px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  background: none;
-  color: var(--ak-muted);
-  cursor: pointer;
-  font: inherit;
-  font-size: 13px;
-  text-align: left;
-}
-.pf-tree__row:hover {
-  background: var(--ak-surface-2);
-  color: var(--ak-text);
-}
-.pf-tree__row.is-active {
-  background: color-mix(in srgb, var(--ak-accent) 16%, transparent);
-  border-color: color-mix(in srgb, var(--ak-accent) 45%, transparent);
-  color: var(--ak-text);
-}
-.pf-tree__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.pf-badge {
-  flex: 0 0 auto;
-  min-width: 20px;
-  text-align: center;
-  padding: 1px 7px;
-  border-radius: 999px;
-  font-size: 11px;
-  color: var(--ak-muted);
-  background: var(--ak-surface-2);
-  border: 1px solid var(--ak-border);
-}
-.pf-tree__row.is-active .pf-badge {
-  color: var(--ak-text);
-}
-
-/* --- pane 2: effective promises --- */
+/* --- effective promises --- */
 .pf-effective,
 .pf-explain {
   display: block;
@@ -324,7 +270,7 @@
   color: var(--ak-muted);
 }
 
-/* --- pane 3: explanation --- */
+/* --- explanation --- */
 .pf-explain__body {
   display: flex;
   flex-direction: column;

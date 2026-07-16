@@ -25,24 +25,37 @@ function StatusChip({ value }: { value?: string }) {
   return <Chip tone={toneFor(value)}>{label(value)}</Chip>;
 }
 
-function useHypotheses(host: HostProps["host"]): AgencyResource<HypothesisRow>[] {
+function useHypotheses(
+  host: HostProps["host"],
+  domain: string | null,
+): { rows: AgencyResource<HypothesisRow>[]; loading: boolean } {
   const [rows, setRows] = useState<AgencyResource<HypothesisRow>[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     let live = true;
-    void host.resources.list({ type: "hypothesis" }).then((items) => {
-      if (live) setRows(items as AgencyResource<HypothesisRow>[]);
+    if (!domain) {
+      setRows([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    void host.resources.list({ type: "hypothesis", domain }).then((items) => {
+      if (!live) return;
+      setRows(items as AgencyResource<HypothesisRow>[]);
+      setLoading(false);
     });
     return () => {
       live = false;
     };
-  }, [host]);
-  return rows;
+  }, [host, domain]);
+  return { rows, loading };
 }
 
 type Filter = "all" | "needs-outcome" | "unresolved";
 
-export function HypothesisTable({ host }: HostProps) {
-  const rows = useHypotheses(host);
+export function HypothesisTable({ host, domain }: HostProps) {
+  const domainPath = domain?.id ?? null;
+  const { rows, loading } = useHypotheses(host, domainPath);
   const [filter, setFilter] = useState<Filter>("all");
 
   const needsOutcome = useMemo(
@@ -56,11 +69,23 @@ export function HypothesisTable({ host }: HostProps) {
   const visible =
     filter === "needs-outcome" ? needsOutcome : filter === "unresolved" ? inconclusive : rows;
 
-  if (rows.length === 0) return <EmptyState title="Loading hypotheses…" />;
+  if (loading) return <EmptyState title="Loading hypotheses…" />;
+  if (rows.length === 0)
+    return (
+      <EmptyState
+        title={`Hypothesize has not been generated for ${domainPath ?? "this domain"}`}
+        hint="Generate a Hypothesize artifact for this domain before its propositions can be shown."
+      />
+    );
 
   const select = (ref: string) => {
     try {
-      host.selection.select(parseRef(ref));
+      const parsed = parseRef(ref);
+      const id =
+        domainPath && (parsed.type.startsWith("ltp.") || parsed.type.startsWith("zpd."))
+          ? `${encodeURIComponent(domainPath)}::${parsed.id}`
+          : parsed.id;
+      host.selection.select({ ...parsed, id });
     } catch {
       /* an illustrative ref that isn't a valid "type:id" — ignore */
     }
@@ -71,7 +96,9 @@ export function HypothesisTable({ host }: HostProps) {
       <div className="hyp-page__head">
         <div>
           <h1>Hypotheses</h1>
-          <p>Remote-work evidence review · generated from registered sources</p>
+          <p>
+            Working domain {domainPath ?? "not selected"} · generated from registered sources
+          </p>
         </div>
         <Chip tone="info">generated · read-only</Chip>
       </div>
@@ -109,7 +136,7 @@ export function HypothesisTable({ host }: HostProps) {
                 key={row.id}
                 onClick={() => host.selection.select({ type: "hypothesis", id: row.id })}
               >
-                <td className="hyp-id">{row.id}</td>
+                <td className="hyp-id">{row.data.id}</td>
                 <td className="hyp-prop">
                   <strong>{row.data.title}</strong>
                   {row.data.scope && <span>{row.data.scope}</span>}
@@ -170,8 +197,16 @@ function FilterButton({
   );
 }
 
-export function HypothesisCard({ host }: HostProps) {
-  const rows = useHypotheses(host);
+export function HypothesisCard({ host, domain }: HostProps) {
+  const domainPath = domain?.id ?? null;
+  const { rows, loading } = useHypotheses(host, domainPath);
+  if (loading) return <Card title="Hypotheses">Loading…</Card>;
+  if (rows.length === 0)
+    return (
+      <Card title="Hypotheses" subtitle={domainPath}>
+        Not generated for this domain.
+      </Card>
+    );
   const supported = rows.filter((r) => r.data.conclusion === "supported").length;
   const needsOutcome = rows.filter(
     (r) => (r.data.conclusion ?? "not_tested") === "not_tested",
@@ -199,7 +234,12 @@ export function HypothesisView({ host, resource }: ResourceComponentProps) {
   const hypothesis = resource.data as HypothesisRow;
   const selectRef = (ref: string) => {
     try {
-      host.selection.select(parseRef(ref));
+      const parsed = parseRef(ref);
+      const id =
+        resource.domain && (parsed.type.startsWith("ltp.") || parsed.type.startsWith("zpd."))
+          ? `${encodeURIComponent(resource.domain)}::${parsed.id}`
+          : parsed.id;
+      host.selection.select({ ...parsed, id });
     } catch {
       /* illustrative ref that isn't a valid "type:id" */
     }

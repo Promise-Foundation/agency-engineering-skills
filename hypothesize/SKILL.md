@@ -26,6 +26,19 @@ assertion
 
 The current CLI implements a concrete **software-research profile** for publishing deterministic project status. Use that profile when the target is a software project that adopts its contracts. Do not force open-ended research programs, strategies, causal models, or other epistemological projects into the software profile merely because the CLI exists.
 
+## Agency Engineering composition
+
+Hypothesize implements the Hypothesis Loop and remains usable on its own. Promisify is
+recommended, not required. Before starting, determine whether the current scope already
+has Promisify context (an explicit result for this task or a `.norms/` model covering the
+scope). If it does not, ask whether the user wants to run Promisify first. Continue
+standalone when the user declines.
+
+Use Promisify domains when present, but keep norms and fulfillment assessments out of the
+hypothesis layer. The coupled broken-promise → anomaly → explanation → LTP intervention
+handoff is a specified Agency Engineering integration, not a capability of the current
+Hypothesize CLI.
+
 ## Core invariants
 
 Preserve these in every workflow.
@@ -328,8 +341,8 @@ catalog = "research/portfolio.toml"
 evidence_dir = "research/evidence"
 
 [tool.hypothesize.runner]
-adapter = "behave"
-report = "artifacts/research/behave.json"
+adapter = "behave" # behave | pytest | gherkin
+report = "artifacts/research/behave.json" # a feature file/directory for gherkin
 
 [tool.hypothesize.evidence]
 collector = "mypkg.research:collect_evidence"
@@ -373,6 +386,11 @@ The registry and evidence records are authoritative inputs to the generated publ
 ## Tag contract
 
 See `references/tag-vocabulary.md` for complete details.
+
+Use the `gherkin` adapter for source-only planned requirements. It resolves
+`@hyp_*` and `@cap_*` tags but marks every scenario `untested`, or `skipped` when
+tagged `@wip`; it can never promote a capability or evidence maturity. Switch to
+the Behave or pytest report adapter when executable scenarios exist.
 
 ### Traceability tags
 

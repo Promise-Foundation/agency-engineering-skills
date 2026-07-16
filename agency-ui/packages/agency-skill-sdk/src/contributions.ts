@@ -25,6 +25,8 @@ export interface ContextPredicate {
 /** Props every plugin-contributed component receives. */
 export interface HostProps {
   host: AgencyHost;
+  /** The domain the user is currently working in, independent of inspector selection. */
+  domain?: ResourceRef | null;
 }
 
 export interface SlotProps extends HostProps {
@@ -66,6 +68,26 @@ export interface ResourceTypeContribution {
   icon?: ComponentType;
 }
 
+export type AssessmentAudience = "none" | "maintainer" | "user";
+
+/**
+ * Declare how a host-owned resource type projects into Promisify's domain
+ * hierarchy. The host skill keeps ownership of every type and token; this
+ * contribution only defines inherited promise context and assessment affordance.
+ */
+export interface PromiseTypeContribution {
+  id: string;
+  resourceType: ResourceType;
+  domainPrefix: string;
+  /** Read this field from resource.data to form a type subdomain. */
+  subtypeField?: string;
+  /** Use one fixed type segment when the resource has no subtype discriminator. */
+  fixedSubtype?: string;
+  typeAssessments: AssessmentAudience;
+  tokenAssessments: AssessmentAudience;
+  order?: number;
+}
+
 export interface ResourceViewContribution {
   id: string;
   resourceTypes: ResourceType[];
@@ -100,6 +122,7 @@ export interface Contributions {
   commands?: CommandContribution[];
   workspacePanels?: PanelContribution[];
   resourceTypes?: ResourceTypeContribution[];
+  promiseTypes?: PromiseTypeContribution[];
   resourceViews?: ResourceViewContribution[];
   inspectors?: InspectorContribution[];
   dashboardCards?: DashboardCardContribution[];

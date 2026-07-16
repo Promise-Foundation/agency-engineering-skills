@@ -1,8 +1,12 @@
 /** Types + ResourceSource mapping for the normalized model emitted by
- * `norms.py explorer` (the normative-promises skill). The UI reads this; it
+ * `norms.py explorer` (the Promisify skill). The UI reads this; it
  * never re-implements inheritance, assessment selection, or trust scoring. */
 
-import type { AgencyResource } from "@agency/skill-sdk";
+import {
+  DOMAIN_RESOURCE_TYPE,
+  type AgencyResource,
+  type DomainResourceData,
+} from "@agency/skill-sdk";
 import type { ManifestMapping } from "@agency/core";
 
 export type Verdict = "kept" | "broken" | "unknown" | "not_applicable" | "disputed";
@@ -12,6 +16,7 @@ export interface DomainRecord {
   parent: string | null;
   depth: number;
   children: string[];
+  subjects: string[];
   declaredCount: number;
   effectivePromiseCount: number;
 }
@@ -95,7 +100,7 @@ export const PROMISE_TYPE = "norms.promise";
 const OWNER = "promisify";
 
 export const promisifyMapping: ManifestMapping = {
-  types: [MODEL_TYPE, PROMISE_TYPE],
+  types: [DOMAIN_RESOURCE_TYPE, MODEL_TYPE, PROMISE_TYPE],
   toResources(manifest: unknown): AgencyResource[] {
     const model = manifest as Explorer;
     const provenance = { determinism: "static" as const, sourceId: "promisify:explorer" };
@@ -110,6 +115,26 @@ export const promisifyMapping: ManifestMapping = {
         provenance,
       },
     ];
+    for (const domain of model.domains ?? []) {
+      const data: DomainResourceData = {
+        path: domain.domain,
+        parent: domain.parent,
+        depth: domain.depth,
+        children: domain.children,
+        subjects: domain.subjects,
+        declaredCount: domain.declaredCount,
+        effectivePromiseCount: domain.effectivePromiseCount,
+      };
+      resources.push({
+        id: domain.domain,
+        type: DOMAIN_RESOURCE_TYPE,
+        ownerSkill: OWNER,
+        schemaVersion: 1,
+        title: domain.domain,
+        data,
+        provenance,
+      });
+    }
     for (const promise of model.promises ?? []) {
       resources.push({
         id: promise.address,

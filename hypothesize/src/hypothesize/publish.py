@@ -12,6 +12,7 @@ except ModuleNotFoundError:  # Python 3.10 and earlier
     import tomli as tomllib  # type: ignore[no-redef]
 
 from .adapters import behave as behave_adapter
+from .adapters import gherkin as gherkin_adapter
 from .adapters import pytest as pytest_adapter
 from .collector import EvidenceBundle, load_collector, load_evidence_dir
 from .config import Config, ConfigError
@@ -19,6 +20,7 @@ from .core import ResearchStatusService
 
 _ADAPTERS = {
     "behave": behave_adapter.load_scenarios,
+    "gherkin": gherkin_adapter.load_scenarios,
     "pytest": pytest_adapter.load_scenarios,
 }
 

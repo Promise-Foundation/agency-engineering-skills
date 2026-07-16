@@ -1,0 +1,45 @@
+apiVersion: agency-engineering/v1
+kind: SkillSet
+metadata:
+  name: agency-engineering-skills
+spec:
+  dependencyPolicy:
+    required: refuse to run when the dependency is unavailable
+    recommended: offer to run the dependency first, then continue standalone if declined
+    optional: use the integration when present without prompting
+  skills:
+    - id: promisify
+      path: promisify
+      loop: promise
+      maturity: shipped
+      dependencies: []
+    - id: ltp
+      path: ltp
+      loop: change
+      maturity: shipped
+      dependencies:
+        - skill: promisify
+          strength: recommended
+          purpose: inherit domain context and expose LTP-owned types and instances for promise assessment
+        - skill: hypothesize
+          strength: optional
+          purpose: attach empirical standing to LTP-owned causal claims
+    - id: hypothesize
+      path: hypothesize
+      loop: hypothesis
+      maturity: shipped
+      dependencies:
+        - skill: promisify
+          strength: recommended
+          purpose: reuse normative domains without turning promises into hypotheses
+        - skill: ltp
+          strength: optional
+          purpose: attach epistemic envelopes to LTP-owned assertions
+    - id: zpd
+      path: zpd
+      loop: learning
+      maturity: specified
+      dependencies:
+        - skill: promisify
+          strength: required
+          purpose: represent assessable learner-capacity promises in inherited domains

@@ -35,6 +35,7 @@ function matchesResource(resource: AgencyResource, query?: ResourceQuery): boole
   const types = requestedTypes(query);
   if (types && !types.includes(resource.type)) return false;
   if (query.ownerSkill && resource.ownerSkill !== query.ownerSkill) return false;
+  if (query.domain && resource.domain !== query.domain) return false;
   if (query.ids && !query.ids.includes(resource.id)) return false;
   if (query.search) {
     const needle = query.search.toLowerCase();

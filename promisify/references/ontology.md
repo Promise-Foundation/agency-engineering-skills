@@ -6,7 +6,9 @@ This ontology represents normative expectations inside a repository while preser
 
 ## Primitive: domain
 
-A domain is a hierarchical namespace.
+A domain is a hierarchical namespace for a promise-bearing type or scope. It is
+roughly analogous to an agent in Promise Theory, while adding ancestry so that
+promises can be inherited by more specific types and contexts.
 
 Examples:
 
@@ -19,6 +21,24 @@ Examples:
 ```
 
 A domain path is absolute, slash-delimited, normalized, and nestable. Domain hierarchy is defined by path ancestry, not by tags or file placement alone.
+
+A domain may denote a methodology-level type, a host tool's entity or relation
+type, a capability family, or a repository scope. A domain is not normally the
+concrete instance being judged.
+
+## Primitive: subject
+
+A subject is a token: the particular entity, relation, learner, artifact, or
+revision being assessed against promises effective in a domain. For example:
+
+```text
+domain:  /skills/ltp/entities/necessary-condition
+subject: ltp://projects/metacrisis/entities/NC-17
+```
+
+The `necessary_condition` type and the `NC-17` token remain owned by LTP.
+Promisify supplies inherited promises and attributable assessments about them;
+it does not re-represent the host object or claim its logical status.
 
 ## Primitive: promise
 
@@ -60,6 +80,12 @@ A promise does not contain:
 - a mutable compliance field;
 - a privileged objective truth claim.
 
+Promises may describe normative obligations, general capacities, quality
+expectations, or meta-level rules about a method. They may be as granular as the
+consumer needs. They are more general than LTP necessary conditions and
+hypotheses: not every assessable capacity is an empirical proposition, and not
+every promise warrants a causal model.
+
 ## Primitive: assessment
 
 An assessment is an assessor's claim about a promise as effective in a domain at a particular observation point.
@@ -75,6 +101,12 @@ It contains:
 - optional confidence and subject scope.
 
 An assessment does not mutate the promise. Multiple assessments may coexist and disagree.
+
+Both type-level and token-level assessments are permitted. Early user-facing
+interfaces should normally emphasize token assessment; type-level judgments are
+often maintainer or framework-level claims until suitable policy and evidence
+are available. Verdicts may represent nuanced, subjective judgment. A binary
+kept/broken view is only the smallest profile, not the ontology's limit.
 
 ## Derived concept: effective promise
 
@@ -131,6 +163,8 @@ It is not a source of truth. It records:
 8. Missing evidence is not equivalent to a broken promise.
 9. Disagreement is data and must not be silently erased.
 10. Broad promises have broad inherited consequences and require deliberate placement.
+11. Host-owned types and tokens retain their identity and domain semantics.
+12. Type projection creates assessment context, not a duplicate object model.
 
 ## Vocabulary
 
@@ -140,6 +174,7 @@ It is not a source of truth. It records:
 | Local name | Promise name beginning with `_`. |
 | Canonical address | Declaring domain plus local name. |
 | Target domain | Domain currently being inspected, assessed, or scored. |
+| Subject | Concrete token being assessed in an effective domain. |
 | Effective promise | A promise applicable to a target domain through declaration or inheritance. |
 | Assessor | Actor or system that makes an assessment claim. |
 | Observer | Actor or policy owner whose trust view selects assessment claims. |

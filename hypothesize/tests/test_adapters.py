@@ -8,6 +8,7 @@ import pytest
 
 from hypothesize.adapters import TraceabilityError
 from hypothesize.adapters.behave import load_scenarios as load_behave
+from hypothesize.adapters.gherkin import load_scenarios as load_gherkin
 from hypothesize.adapters.pytest import load_scenarios as load_pytest
 
 # Graphist derives hypothesis tags from ids (no explicit tag); uptake uses
@@ -94,3 +95,24 @@ def test_pytest_report_normalizes(tmp_path):
     assert scenarios[0]["evidence_kind"] == "mechanism"
     assert scenarios[0]["status"] == "passed"
     assert scenarios[1]["status"] == "skipped"
+
+
+def test_gherkin_source_registers_wip_without_claiming_execution(tmp_path):
+    features = tmp_path / "features"
+    features.mkdir()
+    (features / "planned.feature").write_text(
+        """\
+@application @cap_x @hyp_ub_1 @evidence_scientific_contract @wip
+Feature: Planned capability
+  Scenario: Preserve traceability before implementation
+    Given a specified requirement
+    Then it is not treated as passing evidence
+""",
+        encoding="utf-8",
+    )
+    scenarios = load_gherkin(features, CATALOG)
+    assert scenarios[0]["capabilities"] == ["CAP-X"]
+    assert scenarios[0]["hypotheses"] == ["HYP-1"]
+    assert scenarios[0]["evidence_kind"] == "scientific_contract"
+    assert scenarios[0]["status"] == "skipped"
+    assert scenarios[0]["location"] == "features/planned.feature:3"

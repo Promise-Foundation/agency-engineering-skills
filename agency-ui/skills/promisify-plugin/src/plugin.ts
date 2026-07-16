@@ -1,11 +1,11 @@
-import type { AgencySkillPlugin } from "@agency/skill-sdk";
+import { DOMAIN_RESOURCE_TYPE, type AgencySkillPlugin } from "@agency/skill-sdk";
 import { manifestSource } from "@agency/core";
 import "./promisify.css";
 import { promisifyMapping } from "./mapping";
 import { PromiseView, PromisesCard } from "./views";
 import { PromisesWorkspace } from "./workspace";
 
-/** The normative-promises skill as a read-only explorer: one lens over `.norms/`
+/** Promisify as a read-only explorer: one lens over `.norms/`
  * data and a safe composer for the agent. It reads the JSON emitted by
  * `norms.py explorer`; every action button composes an agent instruction rather
  * than writing policy from the browser. */
@@ -21,6 +21,7 @@ export const promisifyPlugin: AgencySkillPlugin = {
       routes: [{ id: "promisify.workspace", path: "/promises", title: "Promises", component: PromisesWorkspace }],
       dashboardCards: [{ id: "promisify.card", title: "Normative promises", component: PromisesCard, order: 40 }],
       resourceTypes: [
+        { type: DOMAIN_RESOURCE_TYPE, label: "Domain" },
         { type: "norms.model", label: "Norms model" },
         { type: "norms.promise", label: "Promise" },
       ],

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "A read-only shell that hosts agency-engineering skills as plugins, with seams for mutable data (ZPD) baked in.",
+  "description": "A prototype domain-oriented plugin shell for Agency Engineering skills.",
   "workspaces": [
     "packages/*",
     "skills/*",
@@ -14,7 +14,7 @@
     "test": "vitest run",
     "build": "npm run build --workspace @agency/web",
     "dev": "npm run dev --workspace @agency/web",
-    "content:pull": "node scripts/pull-ltp-content.mjs"
+    "content:build": "python3 scripts/build-domain-artifacts.py"
   },
   "dependencies": {
     "@dagrejs/dagre": "^2.0.0",

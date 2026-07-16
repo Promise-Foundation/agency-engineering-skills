@@ -17,6 +17,7 @@ import type {
   NavigationService,
   NotificationService,
   PanelContribution,
+  PromiseTypeContribution,
   ResourceViewContribution,
   RouteContribution,
   SkillId,
@@ -53,6 +54,7 @@ export interface AggregatedContributions {
   resourceViews: Tagged<ResourceViewContribution>[];
   inspectors: Tagged<InspectorContribution>[];
   workspacePanels: Tagged<PanelContribution>[];
+  promiseTypes: Tagged<PromiseTypeContribution>[];
 }
 
 interface Resolution {
@@ -207,6 +209,7 @@ export class PluginHost {
       resourceViews: collect((m) => m.contributions?.resourceViews),
       inspectors: collect((m) => m.contributions?.inspectors),
       workspacePanels: collect((m) => m.contributions?.workspacePanels),
+      promiseTypes: collect((m) => m.contributions?.promiseTypes),
     };
   }
 

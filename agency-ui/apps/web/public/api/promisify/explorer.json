@@ -1,7 +1,7 @@
 {
   "apiVersion": "norms/v1",
   "kind": "Explorer",
-  "generatedAt": "2026-07-16T05:08:12.157886Z",
+  "generatedAt": "2026-07-16T14:01:46.934957Z",
   "toolVersion": "norms.py/0.1.0",
   "repository": {
     "name": "agency-engineering-skills",
@@ -17,6 +17,9 @@
         "/interface",
         "/skills"
       ],
+      "subjects": [
+        "."
+      ],
       "declaredCount": 0,
       "effectivePromiseCount": 0
     },
@@ -25,6 +28,9 @@
       "parent": "/",
       "depth": 1,
       "children": [],
+      "subjects": [
+        "agency-ui"
+      ],
       "declaredCount": 1,
       "effectivePromiseCount": 1
     },
@@ -35,7 +41,14 @@
       "children": [
         "/skills/hypothesize",
         "/skills/ltp",
-        "/skills/promisify"
+        "/skills/promisify",
+        "/skills/zpd"
+      ],
+      "subjects": [
+        "hypothesize",
+        "ltp",
+        "promisify",
+        "zpd"
       ],
       "declaredCount": 3,
       "effectivePromiseCount": 3
@@ -45,6 +58,9 @@
       "parent": "/skills",
       "depth": 2,
       "children": [],
+      "subjects": [
+        "hypothesize"
+      ],
       "declaredCount": 1,
       "effectivePromiseCount": 4
     },
@@ -53,6 +69,9 @@
       "parent": "/skills",
       "depth": 2,
       "children": [],
+      "subjects": [
+        "ltp"
+      ],
       "declaredCount": 1,
       "effectivePromiseCount": 4
     },
@@ -61,8 +80,22 @@
       "parent": "/skills",
       "depth": 2,
       "children": [],
+      "subjects": [
+        "promisify"
+      ],
       "declaredCount": 1,
       "effectivePromiseCount": 4
+    },
+    {
+      "domain": "/skills/zpd",
+      "parent": "/skills",
+      "depth": 2,
+      "children": [],
+      "subjects": [
+        "zpd"
+      ],
+      "declaredCount": 0,
+      "effectivePromiseCount": 3
     }
   ],
   "effective": {
@@ -187,6 +220,29 @@
         "inherited": false,
         "title": "Promises never store a verdict",
         "statement": "Subjects within this domain OUGHT to keep promise declarations free of any verdict, trust, or compliance state; only assessments may record kept/broken/trust."
+      }
+    ],
+    "/skills/zpd": [
+      {
+        "promise": "/skills/_declares_skill_manifest",
+        "declaredAt": "/skills",
+        "inherited": true,
+        "title": "Skills declare a manifest",
+        "statement": "Subjects represented within this domain OUGHT to declare a SKILL.md file at their root stating the skill's name, description, and operating instructions."
+      },
+      {
+        "promise": "/skills/_documents_references",
+        "declaredAt": "/skills",
+        "inherited": true,
+        "title": "Skills document non-trivial workflows",
+        "statement": "Subjects represented within this domain OUGHT to provide reference documentation for any non-trivial workflow, rather than relying on SKILL.md alone."
+      },
+      {
+        "promise": "/skills/_provides_automated_verification",
+        "declaredAt": "/skills",
+        "inherited": true,
+        "title": "Skills verify themselves automatically",
+        "statement": "Subjects represented within this domain OUGHT to provide an automated, repeatable way to check their own correctness -- a test suite or a bundled validator -- rather than depending on manual review alone."
       }
     ]
   },
@@ -905,6 +961,48 @@
           "assessmentIds": [
             "assessment-promisify-no-verdicts-001"
           ]
+        }
+      ]
+    },
+    {
+      "view": "default",
+      "domain": "/skills/zpd",
+      "observer": "team/agency-engineering-maintainers",
+      "snapshot": {
+        "revision": "24481a7f1e9581f1207cca488cce24281710e04e"
+      },
+      "score": null,
+      "coverage": 0.0,
+      "effectivePromiseCount": 3,
+      "counts": {
+        "kept": 0,
+        "broken": 0,
+        "unknown": 3,
+        "not_applicable": 0,
+        "disputed": 0
+      },
+      "conflictPolicy": "unknown-on-conflict",
+      "selectedAssessmentIds": [],
+      "unresolved": [
+        "/skills/_declares_skill_manifest",
+        "/skills/_documents_references",
+        "/skills/_provides_automated_verification"
+      ],
+      "results": [
+        {
+          "promise": "/skills/_declares_skill_manifest",
+          "verdict": "unknown",
+          "assessmentIds": []
+        },
+        {
+          "promise": "/skills/_documents_references",
+          "verdict": "unknown",
+          "assessmentIds": []
+        },
+        {
+          "promise": "/skills/_provides_automated_verification",
+          "verdict": "unknown",
+          "assessmentIds": []
         }
       ]
     }

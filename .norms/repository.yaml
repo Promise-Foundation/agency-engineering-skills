@@ -13,3 +13,18 @@ spec:
   trustViewRoot: .norms/views
   reportRoot: .norms/reports
   defaultView: default
+  domains:
+    - path: /
+      subjects: [.]
+    - path: /interface
+      subjects: [agency-ui]
+    - path: /skills
+      subjects: [hypothesize, ltp, promisify, zpd]
+    - path: /skills/hypothesize
+      subjects: [hypothesize]
+    - path: /skills/ltp
+      subjects: [ltp]
+    - path: /skills/promisify
+      subjects: [promisify]
+    - path: /skills/zpd
+      subjects: [zpd]

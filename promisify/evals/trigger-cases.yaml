@@ -1,5 +1,5 @@
 version: 1
-skill: normative-promises
+skill: promisify
 shouldTrigger:
   - Encode the rule that all Python domain models ought to inherit from Pydantic BaseModel.
   - Add a promise under /security that credentials ought never be committed.

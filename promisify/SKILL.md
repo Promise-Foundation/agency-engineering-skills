@@ -1,15 +1,22 @@
 ---
-name: normative-promises
-description: Define, inspect, assess, and repair repository norms as hierarchical domain-scoped promises, then compute observer-relative trust from kept and broken assessment claims. Use when a task mentions norms, promises, OUGHT requirements, domain inheritance, assessments, compliance, broken or kept promises, trust scores, or .norms files. Do not use for generic linting unless the rule is being represented as a promise or the user asks to create one.
-compatibility: Works with Agent Skills clients including Claude Code and Codex. Requires git. Bundled validation and trust scripts optionally require Python 3.11+, PyYAML, and jsonschema.
-metadata:
-  version: "0.1.0"
-  ontology: "norms/v1"
+name: promisify
+description: Define, inspect, assess, and repair norms or capacities as hierarchical domain-scoped promises, then derive observer-relative trust views from attributable assessments. Use when a task mentions Promisify, norms, promises, OUGHT requirements, capability promises, domain inheritance, assessments, compliance, broken or kept promises, trust views, or .norms files. Do not use for generic linting unless the rule is being represented as a promise or the user asks to create one.
 ---
 
-# Normative promises
+# Promisify
 
 Use this skill to represent repository norms without confusing declarations with judgments.
+
+## Agency Engineering composition
+
+Promisify implements the Promise Loop and is the recommended shared context for the
+other Agency Engineering skills. It has no skill dependency and can run alone. LTP and
+Hypothesize may consume its domains but retain ownership of their own entities, relations,
+and status dimensions. ZPD has a hard dependency on Promisify.
+
+Do not convert host objects into competing promise objects. Project a host-owned type to
+a subdomain, then assess its instances as subjects of promises effective in that domain.
+Read [references/ontology.md](references/ontology.md) for the type/token boundary.
 
 ## Non-negotiable invariants
 
@@ -18,7 +25,7 @@ Use this skill to represent repository norms without confusing declarations with
 3. Domains are slash-delimited hierarchical namespaces. A promise declared at domain `A` is effective in `A` and every descendant domain.
 4. Inheritance changes where a promise is effective; it never changes the promise's canonical address or provenance.
 5. An **assessment** is an assessor's time-bound, evidence-backed claim about a promise in an effective domain. Assessments may disagree.
-6. A **trust score** is a derived view. It belongs to an observer, selection policy, conflict policy, snapshot, and target domain—not to the domain or promise as intrinsic state.
+6. A **trust view** is derived. Its baseline ratio belongs to an observer, selection policy, conflict policy, snapshot, and target domain—not to the domain or promise as intrinsic state.
 7. Never overwrite or rewrite a promise merely to make an assessment pass. Change a promise only when the user is changing the norm itself.
 
 Read [references/ontology.md](references/ontology.md) before changing the data model.
@@ -63,7 +70,7 @@ Use when the user asks what is kept, broken, unknown, disputed, or applicable.
 
 Read [references/assessments.md](references/assessments.md) before resolving conflicts or aggregating subject evidence.
 
-### Compute trust
+### Compute a trust view
 
 Use when the user asks for trust, reliability, promise-keeping rate, or a score for a domain.
 
@@ -71,10 +78,11 @@ Use when the user asks for trust, reliability, promise-keeping rate, or a score 
 2. Resolve effective promises in the target domain.
 3. Select assessments according to the observer and snapshot.
 4. Resolve disagreements according to the view's declared conflict policy.
-5. Compute `kept / (kept + broken)` over resolved, scorable promises.
+5. Compute `kept / (kept + broken)` only as the version 1 baseline ratio over resolved, scorable promises.
 6. Exclude `unknown`, `not_applicable`, and unresolved disputes from the denominator unless the view explicitly says otherwise.
-7. Always report coverage, counts, observer, snapshot, policy, and the assessment inputs alongside the scalar score.
+7. Always report the promise-by-promise verdict vector, broken promises, coverage, counts, observer, snapshot, policy, and assessment inputs alongside the scalar ratio.
 8. Return `score: null` when there are no scorable promises.
+9. Never present the ratio as a complete or objective measure of trust, and never rank domains by it alone.
 
 Read [references/trust.md](references/trust.md) before calculating or comparing scores.
 

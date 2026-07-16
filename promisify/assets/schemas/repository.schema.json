@@ -24,7 +24,25 @@
         "assessmentRoot": {"const": ".norms/assessments"},
         "trustViewRoot": {"const": ".norms/views"},
         "reportRoot": {"type": "string", "default": ".norms/reports"},
-        "defaultView": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"}
+        "defaultView": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$"},
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "subjects"],
+            "properties": {
+              "path": {"type": "string", "pattern": "^/(?:[a-z0-9][a-z0-9_-]*(?:/[a-z0-9][a-z0-9_-]*)*)?$"},
+              "subjects": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {"type": "string", "minLength": 1}
+              }
+            },
+            "additionalProperties": false
+          },
+          "default": []
+        }
       },
       "additionalProperties": false
     }

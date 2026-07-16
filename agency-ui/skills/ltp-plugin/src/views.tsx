@@ -4,13 +4,11 @@ import type {
   AgencyResource,
   HostProps,
   ResourceComponentProps,
-  ResourceRef,
 } from "@agency/skill-sdk";
 import { Card, Chip, EmptyState, Field, Toolbar, type Tone } from "@agency/ui-kit";
 import { LtpGraph } from "./graph";
-import type { LtpClaim, LtpEntity, LtpModel } from "./mapping";
+import { scopedLtpId, type LtpClaim, type LtpEntity, type LtpModel } from "./mapping";
 
-const MODEL_REF: ResourceRef = { type: "ltp.model", id: "model" };
 const VIEW_ORDER = [
   "goal-tree",
   "current-reality",
@@ -20,32 +18,49 @@ const VIEW_ORDER = [
   "transition-tree",
 ];
 
-function useResource<T = unknown>(host: AgencyHost, ref: ResourceRef | null): AgencyResource<T> | null {
-  const [resource, setResource] = useState<AgencyResource<T> | null>(null);
+function useDomainModel(
+  host: AgencyHost,
+  domain: string | null,
+): { model: AgencyResource<LtpModel> | null; loading: boolean } {
+  const [resource, setResource] = useState<AgencyResource<LtpModel> | null>(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     let live = true;
-    if (!ref) {
+    if (!domain) {
       setResource(null);
+      setLoading(false);
       return;
     }
-    void host.resources.get(ref).then((value) => {
-      if (live) setResource(value as AgencyResource<T> | null);
+    setLoading(true);
+    void host.resources.list({ type: "ltp.model", domain }).then((items) => {
+      if (!live) return;
+      setResource((items[0] ?? null) as AgencyResource<LtpModel> | null);
+      setLoading(false);
     });
     return () => {
       live = false;
     };
-  }, [host, ref?.type, ref?.id]);
-  return resource;
+  }, [host, domain]);
+  return { model: resource, loading };
 }
 
 function severityTone(severity: string): Tone {
   return severity === "error" ? "negative" : severity === "warning" ? "warning" : "info";
 }
 
-export function LtpOverview({ host }: HostProps) {
-  const model = useResource<LtpModel>(host, MODEL_REF);
+export function LtpOverview({ host, domain }: HostProps) {
+  const domainPath = domain?.id ?? null;
+  const { model, loading } = useDomainModel(host, domainPath);
   const [viewKey, setViewKey] = useState("current-reality");
-  if (!model) return <EmptyState title="Loading the LTP model…" />;
+  if (loading) return <EmptyState title="Loading the LTP model…" />;
+  if (!model) {
+    return (
+      <EmptyState
+        title={`LTP has not been generated for ${domainPath ?? "this domain"}`}
+        hint="Generate an LTP artifact for this domain before its trees can be shown."
+      />
+    );
+  }
   const data = model.data;
   const available = VIEW_ORDER.filter((key) => data.views?.[key] && !data.views[key].empty);
   const active = available.includes(viewKey) ? viewKey : (available[0] ?? viewKey);
@@ -54,7 +69,9 @@ export function LtpOverview({ host }: HostProps) {
     <div className="ltp-overview">
       <div className="ltp-overview__head">
         <div>
-          <span className="ltp-eyebrow">Logical Thinking Processes</span>
+          <span className="ltp-eyebrow">
+            Logical Thinking Processes · working domain {domainPath ?? "not selected"}
+          </span>
           <h1>{data.project?.name ?? "LTP model"}</h1>
         </div>
         <Chip tone={data.health?.publishable ? "positive" : "negative"}>
@@ -79,18 +96,29 @@ export function LtpOverview({ host }: HostProps) {
         viewKey={active}
         onSelect={(id) => {
           const gate = (data.gates ?? []).find((g) => g.id === id);
-          if (gate) host.selection.select({ type: "ltp.claim", id: gate.claim });
+          if (gate && domainPath)
+            host.selection.select({ type: "ltp.claim", id: scopedLtpId(domainPath, gate.claim) });
           else if ((data.entities ?? []).some((e) => e.id === id))
-            host.selection.select({ type: "ltp.entity", id });
+            host.selection.select({
+              type: "ltp.entity",
+              id: scopedLtpId(domainPath ?? "/", id),
+            });
         }}
       />
     </div>
   );
 }
 
-export function LtpHealthCard({ host }: HostProps) {
-  const model = useResource<LtpModel>(host, MODEL_REF);
-  if (!model) return <Card title="LTP model health">Loading…</Card>;
+export function LtpHealthCard({ host, domain }: HostProps) {
+  const domainPath = domain?.id ?? null;
+  const { model, loading } = useDomainModel(host, domainPath);
+  if (loading) return <Card title="LTP model health">Loading…</Card>;
+  if (!model)
+    return (
+      <Card title="LTP model health" subtitle={domainPath}>
+        Not generated for this domain.
+      </Card>
+    );
   const health = model.data.health;
   return (
     <Card
@@ -117,7 +145,11 @@ export function LtpHealthCard({ host }: HostProps) {
             <button
               className="ltp-diaglist__target"
               disabled={!d.target}
-              onClick={() => d.target && host.selection.select({ type: "ltp.entity", id: d.target })}
+              onClick={() =>
+                d.target &&
+                domainPath &&
+                host.selection.select({ type: "ltp.entity", id: scopedLtpId(domainPath, d.target) })
+              }
             >
               {d.message}
             </button>
@@ -165,7 +197,10 @@ export function LtpClaimView({ host, resource }: ResourceComponentProps) {
           <button
             className="ltp-link"
             onClick={() =>
-              host.selection.select({ type: "hypothesis", id: claim.verification!.hypothesis_ref })
+              host.selection.select({
+                type: "hypothesis",
+                id: `${encodeURIComponent(resource.domain ?? "/")}::${claim.verification!.hypothesis_ref}`,
+              })
             }
           >
             {claim.verification.hypothesis_ref} ›

@@ -3,13 +3,25 @@ import { manifestSource } from "@agency/core";
 import { ltpMapping } from "./mapping";
 import { LtpClaimView, LtpEntityView, LtpHealthCard, LtpModelView, LtpOverview } from "./views";
 
-/** LTP as read-only plugin #1: a static source over its generated dashboard model. */
+/** LTP as a read-only plugin over domain-addressed generated dashboard models. */
 export const ltpPlugin: AgencySkillPlugin = {
   manifest: {
     id: "ltp",
     name: "LTP",
     version: "0.1.0",
     description: "Reconstruct a repository's logic as one validated Theory-of-Constraints model.",
+    recommendedDependencies: [
+      {
+        capability: "norms.read.v1",
+        reason: "Reuse Promisify domains and expose LTP-owned types and tokens for assessment.",
+      },
+    ],
+    optionalDependencies: [
+      {
+        capability: "hypothesis.read.v1",
+        reason: "Show empirical standing linked to LTP-owned causal claims.",
+      },
+    ],
     provides: ["ltp.model.v1"],
     contributions: {
       navigation: [{ id: "ltp.nav", label: "LTP", to: "/ltp", order: 10 }],
@@ -19,6 +31,24 @@ export const ltpPlugin: AgencySkillPlugin = {
         { type: "ltp.model", label: "LTP model" },
         { type: "ltp.entity", label: "LTP entity" },
         { type: "ltp.claim", label: "Causal claim" },
+      ],
+      promiseTypes: [
+        {
+          id: "ltp.entities.promise-type",
+          resourceType: "ltp.entity",
+          domainPrefix: "/skills/ltp/entities",
+          subtypeField: "kind",
+          typeAssessments: "maintainer",
+          tokenAssessments: "user",
+        },
+        {
+          id: "ltp.causal-claims.promise-type",
+          resourceType: "ltp.claim",
+          domainPrefix: "/skills/ltp/relations",
+          fixedSubtype: "causal-claim",
+          typeAssessments: "maintainer",
+          tokenAssessments: "user",
+        },
       ],
       resourceViews: [
         { id: "ltp.model.view", resourceTypes: ["ltp.model"], component: LtpModelView },
@@ -34,8 +64,8 @@ export const ltpPlugin: AgencySkillPlugin = {
       id: "ltp:dashboard",
       ownerSkill: "ltp",
       load: async () => {
-        const response = await fetch("/api/ltp/dashboard-model.json", { cache: "no-store" });
-        if (!response.ok) throw new Error(`LTP manifest not found (${response.status})`);
+        const response = await fetch("/api/ltp/artifacts.json", { cache: "no-store" });
+        if (!response.ok) throw new Error(`LTP artifact bundle not found (${response.status})`);
         return response.json();
       },
       mapping: ltpMapping,
@@ -43,7 +73,7 @@ export const ltpPlugin: AgencySkillPlugin = {
     const unregisterSource = context.resources.registerSource(source);
 
     const unregisterCapability = context.capabilities.register("ltp.model.v1", {
-      getModel: () => context.resources.get({ type: "ltp.model", id: "model" }),
+      getModel: (domain: string) => context.resources.list({ type: "ltp.model", domain }),
     });
 
     const unregisterCommand = context.commands.register("ltp.open", () => {

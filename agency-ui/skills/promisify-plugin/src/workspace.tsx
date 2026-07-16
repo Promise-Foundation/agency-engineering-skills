@@ -1,16 +1,15 @@
-/** The Normative Promises explorer route (/promises): a read-only, three-pane
- * workspace over one precomputed `norms.py explorer` model — a domain tree, the
- * effective promises for the selected domain, and an evidence + trust
- * explanation — under an observer/view trust header. It also offers a safe
+/** The Promisify explorer route (/promises): a read-only, two-pane
+ * workspace over one precomputed `norms.py explorer` model — effective promises
+ * for the shell-selected domain and an evidence + trust explanation — under an
+ * observer/view trust header. It also offers a safe
  * "draft a promise" composer that only writes an *agent instruction*, never
  * files. All inheritance, assessment selection, and trust are read, not
  * recomputed. */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { AgencyHost, HostProps } from "@agency/skill-sdk";
 import { Chip, EmptyState, Field } from "@agency/ui-kit";
 import type {
-  DomainRecord,
   EffectiveEntry,
   Explorer,
   Promise as PromiseModel,
@@ -19,32 +18,6 @@ import type {
 import { humanizeAssessor, pct, shortRev, useExplorer, verdictTone } from "./views";
 
 const NAME_PATTERN = /^_[a-z0-9]+(?:_[a-z0-9]+)*$/;
-
-/** Last path segment of a domain address; the root renders as "/". */
-function domainLabel(domain: string): string {
-  if (domain === "/") return "/";
-  const parts = domain.split("/").filter(Boolean);
-  return parts[parts.length - 1] ?? "/";
-}
-
-/** Depth-first flatten so each child sits under its own parent (the model's
- * `domains` array is breadth-first). */
-function orderDomains(domains: DomainRecord[]): DomainRecord[] {
-  const byDomain = new Map(domains.map((d) => [d.domain, d]));
-  const ordered: DomainRecord[] = [];
-  const seen = new Set<string>();
-  const visit = (domain: string) => {
-    if (seen.has(domain)) return;
-    const record = byDomain.get(domain);
-    if (!record) return;
-    seen.add(domain);
-    ordered.push(record);
-    for (const child of record.children) visit(child);
-  };
-  for (const root of domains.filter((d) => d.parent === null)) visit(root.domain);
-  for (const record of domains) if (!seen.has(record.domain)) ordered.push(record);
-  return ordered;
-}
 
 /** ISO instant → "2026-07-15 09:00" (stable, timezone-free). */
 function formatInstant(value: string | null | undefined): string {
@@ -72,28 +45,28 @@ function assessmentSummary(model: Explorer, address: string, domain: string): st
   return `${assessors.length} assessors assessed ${verdict}`;
 }
 
-export function PromisesWorkspace({ host }: HostProps) {
+export function PromisesWorkspace({ host, domain: domainRef }: HostProps) {
   const model = useExplorer(host);
   const [activeView, setActiveView] = useState<string | null>(null);
-  // `null` means "no explicit choice yet" -- the workspace opens on the active
-  // view's own target domain (where it has something to show) rather than an
-  // empty root. Once the user picks a domain, that choice sticks even if they
-  // then switch observer/view, since changing observer should only change the
-  // trust interpretation, not jump the user elsewhere.
-  const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
   const [selectedPromise, setSelectedPromise] = useState<string | null>(null);
   const [drafting, setDrafting] = useState(false);
 
-  if (!model) return <EmptyState title="Loading normative promises…" />;
+  useEffect(() => {
+    setSelectedPromise(null);
+  }, [domainRef?.id]);
+
+  if (!model) return <EmptyState title="Loading Promisify…" />;
 
   const views = model.views;
   const defaultViewName = model.repository.defaultView ?? views[0]?.name ?? "";
   const viewName =
     activeView && views.some((v) => v.name === activeView) ? activeView : defaultViewName;
   const activeViewDomain = views.find((v) => v.name === viewName)?.domain ?? "/";
-  const domain = selectedDomain ?? activeViewDomain;
+  const requestedDomain = domainRef?.id ?? activeViewDomain;
+  const domain = model.domains.some((item) => item.domain === requestedDomain)
+    ? requestedDomain
+    : activeViewDomain;
 
-  const ordered = orderDomains(model.domains);
   const trustEntry = model.trust.find((t) => t.view === viewName && t.domain === domain) ?? null;
   const effective = model.effective[domain] ?? [];
   const inherited = effective.filter((e) => e.inherited);
@@ -150,29 +123,6 @@ export function PromisesWorkspace({ host }: HostProps) {
       </header>
 
       <div className="pf-panes">
-        <section className="pf-pane pf-tree">
-          <h2 className="pf-pane__title">Domains</h2>
-          <ul className="pf-tree__list">
-            {ordered.map((record) => (
-              <li key={record.domain}>
-                <button
-                  className={`pf-tree__row${record.domain === domain ? " is-active" : ""}`}
-                  style={{ paddingLeft: 10 + record.depth * 14 }}
-                  onClick={() => {
-                    setSelectedDomain(record.domain);
-                    setSelectedPromise(null);
-                  }}
-                >
-                  <span className="pf-tree__name">{domainLabel(record.domain)}</span>
-                  <span className="pf-badge" title="Effective promises, including inherited">
-                    {record.effectivePromiseCount}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </section>
-
         <section className="pf-pane pf-effective">
           <h2 className="pf-pane__title">
             Effective promises
@@ -227,6 +177,7 @@ export function PromisesWorkspace({ host }: HostProps) {
 
       {drafting ? (
         <DraftDialog
+          key={domain}
           model={model}
           defaultDomain={domain}
           host={host}
@@ -549,7 +500,7 @@ function DraftDialog({
 
           <p className="pf-note">
             Read-only composer — this writes no files. Copy the instruction and hand it to the
-            agent, which runs the normative-promises skill and <code>norms.py validate</code>.
+            agent, which runs the Promisify skill and <code>norms.py validate</code>.
           </p>
         </div>
       </div>
@@ -566,7 +517,7 @@ function buildInstruction(input: {
 }): string {
   const subjectList = input.subjects.length ? input.subjects.join(", ") : "(none specified)";
   return [
-    "Using the normative-promises skill, declare a promise.",
+    "Using the Promisify skill, declare a promise.",
     `Normative statement: "${input.statement.trim()}".`,
     `Declaring domain: \`${input.domain}\`.`,
     `Local name: \`${input.name}\` (canonical address \`${input.address}\`).`,

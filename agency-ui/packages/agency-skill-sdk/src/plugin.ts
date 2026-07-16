@@ -19,6 +19,7 @@ export interface SkillDependency {
   skillId?: SkillId;
   capability?: CapabilityId;
   version?: string;
+  reason?: string;
 }
 
 export interface AgencySkillManifest {
@@ -28,6 +29,9 @@ export interface AgencySkillManifest {
   description: string;
 
   requires?: SkillDependency[];
+  /** Offer this dependency first, but keep the plugin usable without it. */
+  recommendedDependencies?: SkillDependency[];
+  /** Use silently when present; absence never blocks or prompts. */
   optionalDependencies?: SkillDependency[];
   provides?: CapabilityId[];
 

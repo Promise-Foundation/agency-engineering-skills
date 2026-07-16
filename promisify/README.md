@@ -1,10 +1,10 @@
-# Normative Promises Agent Skill
+# Promisify Agent Skill
 
-A portable Agent Skills package for representing norms in a repository as promises, assessments, and observer-relative trust views.
+A portable Agent Skills package for representing norms and capacities as promises, assessments, and observer-relative trust views.
 
 ## Concept in one paragraph
 
-A promise states what OUGHT to be true and is canonically addressed by a hierarchical domain plus a local name, such as `/biology/botany/_relates_to_plants`. Promises are inherited by descendant domains. A promise never stores whether it is kept or broken. Assessments are evidence-backed claims made by identified assessors at a particular time and repository revision. A trust score is computed for a target domain from selected assessments under an observer's declared policy, normally as `kept / (kept + broken)`, with coverage and disagreement reported separately.
+A promise states what OUGHT to be true or what capacity is expected under stated conditions. It is canonically addressed by a hierarchical domain plus a local name, such as `/biology/botany/_relates_to_plants`, and is inherited by descendant domains. A promise never stores whether it is kept or broken. Assessments are attributable, evidence-backed claims about a type or concrete subject. A trust view preserves the full verdict vector and may include the version 1 baseline ratio `kept / (kept + broken)` with coverage and disagreement shown separately.
 
 ## Package contents
 
@@ -24,7 +24,7 @@ From the repository root:
 
 ```bash
 mkdir -p .agents/skills
-cp -R /path/to/normative-promises .agents/skills/normative-promises
+cp -R /path/to/promisify .agents/skills/promisify
 ```
 
 Codex discovers repository skills under `.agents/skills` from the working directory up to the repository root.
@@ -37,7 +37,7 @@ From the repository root:
 
 ```bash
 mkdir -p .claude/skills
-cp -R /path/to/normative-promises .claude/skills/normative-promises
+cp -R /path/to/promisify .claude/skills/promisify
 ```
 
 Optionally copy `assets/templates/CLAUDE.md.snippet` into `CLAUDE.md`. If the project already uses `AGENTS.md`, Claude Code can import it from `CLAUDE.md` with `@AGENTS.md`.
@@ -48,8 +48,8 @@ Keep one canonical copy and link the other:
 
 ```bash
 mkdir -p .agents/skills .claude/skills
-cp -R /path/to/normative-promises .agents/skills/normative-promises
-ln -s ../../.agents/skills/normative-promises .claude/skills/normative-promises
+cp -R /path/to/promisify .agents/skills/promisify
+ln -s ../../.agents/skills/promisify .claude/skills/promisify
 ```
 
 On Windows, copy the directory twice or create a directory junction if symlinks are unavailable.

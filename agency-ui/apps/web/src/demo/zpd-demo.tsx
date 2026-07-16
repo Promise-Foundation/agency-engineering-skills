@@ -1,14 +1,13 @@
 /**
- * A LIVE, writable demo plugin -- the stand-in for a skill (ZPD) that fetches
- * from a mutable store. It exists to make the mutation seam visible in the
- * running shell, right beside the read-only LTP and Hypothesize plugins:
+ * A LIVE, writable ZPD stand-in backed by a mutable store. It uses the same
+ * resource seam as the read-only LTP and Hypothesize plugins:
  *
  *   - registers a `createMemorySource` (determinism: "live", writable, watchable);
  *   - its resources render with the shell's "editable · live" badge (canWrite === true);
  *   - creating/updating a learning job goes through `host.resources.apply(...)`,
  *     the exact same path a real backend-backed source would implement.
  *
- * Nothing in the shell changed to host it. That is the whole point.
+ * Nothing in the shell changes to host it.
  */
 
 import { useEffect, useState } from "react";
@@ -27,65 +26,57 @@ const SKILL_ID = "zpd";
 const TYPE = "zpd.learning-job";
 
 interface LearningJob {
+  domain: string;
   question: string;
   blocked: boolean;
   estimate: number;
   [key: string]: unknown;
 }
 
-const SEED: AgencyResource<LearningJob>[] = [
-  {
-    id: "job-1",
-    type: TYPE,
-    ownerSkill: SKILL_ID,
-    schemaVersion: 1,
-    title: "Establish identity by matching names",
-    status: "blocked",
-    data: { question: "Does matching names establish identity?", blocked: true, estimate: 0.35 },
-    provenance: { determinism: "live", sourceId: "zpd:store" },
-  },
-  {
-    id: "job-2",
-    type: TYPE,
-    ownerSkill: SKILL_ID,
-    schemaVersion: 1,
-    title: "Read a causal claim's scope",
-    status: "active",
-    data: { question: "Can the learner state a claim's population?", blocked: false, estimate: 0.6 },
-    provenance: { determinism: "live", sourceId: "zpd:store" },
-  },
-];
+const SEED: AgencyResource<LearningJob>[] = [];
 
-function useLiveJobs(host: AgencyHost): AgencyResource<LearningJob>[] {
+function useLiveJobs(host: AgencyHost, domain: string | null): AgencyResource<LearningJob>[] {
   const [jobs, setJobs] = useState<AgencyResource<LearningJob>[]>([]);
   useEffect(() => {
     let active = true;
+    if (!domain) {
+      setJobs([]);
+      return;
+    }
     const reload = () =>
-      void host.resources.list({ type: TYPE }).then((list) => {
+      void host.resources.list({ type: TYPE, domain }).then((list) => {
         if (active) setJobs(list as AgencyResource<LearningJob>[]);
       });
     reload();
-    const stop = host.resources.watch({ type: TYPE }, reload); // live updates on apply()
+    const stop = host.resources.watch({ type: TYPE, domain }, reload);
     return () => {
       active = false;
       stop();
     };
-  }, [host]);
+  }, [host, domain]);
   return jobs;
 }
 
-function ZpdPage({ host }: HostProps) {
-  const jobs = useLiveJobs(host);
+function ZpdPage({ host, domain }: HostProps) {
+  const domainPath = domain?.id ?? null;
+  const jobs = useLiveJobs(host, domainPath);
   const [question, setQuestion] = useState("");
   const writable = host.resources.canWrite(TYPE);
 
   async function addJob() {
     if (!question.trim()) return;
-    const id = `job-${jobs.length + 1}-${question.length}`;
+    if (!domainPath) return;
+    const id = `${encodeURIComponent(domainPath)}::job-${jobs.length + 1}-${question.length}`;
     await host.resources.apply({
       kind: "created",
       ref: { type: TYPE, id },
-      data: { question: question.trim(), blocked: true, estimate: 0.3 } satisfies LearningJob,
+      domain: domainPath,
+      data: {
+        domain: domainPath,
+        question: question.trim(),
+        blocked: true,
+        estimate: 0.3,
+      } satisfies LearningJob,
     });
     host.notifications.info(`Created ${id} in the live store`);
     setQuestion("");
@@ -98,7 +89,8 @@ function ZpdPage({ host }: HostProps) {
         <Chip tone={writable ? "positive" : "neutral"}>{writable ? "live · writable" : "read-only"}</Chip>
       </header>
       <p className="muted">
-        A live source (the ZPD-store stand-in). Creating a job writes through the very same
+        Working domain <code>{domainPath ?? "not selected"}</code> · A live source (the
+        ZPD-store stand-in). Creating a job writes through the very same
         federated <code>apply()</code> a real backend would implement.
       </p>
       {writable && (
@@ -129,8 +121,8 @@ function ZpdPage({ host }: HostProps) {
   );
 }
 
-function ZpdCard({ host }: HostProps) {
-  const jobs = useLiveJobs(host);
+function ZpdCard({ host, domain }: HostProps) {
+  const jobs = useLiveJobs(host, domain?.id ?? null);
   const blocked = jobs.filter((job) => job.data.blocked).length;
   return (
     <Card
@@ -163,7 +155,12 @@ function ZpdJobView({ host, resource }: ResourceComponentProps) {
           className="zpd-btn"
           onClick={() =>
             void host.resources
-              .apply({ kind: "updated", ref: { type: TYPE, id: resource.id }, data: { ...job, blocked: false } })
+              .apply({
+                kind: "updated",
+                ref: { type: TYPE, id: resource.id },
+                domain: resource.domain,
+                data: { ...job, blocked: false },
+              })
               .then(() => host.notifications.info(`${resource.id} unblocked`))
           }
         >
@@ -174,33 +171,33 @@ function ZpdJobView({ host, resource }: ResourceComponentProps) {
   );
 }
 
-export const zpdDemoPlugin: AgencySkillPlugin = {
+export const zpdPlugin: AgencySkillPlugin = {
   manifest: {
     id: SKILL_ID,
-    name: "ZPD (demo)",
+    name: "ZPD",
     version: "0.1.0",
-    description: "A live, writable skill demonstrating that mutable data hosts cleanly on the same shell.",
+    description: "Domain-scoped learning jobs stored through a live, writable resource source.",
+    requires: [
+      {
+        capability: "norms.read.v1",
+        reason: "ZPD learner estimates assess capacity promises in Promisify domains.",
+      },
+    ],
     contributions: {
-      navigation: [{ id: "zpd.nav", label: "ZPD (demo)", to: "/zpd", order: 30 }],
+      navigation: [{ id: "zpd.nav", label: "ZPD", to: "/zpd", order: 30 }],
       routes: [{ id: "zpd.route", path: "/zpd", title: "ZPD", component: ZpdPage }],
       dashboardCards: [{ id: "zpd.card", title: "Learning jobs", component: ZpdCard, order: 30 }],
       resourceTypes: [{ type: TYPE, label: "Learning job" }],
       resourceViews: [{ id: "zpd.view", resourceTypes: [TYPE], component: ZpdJobView }],
-      commands: [{ id: "zpd.seed", title: "ZPD: add a sample learning job" }],
+      commands: [{ id: "zpd.open", title: "ZPD: open learning jobs" }],
     },
   },
   activate(context) {
     const unregisterSource = context.resources.registerSource(
       createMemorySource({ id: "zpd:store", ownerSkill: SKILL_ID, types: [TYPE], seedResources: SEED }),
     );
-    const unregisterCommand = context.commands.register("zpd.seed", async () => {
-      const id = `job-sample-${Date.now()}`;
-      await context.resources.apply({
-        kind: "created",
-        ref: { type: TYPE, id },
-        data: { question: "A newly seeded question", blocked: true, estimate: 0.25 },
-      });
-      return { summary: `created ${id}`, createdResources: [`${TYPE}:${id}`] };
+    const unregisterCommand = context.commands.register("zpd.open", () => {
+      context.navigation.navigate("/zpd");
     });
     return {
       deactivate() {
