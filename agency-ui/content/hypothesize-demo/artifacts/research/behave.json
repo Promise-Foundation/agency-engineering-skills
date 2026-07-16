@@ -1,0 +1,107 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "Generate a coordinated intervention plan",
+    "location": "features/plan_generation.feature:1",
+    "tags": ["application", "planning", "must", "cap_plan"],
+    "elements": [
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "Every actionable step names an accountable owner",
+        "location": "features/plan_generation.feature:8",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      },
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "Cross-team dependencies are made explicit",
+        "location": "features/plan_generation.feature:18",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      },
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "Milestones carry acceptance criteria",
+        "location": "features/plan_generation.feature:28",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      },
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "The plan exports to a shareable artifact",
+        "location": "features/plan_generation.feature:38",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      }
+    ]
+  },
+  {
+    "keyword": "Feature",
+    "name": "Flag unsupported generalization of a scoped effect",
+    "location": "features/remote_scope.feature:1",
+    "tags": ["application", "analysis", "must", "cap_remote_scope"],
+    "elements": [
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "A narrow-population result is reported with its scope",
+        "location": "features/remote_scope.feature:8",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      },
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "Transfer to interdependent roles is flagged as unwarranted",
+        "location": "features/remote_scope.feature:18",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      },
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "A scope-adjusted estimate is computed from the population",
+        "location": "features/remote_scope.feature:28",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      }
+    ]
+  },
+  {
+    "keyword": "Feature",
+    "name": "Store findings against stable question-node addresses",
+    "location": "features/stable_tree.feature:1",
+    "tags": ["application", "mechanism", "must", "cap_tree"],
+    "elements": [
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "A finding attaches to a persistent node identifier",
+        "location": "features/stable_tree.feature:8",
+        "status": "passed",
+        "tags": [],
+        "steps": []
+      },
+      {
+        "keyword": "Scenario",
+        "type": "scenario",
+        "name": "Findings survive a reorganization of the question tree",
+        "location": "features/stable_tree.feature:18",
+        "status": "skipped",
+        "tags": ["wip"],
+        "steps": []
+      }
+    ]
+  }
+]

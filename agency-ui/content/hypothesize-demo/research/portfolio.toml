@@ -1,0 +1,170 @@
+# Research portfolio for the agency-ui hypothesize demo. SOURCE OF TRUTH.
+#
+# `hypothesize` only derives from this file; it never writes back. Each
+# hypothesis carries the epistemic envelope the UI renders — the host subject it
+# is scoped over, its scope, the consequences that would follow if it held, the
+# defeaters that would sink it, and illustrative cross-skill relations. Those
+# fields are not interpreted by the engine; they pass through into the manifest.
+#
+# The three status dimensions the UI shows are DERIVED, never authored here:
+#   capability_status  <- tagged acceptance scenarios (artifacts/research/behave.json)
+#   evidence_maturity  <- strongest admitted evidence artifact (research/evidence/)
+#   conclusion         <- only a qualified, preregistered scientific result moves it
+
+schema_version = 1
+title = "Remote-work evidence review"
+last_reviewed = "2026-07-16"
+thesis = "Keep each proposition's capability, evidence maturity, and scientific conclusion as three honest, independent dimensions."
+
+# ---------------------------------------------------------------------------
+# Hypotheses. Empirical propositions. A passing test never promotes one to
+# supported / falsified / inconclusive — only a qualified, preregistered study.
+# ---------------------------------------------------------------------------
+
+[[hypotheses]]
+id = "HYP-PLAN-COORD"
+tag = "hyp_plan_coord"
+title = "Generated intervention plans improve cross-team coordination"
+statement = "Teams using generated intervention plans miss fewer coordination handoffs than teams using ordinary planning."
+summary = "The plan generator's capability is fully implemented; no comparative coordination result is linked yet."
+subject = "ltp.claim:CLM-7"
+scope = "Cross-functional software teams using the current plan generator"
+consequences = [
+  "Fewer missed ownership handoffs than ordinary planning",
+  "Shorter time to resolve cross-team dependencies",
+]
+defeaters = [
+  "No coordination difference under a representative comparison",
+  "Any observed improvement disappears when facilitation is held constant",
+]
+relations = [
+  ["ABOUT", "ltp.claim:CLM-7"],
+  ["GOVERNED_BY", "norms.promise:/skills/hypothesize/_separates_capability_from_conclusion"],
+  ["PROBED_BY", "zpd.probe:coordination-pilot"],
+]
+
+[[hypotheses]]
+id = "HYP-REMOTE-SCOPE"
+tag = "hyp_remote_scope"
+title = "A local productivity gain does not generalize across roles"
+statement = "A productivity gain measured in solo, highly measurable work does not transfer to interdependent roles."
+summary = "A qualified, preregistered cross-role synthesis supports the non-generalization claim at comparative-pilot strength."
+subject = "ltp.claim:CLM-1"
+scope = "Transfer from solo call-centre work to remote work generally"
+consequences = [
+  "Effect size varies materially by task interdependence",
+  "The original gain weakens outside solo, measurable work",
+]
+defeaters = [
+  "Comparable gains reproduce across interdependent roles",
+  "Role and task structure do not moderate the result",
+]
+relations = [
+  ["VERIFIES", "ltp.claim:CLM-1"],
+  ["GOVERNED_BY", "norms.promise:/skills/hypothesize/_separates_capability_from_conclusion"],
+]
+
+[[hypotheses]]
+id = "HYP-STABLE-TREE"
+tag = "hyp_stable_tree"
+title = "A stable question tree lets evidence accumulate"
+statement = "Mapping findings to stable question-node addresses lets evidence accumulate and contradictions surface at the node."
+summary = "The stable-address mechanism is demonstrated on fixtures; the accumulation claim has not been tested."
+subject = "ltp.entity:IO-1"
+scope = "Research notes mapped to stable question-node addresses"
+consequences = [
+  "New findings attach to existing questions rather than forming isolated claims",
+  "Contradictions become visible at the question node",
+]
+defeaters = [
+  "Stable addresses do not improve evidence retrieval or comparison",
+  "The tree preserves structure while hiding disagreement",
+]
+relations = [
+  ["ABOUT", "ltp.entity:IO-1"],
+  ["PROBED_BY", "zpd.probe:stable-tree-study"],
+]
+
+[[hypotheses]]
+id = "HYP-GLOBAL-LEGITIMACY"
+tag = "hyp_global_legitimacy"
+title = "A new governance institution can remain legitimate at global scale"
+statement = "A cross-border institution can preserve perceived and practical legitimacy as its membership scales."
+summary = "A preregistered internal pilot returned inconclusive; no capability is claimed for the scaling mechanism."
+subject = "norms.promise:/governance/_legitimate_at_scale"
+scope = "Cross-border institution with heterogeneous membership"
+consequences = [
+  "Perceived legitimacy remains stable as membership expands",
+  "Disadvantaged groups retain practical influence over decisions",
+]
+defeaters = [
+  "Legitimacy falls sharply with scale",
+  "Formal participation exists without practical influence",
+]
+relations = [
+  ["NORMATIVE_CONTEXT", "norms.promise:/governance/_legitimate_at_scale"],
+  ["PROBED_BY", "zpd.probe:legitimacy-scale"],
+]
+
+# ---------------------------------------------------------------------------
+# Capabilities. What the implementation can demonstrably do; status is derived
+# from tagged acceptance scenarios. `hypotheses` is a rollup link, never a
+# conclusion. A hypothesis with no capability reads as `specified`.
+# ---------------------------------------------------------------------------
+
+[[capabilities]]
+id = "CAP-PLAN"
+tag = "cap_plan"
+title = "Plan generation acceptance suite"
+summary = "Owners, dependencies, milestones, and export are all covered by passing scenarios."
+hypotheses = ["HYP-PLAN-COORD"]
+
+[[capabilities]]
+id = "CAP-REMOTE-SCOPE"
+tag = "cap_remote_scope"
+title = "Flag unsupported generalization of a scoped effect"
+summary = "Given a narrow-population result, the tool computes scope-adjusted estimates and flags transfer risk."
+hypotheses = ["HYP-REMOTE-SCOPE"]
+
+[[capabilities]]
+id = "CAP-TREE"
+tag = "cap_tree"
+title = "Stable question-tree acceptance suite"
+summary = "Findings are stored against persistent node identifiers; retrieval across reorganizations is not yet built."
+hypotheses = ["HYP-STABLE-TREE"]
+
+# ---------------------------------------------------------------------------
+# Studies. Evidence-producing designs. A study moves a conclusion only once it
+# is preregistered AND qualified AND has produced an admitted outcome.
+# ---------------------------------------------------------------------------
+
+[[studies]]
+id = "STUDY-COORDINATION-PILOT"
+title = "Comparative coordination pilot"
+order = 1
+status = "designed"
+preregistered = false
+qualified = false
+hypotheses = ["HYP-PLAN-COORD"]
+source = "docs/coordination-pilot.md"
+criterion = "Precommitted handoff-miss and dependency-resolution-time thresholds across a representative set of teams."
+
+[[studies]]
+id = "STUDY-LEGITIMACY-SCALE"
+title = "Legitimacy-at-scale field study"
+order = 2
+status = "protocol"
+preregistered = true
+qualified = false
+hypotheses = ["HYP-GLOBAL-LEGITIMACY"]
+source = "docs/legitimacy-scale.md"
+criterion = "Representation, contestability, and practical influence measured against a non-self-selected comparison cohort."
+
+# ---------------------------------------------------------------------------
+# Limitations. Honest reasons a claim cannot yet be promoted.
+# ---------------------------------------------------------------------------
+
+[[limitations]]
+id = "LIM-GOV-SAMPLE"
+status = "open"
+text = "The deliberation pilot was small and self-selected; its inconclusive verdict cannot yet be lifted without a broader cohort."

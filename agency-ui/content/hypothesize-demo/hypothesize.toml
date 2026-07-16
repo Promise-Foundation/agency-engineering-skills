@@ -1,0 +1,28 @@
+# hypothesize configuration for the agency-ui demo portfolio.
+#
+# This is a REAL hypothesize project, not a mock. `hypothesize sync` derives an
+# honest research status from three separate inputs — tagged acceptance
+# scenarios (capability), admitted evidence artifacts (maturity), and qualified
+# preregistered results (conclusion) — and writes the manifest straight into the
+# web app's public API tree, where the hypothesize UI plugin reads it.
+#
+#   PYTHONPATH=../../../hypothesize/src python3 -m hypothesize \
+#     --root agency-ui/content/hypothesize-demo sync
+#
+# The epistemic envelope each hypothesis carries (subject, scope, expected
+# consequences, defeaters, and illustrative cross-skill relations) is authored
+# registry content that passes through core.py unchanged into the manifest.
+
+catalog = "research/portfolio.toml"
+evidence_dir = "research/evidence"
+
+[runner]
+adapter = "behave"
+report = "artifacts/research/behave.json"
+
+# The manifest IS the served file: json.dumps(manifest, indent=2, sort_keys=True).
+# Written directly into the app so the plugin's fetch("/api/hypothesize/…") is
+# always the genuine engine output.
+[[targets]]
+kind = "json"
+path = "../../apps/web/public/api/hypothesize/research-status.json"

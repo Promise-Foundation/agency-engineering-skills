@@ -1,29 +1,379 @@
 {
-  "schema_version": 1,
-  "portfolio": {
-    "title": "Remote-work evidence review",
-    "thesis": "Productivity claims are only meaningful when scoped by worker and task.",
-    "last_reviewed": "2026-07-14"
+  "build": {
+    "evidence_count": 4,
+    "scenario_counts": {
+      "error": 0,
+      "failed": 0,
+      "passed": 8,
+      "skipped": 1,
+      "undefined": 0,
+      "untested": 0
+    },
+    "source_hash": "cf9f6befc461fc309cc9d8739fada37935796a821485619cecde7eaf81b1bba5"
   },
-  "build": { "source_hash": "demo-hypothesize-0001" },
-  "hypotheses": [
+  "capabilities": [
     {
-      "id": "HYP-REMOTE-SCOPE",
-      "title": "A local productivity gain does not generalize across roles",
-      "summary": "The 13% Ctrip gain is specific to solo call-centre work.",
-      "capability_status": "implemented",
-      "evidence_maturity": "comparative_pilot",
-      "conclusion": "supported",
-      "evidence_health": "current"
+      "hypotheses": [
+        "HYP-PLAN-COORD"
+      ],
+      "id": "CAP-PLAN",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 4,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/plan_generation.feature:8::Every actionable step names an accountable owner",
+        "features/plan_generation.feature:18::Cross-team dependencies are made explicit",
+        "features/plan_generation.feature:28::Milestones carry acceptance criteria",
+        "features/plan_generation.feature:38::The plan exports to a shareable artifact"
+      ],
+      "status": "implemented",
+      "summary": "Owners, dependencies, milestones, and export are all covered by passing scenarios.",
+      "tag": "cap_plan",
+      "title": "Plan generation acceptance suite"
     },
     {
-      "id": "HYP-STABLE-TREE",
-      "title": "A stable question tree lets evidence accumulate",
-      "summary": "Findings mapped to fixed nodes retain their scope limits.",
-      "capability_status": "partial",
-      "evidence_maturity": "mechanism",
+      "hypotheses": [
+        "HYP-REMOTE-SCOPE"
+      ],
+      "id": "CAP-REMOTE-SCOPE",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/remote_scope.feature:8::A narrow-population result is reported with its scope",
+        "features/remote_scope.feature:18::Transfer to interdependent roles is flagged as unwarranted",
+        "features/remote_scope.feature:28::A scope-adjusted estimate is computed from the population"
+      ],
+      "status": "implemented",
+      "summary": "Given a narrow-population result, the tool computes scope-adjusted estimates and flags transfer risk.",
+      "tag": "cap_remote_scope",
+      "title": "Flag unsupported generalization of a scoped effect"
+    },
+    {
+      "hypotheses": [
+        "HYP-STABLE-TREE"
+      ],
+      "id": "CAP-TREE",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 1,
+        "skipped": 1,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "features/stable_tree.feature:8::A finding attaches to a persistent node identifier",
+        "features/stable_tree.feature:18::Findings survive a reorganization of the question tree"
+      ],
+      "status": "partial",
+      "summary": "Findings are stored against persistent node identifiers; retrieval across reorganizations is not yet built.",
+      "tag": "cap_tree",
+      "title": "Stable question-tree acceptance suite"
+    }
+  ],
+  "evidence": [
+    {
+      "hypotheses": [
+        "HYP-GLOBAL-LEGITIMACY"
+      ],
+      "id": "EVD-GOV-PILOT",
+      "kind": "scientific",
+      "maturity": "internal_pilot",
+      "outcome": "inconclusive",
+      "preregistered": true,
+      "qualified": true,
+      "relation": "tests (inconclusive)",
+      "source": "docs/legitimacy-scale/pilot.md",
+      "study": "STUDY-LEGITIMACY-SCALE",
+      "summary": "Participants rated the process as fair, but the small, self-selected sample cannot decide legitimacy at scale.",
+      "tags": [
+        "internal pilot",
+        "preregistered"
+      ],
+      "title": "Internal deliberation pilot"
+    },
+    {
+      "hypotheses": [
+        "HYP-REMOTE-SCOPE"
+      ],
+      "id": "EVD-CTRIP",
+      "kind": "scientific",
+      "maturity": "comparative_pilot",
+      "outcome": "not_tested",
+      "preregistered": true,
+      "qualified": true,
+      "relation": "scopes the effect",
+      "source": "docs/remote-scope/ctrip.md",
+      "summary": "A preregistered field experiment measures a productivity gain in a narrow call-centre setting.",
+      "tags": [
+        "comparative",
+        "scoped population"
+      ],
+      "title": "Ctrip field experiment"
+    },
+    {
+      "hypotheses": [
+        "HYP-REMOTE-SCOPE"
+      ],
+      "id": "EVD-TRANSFER",
+      "kind": "scientific",
+      "maturity": "comparative_pilot",
+      "outcome": "supported",
+      "preregistered": true,
+      "qualified": true,
+      "relation": "supports",
+      "source": "docs/remote-scope/transfer-review.md",
+      "summary": "A preregistered synthesis finds the evidence base does not warrant a universal remote-work effect.",
+      "tags": [
+        "scope review",
+        "qualified"
+      ],
+      "title": "Cross-role transfer review"
+    },
+    {
+      "hypotheses": [
+        "HYP-STABLE-TREE"
+      ],
+      "id": "EVD-TREE-MECH",
+      "kind": "mechanism",
+      "maturity": "mechanism",
+      "outcome": "not_tested",
+      "preregistered": false,
+      "qualified": true,
+      "relation": "demonstrates mechanism",
+      "source": "features/stable_tree",
+      "summary": "The prototype stores findings against persistent node identifiers on a synthetic corpus.",
+      "tags": [
+        "mechanism",
+        "fixtures"
+      ],
+      "title": "Stable-address mechanism"
+    }
+  ],
+  "hypotheses": [
+    {
+      "capability_status": "implemented",
       "conclusion": "not_tested",
-      "evidence_health": "current"
+      "consequences": [
+        "Fewer missed ownership handoffs than ordinary planning",
+        "Shorter time to resolve cross-team dependencies"
+      ],
+      "defeaters": [
+        "No coordination difference under a representative comparison",
+        "Any observed improvement disappears when facilitation is held constant"
+      ],
+      "evidence": [],
+      "evidence_health": "current",
+      "evidence_maturity": "none",
+      "id": "HYP-PLAN-COORD",
+      "relations": [
+        [
+          "ABOUT",
+          "ltp.claim:CLM-7"
+        ],
+        [
+          "GOVERNED_BY",
+          "norms.promise:/skills/hypothesize/_separates_capability_from_conclusion"
+        ],
+        [
+          "PROBED_BY",
+          "zpd.probe:coordination-pilot"
+        ]
+      ],
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 0,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scope": "Cross-functional software teams using the current plan generator",
+      "statement": "Teams using generated intervention plans miss fewer coordination handoffs than teams using ordinary planning.",
+      "subject": "ltp.claim:CLM-7",
+      "summary": "The plan generator's capability is fully implemented; no comparative coordination result is linked yet.",
+      "tag": "hyp_plan_coord",
+      "title": "Generated intervention plans improve cross-team coordination"
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "supported",
+      "consequences": [
+        "Effect size varies materially by task interdependence",
+        "The original gain weakens outside solo, measurable work"
+      ],
+      "defeaters": [
+        "Comparable gains reproduce across interdependent roles",
+        "Role and task structure do not moderate the result"
+      ],
+      "evidence": [
+        "EVD-CTRIP",
+        "EVD-TRANSFER"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "comparative_pilot",
+      "id": "HYP-REMOTE-SCOPE",
+      "relations": [
+        [
+          "VERIFIES",
+          "ltp.claim:CLM-1"
+        ],
+        [
+          "GOVERNED_BY",
+          "norms.promise:/skills/hypothesize/_separates_capability_from_conclusion"
+        ]
+      ],
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 0,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scope": "Transfer from solo call-centre work to remote work generally",
+      "statement": "A productivity gain measured in solo, highly measurable work does not transfer to interdependent roles.",
+      "subject": "ltp.claim:CLM-1",
+      "summary": "A qualified, preregistered cross-role synthesis supports the non-generalization claim at comparative-pilot strength.",
+      "tag": "hyp_remote_scope",
+      "title": "A local productivity gain does not generalize across roles"
+    },
+    {
+      "capability_status": "partial",
+      "conclusion": "not_tested",
+      "consequences": [
+        "New findings attach to existing questions rather than forming isolated claims",
+        "Contradictions become visible at the question node"
+      ],
+      "defeaters": [
+        "Stable addresses do not improve evidence retrieval or comparison",
+        "The tree preserves structure while hiding disagreement"
+      ],
+      "evidence": [
+        "EVD-TREE-MECH"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "HYP-STABLE-TREE",
+      "relations": [
+        [
+          "ABOUT",
+          "ltp.entity:IO-1"
+        ],
+        [
+          "PROBED_BY",
+          "zpd.probe:stable-tree-study"
+        ]
+      ],
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 0,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scope": "Research notes mapped to stable question-node addresses",
+      "statement": "Mapping findings to stable question-node addresses lets evidence accumulate and contradictions surface at the node.",
+      "subject": "ltp.entity:IO-1",
+      "summary": "The stable-address mechanism is demonstrated on fixtures; the accumulation claim has not been tested.",
+      "tag": "hyp_stable_tree",
+      "title": "A stable question tree lets evidence accumulate"
+    },
+    {
+      "capability_status": "specified",
+      "conclusion": "inconclusive",
+      "consequences": [
+        "Perceived legitimacy remains stable as membership expands",
+        "Disadvantaged groups retain practical influence over decisions"
+      ],
+      "defeaters": [
+        "Legitimacy falls sharply with scale",
+        "Formal participation exists without practical influence"
+      ],
+      "evidence": [
+        "EVD-GOV-PILOT"
+      ],
+      "evidence_health": "current",
+      "evidence_maturity": "internal_pilot",
+      "id": "HYP-GLOBAL-LEGITIMACY",
+      "relations": [
+        [
+          "NORMATIVE_CONTEXT",
+          "norms.promise:/governance/_legitimate_at_scale"
+        ],
+        [
+          "PROBED_BY",
+          "zpd.probe:legitimacy-scale"
+        ]
+      ],
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 0,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scope": "Cross-border institution with heterogeneous membership",
+      "statement": "A cross-border institution can preserve perceived and practical legitimacy as its membership scales.",
+      "subject": "norms.promise:/governance/_legitimate_at_scale",
+      "summary": "A preregistered internal pilot returned inconclusive; no capability is claimed for the scaling mechanism.",
+      "tag": "hyp_global_legitimacy",
+      "title": "A new governance institution can remain legitimate at global scale"
+    }
+  ],
+  "limitations": [
+    {
+      "id": "LIM-GOV-SAMPLE",
+      "status": "open",
+      "text": "The deliberation pilot was small and self-selected; its inconclusive verdict cannot yet be lifted without a broader cohort."
+    }
+  ],
+  "portfolio": {
+    "last_reviewed": "2026-07-16",
+    "thesis": "Keep each proposition's capability, evidence maturity, and scientific conclusion as three honest, independent dimensions.",
+    "title": "Remote-work evidence review"
+  },
+  "quarantined_evidence": [],
+  "schema_version": 1,
+  "studies": [
+    {
+      "criterion": "Precommitted handoff-miss and dependency-resolution-time thresholds across a representative set of teams.",
+      "hypotheses": [
+        "HYP-PLAN-COORD"
+      ],
+      "id": "STUDY-COORDINATION-PILOT",
+      "order": 1,
+      "preregistered": false,
+      "qualified": false,
+      "source": "docs/coordination-pilot.md",
+      "status": "designed",
+      "title": "Comparative coordination pilot"
+    },
+    {
+      "criterion": "Representation, contestability, and practical influence measured against a non-self-selected comparison cohort.",
+      "hypotheses": [
+        "HYP-GLOBAL-LEGITIMACY"
+      ],
+      "id": "STUDY-LEGITIMACY-SCALE",
+      "order": 2,
+      "preregistered": true,
+      "qualified": false,
+      "source": "docs/legitimacy-scale.md",
+      "status": "protocol",
+      "title": "Legitimacy-at-scale field study"
     }
   ]
 }

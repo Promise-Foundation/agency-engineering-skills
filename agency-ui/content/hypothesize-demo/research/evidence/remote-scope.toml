@@ -1,0 +1,38 @@
+# Admitted evidence for HYP-REMOTE-SCOPE.
+#
+# `relation` and `tags` are envelope fields the UI's evidence trace renders; the
+# engine ignores them. The five fields that decide authority are kind, maturity,
+# qualified, preregistered, and outcome.
+
+# A qualified, preregistered field experiment. It measures the LOCAL effect, so
+# w.r.t. the transfer hypothesis its outcome is not_tested — it sets the evidence
+# base to comparative-pilot maturity without touching the conclusion.
+[[evidence]]
+id = "EVD-CTRIP"
+title = "Ctrip field experiment"
+hypotheses = ["HYP-REMOTE-SCOPE"]
+kind = "scientific"
+maturity = "comparative_pilot"
+qualified = true
+preregistered = true
+outcome = "not_tested"
+relation = "scopes the effect"
+source = "docs/remote-scope/ctrip.md"
+summary = "A preregistered field experiment measures a productivity gain in a narrow call-centre setting."
+tags = ["comparative", "scoped population"]
+
+# The qualified, preregistered cross-role synthesis that actually tests transfer.
+# Its supported outcome is what moves the conclusion to `supported`.
+[[evidence]]
+id = "EVD-TRANSFER"
+title = "Cross-role transfer review"
+hypotheses = ["HYP-REMOTE-SCOPE"]
+kind = "scientific"
+maturity = "comparative_pilot"
+qualified = true
+preregistered = true
+outcome = "supported"
+relation = "supports"
+source = "docs/remote-scope/transfer-review.md"
+summary = "A preregistered synthesis finds the evidence base does not warrant a universal remote-work effect."
+tags = ["scope review", "qualified"]

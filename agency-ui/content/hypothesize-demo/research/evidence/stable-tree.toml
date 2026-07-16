@@ -1,0 +1,17 @@
+# Admitted evidence for HYP-STABLE-TREE.
+#
+# A bounded mechanism demonstration on fixtures. It reaches `mechanism` maturity
+# but tests no outcome, so the conclusion stays not_tested.
+[[evidence]]
+id = "EVD-TREE-MECH"
+title = "Stable-address mechanism"
+hypotheses = ["HYP-STABLE-TREE"]
+kind = "mechanism"
+maturity = "mechanism"
+qualified = true
+preregistered = false
+outcome = "not_tested"
+relation = "demonstrates mechanism"
+source = "features/stable_tree"
+summary = "The prototype stores findings against persistent node identifiers on a synthetic corpus."
+tags = ["mechanism", "fixtures"]

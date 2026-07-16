@@ -86,16 +86,21 @@ export function ResourceInspector() {
         return <Component key={inspector.id} host={host.host} resource={resource} />;
       })}
 
-      <Relations resource={resource} refKey={refKey} />
+      <Relations resource={resource} />
     </div>
   );
 }
 
-function Relations({ resource, refKey }: { resource: AgencyResource; refKey: string | null }) {
+function Relations({ resource }: { resource: AgencyResource }) {
   const host = useHost();
+  // Key the read on the *resolved* resource, not the selection ref: the resolved
+  // resource can lag the selection by a render, and keying on the selection would
+  // fetch relations for the previous resource and then never refetch once the
+  // resource caught up (the selection ref would be unchanged).
+  const selfKey = refString({ type: resource.type, id: resource.id });
   const { value: relations, loading } = useAsync(
     () => host.resources.relations({ type: resource.type, id: resource.id }),
-    [refKey],
+    [selfKey],
   );
   const rels = relations ?? [];
 
@@ -108,7 +113,7 @@ function Relations({ resource, refKey }: { resource: AgencyResource; refKey: str
       ) : (
         <ul className="relations">
           {rels.map((relation) => {
-            const other = refString(relation.from) === refKey ? relation.to : relation.from;
+            const other = refString(relation.from) === selfKey ? relation.to : relation.from;
             return (
               <li key={relation.id}>
                 <button

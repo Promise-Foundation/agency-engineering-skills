@@ -1,27 +1,76 @@
-.hyp-table h1 {
+/* Hypothesize surface. Namespaced under .hyp-* so it composes with the shell's
+ * --ak-* design tokens without colliding with other plugins' routes. */
+
+/* --- route: header + filters ------------------------------------------- */
+.hyp-page__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.hyp-page__head h1 {
   margin: 0 0 2px;
   font-size: 20px;
+  font-weight: 650;
 }
-.hyp-sub {
-  margin: 0 0 14px;
+.hyp-page__head p {
+  margin: 0;
   color: var(--ak-muted);
   font-size: 13px;
 }
-.hyp-table table {
-  width: 100%;
+
+.hyp-filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.hyp-filter {
+  padding: 5px 9px;
+  border: 1px solid var(--ak-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ak-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+}
+.hyp-filter:hover {
+  color: var(--ak-text);
+}
+.hyp-filter.is-active {
+  color: var(--ak-text);
+  background: var(--ak-surface-2);
+  border-color: color-mix(in srgb, var(--ak-accent) 45%, var(--ak-border));
+}
+
+/* --- route: table ------------------------------------------------------ */
+.hyp-table-wrap {
+  border: 1px solid var(--ak-border);
+  border-radius: var(--ak-radius);
+  background: var(--ak-surface);
+  overflow-x: auto;
+}
+.hyp-table {
   border-collapse: collapse;
+  width: 100%;
   font-size: 13px;
 }
 .hyp-table th,
 .hyp-table td {
   text-align: left;
-  padding: 8px 10px;
+  padding: 9px 10px;
   border-bottom: 1px solid var(--ak-border);
+  vertical-align: top;
 }
 .hyp-table th {
   color: var(--ak-muted);
-  font-weight: 500;
   font-size: 12px;
+  font-weight: 500;
+  background: color-mix(in srgb, var(--ak-surface-2) 68%, transparent);
+  white-space: nowrap;
 }
 .hyp-table tbody tr {
   cursor: pointer;
@@ -29,28 +78,154 @@
 .hyp-table tbody tr:hover {
   background: var(--ak-surface-2);
 }
+.hyp-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.hyp-id {
+  color: var(--ak-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.hyp-prop {
+  min-width: 240px;
+  max-width: 430px;
+}
+.hyp-prop strong {
+  display: block;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.hyp-prop span {
+  display: block;
+  color: var(--ak-muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+.hyp-muted {
+  color: var(--ak-muted);
+}
+
+/* --- shared: ref/inline links ------------------------------------------ */
+.hyp-ref {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ak-accent);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.hyp-ref:hover {
+  text-decoration: underline;
+}
+.hyp-ref--inline {
+  font-size: 13px;
+}
+
+/* --- inspector: empirical-standing grid -------------------------------- */
 .hyp-detail {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 12px;
 }
-.hyp-summary {
-  margin: 0 0 8px;
-  font-size: 13px;
-  color: var(--ak-text);
+.hyp-dimensions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 4px;
 }
-.hyp-note {
-  margin: 12px 0 0;
-  font-size: 12px;
+.hyp-dimension {
+  border: 1px solid var(--ak-border);
+  border-radius: 8px;
+  background: var(--ak-surface-2);
+  padding: 10px;
+  min-width: 0;
+}
+.hyp-dimension__label {
+  display: block;
   color: var(--ak-muted);
-  border-top: 1px solid var(--ak-border);
-  padding-top: 8px;
+  font-size: 11px;
+  margin-bottom: 6px;
 }
-.hyp-link {
+
+/* --- inspector: consequence / defeater lists --------------------------- */
+.hyp-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ak-text);
+  font-size: 13px;
+}
+.hyp-list li + li {
+  margin-top: 5px;
+}
+
+/* --- inspector: evidence trace ----------------------------------------- */
+.hyp-trace {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hyp-trace__item {
+  border: 1px solid var(--ak-border);
+  background: var(--ak-surface-2);
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+.hyp-trace__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+.hyp-trace__title {
+  color: var(--ak-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+.hyp-trace__relation {
+  color: var(--ak-accent);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.hyp-trace__summary {
+  color: var(--ak-muted);
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+.hyp-trace__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+/* --- dashboard card ---------------------------------------------------- */
+.hyp-card-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.hyp-linkbtn {
   background: none;
   border: none;
   color: var(--ak-accent);
   cursor: pointer;
   font: inherit;
   padding: 0;
+}
+
+/* --- responsive -------------------------------------------------------- */
+@media (max-width: 720px) {
+  .hyp-page__head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .hyp-dimensions {
+    grid-template-columns: 1fr;
+  }
 }

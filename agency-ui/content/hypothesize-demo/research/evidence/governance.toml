@@ -1,0 +1,20 @@
+# Admitted evidence for HYP-GLOBAL-LEGITIMACY.
+#
+# A qualified, preregistered internal pilot. Fair-process ratings were positive,
+# but the sample was too small and self-selected to decide the scaling claim, so
+# its honest outcome is `inconclusive` — which is exactly what it moves the
+# conclusion to. `internal_pilot` is the maturity ceiling it reaches.
+[[evidence]]
+id = "EVD-GOV-PILOT"
+title = "Internal deliberation pilot"
+hypotheses = ["HYP-GLOBAL-LEGITIMACY"]
+kind = "scientific"
+maturity = "internal_pilot"
+qualified = true
+preregistered = true
+outcome = "inconclusive"
+relation = "tests (inconclusive)"
+study = "STUDY-LEGITIMACY-SCALE"
+source = "docs/legitimacy-scale/pilot.md"
+summary = "Participants rated the process as fair, but the small, self-selected sample cannot decide legitimacy at scale."
+tags = ["internal pilot", "preregistered"]
