@@ -102,18 +102,36 @@ causal_claims:
                                # prerequisite_readiness | transition_acceptance
 ```
 
-Keep logical and empirical status distinct. A green implementation test may prove
-an injection *exists* (`entity_existence`); it does not prove the injection
-*causes* the modelled effect. A falsified empirical hypothesis should mark the
-linked claim's `review_status: disputed` and its dependents for review -- it must
-**not** silently delete or reverse the claim.
+Keep logical and empirical status distinct, and keep them **side by side** -- the
+bridge is read-only composition, not a status overwrite. A green implementation
+test may prove an injection *exists* (`entity_existence`); it does not prove the
+injection *causes* the modelled effect. The two dimensions answer different
+questions and are stored separately:
+
+```yaml
+causal_claims:
+  - id: CLM-17
+    clr: { ... }                     # LTP's logical status (has it survived the CLR?)
+    verification:
+      hypothesis_ref: HYP-T2-REALISM
+      empirical_status: falsified    # hypothesize's evidentiary standing -- a distinct field
+```
+
+`ltp evidence import` folds a hypothesize outcome into `verification.empirical_status`
+only. It **never** writes `review_status` or the CLR-derived logical status: a
+logically scrutinized claim can be empirically falsified, and a logically
+incomplete claim can be empirically suggestive. A falsified outcome records the
+empirical status and appends a contradiction note flagging the claim and its
+dependents for renewed LTP scrutiny -- the logical status stays exactly as the CLR
+left it, and the claim is never deleted or reversed. Re-scrutiny, if warranted, is
+a separate, deliberate LTP edit.
 
 Bridge commands (see `ltp hypotheses --help`):
 
 ```bash
 ltp hypotheses export     # list claims that carry a verification link
 ltp hypotheses check      # report links whose hypothesis_ref cannot be resolved
-ltp evidence import PATH  # fold a hypothesize research-status.json into review_status
+ltp evidence import PATH  # fold hypothesize outcomes into verification.empirical_status (only)
 ```
 
 | LTP element | `hypothesize` role |
