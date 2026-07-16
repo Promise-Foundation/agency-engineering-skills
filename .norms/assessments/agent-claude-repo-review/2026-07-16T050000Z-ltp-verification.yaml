@@ -1,0 +1,21 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-ltp-verification-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/_provides_automated_verification
+  effectiveDomain: /skills/ltp
+  verdict: kept
+  confidence: 0.98
+  rationale: >-
+    ltp ships a pytest suite covering the model, validators, renderers,
+    migration, CLI, and schema generation, run and passing at this revision.
+  evidence:
+    - kind: test-run
+      command: "PYTHONPATH=src python3 -m pytest -q"
+      exitCode: 0
+      summary: "56 passed in 2.50s"

@@ -1,0 +1,24 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-ltp-manifest-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/_declares_skill_manifest
+  effectiveDomain: /skills/ltp
+  verdict: kept
+  confidence: 0.98
+  rationale: >-
+    ltp/SKILL.md exists and its front matter declares name: ltp and a
+    multi-sentence description covering triggers and scope.
+  evidence:
+    - kind: file-existence
+      path: ltp/SKILL.md
+      lines: "1-12"
+      summary: >-
+        Front matter declares `name: ltp` and a description explaining when
+        to use the skill (Goal Tree, Current/Future Reality Tree, Evaporating
+        Cloud, Prerequisite Tree, Transition Tree, constraint diagnosis).

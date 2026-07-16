@@ -1,0 +1,31 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-interface-generated-data-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /interface/_renders_only_generated_data
+  effectiveDomain: /interface
+  verdict: kept
+  confidence: 0.95
+  rationale: >-
+    Every installed plugin (ltp, hypothesize, promisify) registers a
+    ResourceSource whose determinism is hard-coded "static" with no `apply`
+    capability, so the shell cannot mutate or recompute what it renders; all
+    three read one precomputed JSON manifest their skill's own tooling wrote.
+  evidence:
+    - kind: documentation-quote
+      path: agency-ui/README.md
+      lines: "49-50"
+      summary: >-
+        "The shell renders whatever the engines previously generated; it
+        never re-derives anything."
+    - kind: code-review
+      path: agency-ui/packages/agency-core/src/manifest-source.ts
+      lines: "56-56"
+      summary: >-
+        `manifestSource()` hard-codes `determinism: "static"` and exposes no
+        `apply` function, so a static source cannot be written to.

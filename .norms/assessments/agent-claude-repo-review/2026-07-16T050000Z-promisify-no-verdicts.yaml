@@ -1,0 +1,32 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-promisify-no-verdicts-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/promisify/_promises_never_store_verdicts
+  effectiveDomain: /skills/promisify
+  verdict: kept
+  confidence: 0.98
+  rationale: >-
+    SKILL.md states the invariant and the validator enforces it
+    structurally: FORBIDDEN_PROMISE_KEYS is checked against every key found
+    anywhere in a Promise document's body, and the promise JSON Schema has
+    no status/verdict/trust property at all.
+  evidence:
+    - kind: documentation-quote
+      path: promisify/SKILL.md
+      lines: "16-16"
+      summary: >-
+        "A promise declares what OUGHT to be true. It never stores kept,
+        broken, trust, compliance, or current truth."
+    - kind: code-review
+      path: promisify/scripts/norms.py
+      lines: "41-41"
+      summary: >-
+        FORBIDDEN_PROMISE_KEYS = {"status", "verdict", "kept", "broken",
+        "trust", "score", "compliance"}, checked against every promise
+        document's keys during validation.

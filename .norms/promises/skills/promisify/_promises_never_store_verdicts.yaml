@@ -1,0 +1,30 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /skills/promisify
+  name: _promises_never_store_verdicts
+  title: Promises never store a verdict
+  tags:
+    - promisify
+    - epistemics
+spec:
+  statement: >-
+    Subjects within this domain OUGHT to keep promise declarations free of
+    any verdict, trust, or compliance state; only assessments may record
+    kept/broken/trust.
+  scope:
+    subjects:
+      - .norms/promises/**
+  criteria:
+    kind: schema-enforced
+    instructions: >-
+      Confirm the promise schema and validator reject a promise document
+      containing status, verdict, kept, broken, trust, score, or compliance
+      keys anywhere in its body.
+  source:
+    authority: promisify/SKILL.md, promisify/scripts/norms.py
+    kind: skill-documentation
+    rationale: >-
+      promisify/SKILL.md's non-negotiable invariant #1 states a promise
+      "never stores kept, broken, trust, compliance, or current truth," and
+      `norms.py`'s FORBIDDEN_PROMISE_KEYS set enforces it at validation time.

@@ -1,0 +1,24 @@
+apiVersion: norms/v1
+kind: TrustView
+metadata:
+  name: default
+  description: >-
+    Accept the repo-review agent's claims across the whole repository at the
+    revision they were observed.
+spec:
+  observer: team/agency-engineering-maintainers
+  domain: /skills/ltp
+  snapshot:
+    revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  assessmentSelection:
+    assessors: "*"
+    latestPerAssessor: true
+    requireEvidence: true
+  conflictPolicy: unknown-on-conflict
+  scoring:
+    unit: effective-promise
+    weighting: equal
+    excludeVerdicts:
+      - unknown
+      - not_applicable
+      - disputed

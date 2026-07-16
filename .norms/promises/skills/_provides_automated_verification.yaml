@@ -1,0 +1,29 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /skills
+  name: _provides_automated_verification
+  title: Skills verify themselves automatically
+  tags:
+    - packaging
+    - quality
+spec:
+  statement: >-
+    Subjects represented within this domain OUGHT to provide an automated,
+    repeatable way to check their own correctness -- a test suite or a
+    bundled validator -- rather than depending on manual review alone.
+  scope:
+    subjects:
+      - skill package tooling
+  criteria:
+    kind: tooling-execution
+    instructions: >-
+      Run the package's bundled test suite or validator and confirm it
+      completes and reports a pass/fail result.
+  source:
+    authority: ltp/tests, hypothesize/tests
+    kind: repository-convention
+    rationale: >-
+      ltp and hypothesize each ship a pytest suite exercising their own
+      engine; a skill without an equivalent automated check depends entirely
+      on manual review to catch regressions in its own tooling.

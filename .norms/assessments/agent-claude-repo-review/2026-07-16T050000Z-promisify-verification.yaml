@@ -1,0 +1,32 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-promisify-verification-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/_provides_automated_verification
+  effectiveDomain: /skills/promisify
+  verdict: broken
+  confidence: 0.85
+  rationale: >-
+    No unit tests exist for norms.py's own logic (domain resolution,
+    inheritance, assessment selection, or trust computation). The only
+    automated fixtures under evals/ check whether the *skill's own
+    description* triggers correctly for an agent -- a different property
+    from whether norms.py's code behaves correctly. `norms.py validate`
+    checks OTHER repositories' .norms/ data; it is a product feature of the
+    tool, not a test of the tool's own implementation.
+  evidence:
+    - kind: file-existence
+      command: "find promisify -iname 'test_*.py' -o -iname '*_test.py'"
+      exitCode: 0
+      summary: "No matches -- no pytest/unittest file exists for scripts/norms.py."
+    - kind: file-existence
+      path: promisify/evals
+      summary: >-
+        trigger-cases.yaml and workflow-cases.yaml are agent-triggering eval
+        fixtures (shouldTrigger/shouldNotTrigger prompts), not unit tests of
+        is_domain, effective_promises, calculate_trust, or the CLI commands.

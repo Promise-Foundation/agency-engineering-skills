@@ -1,0 +1,28 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /skills
+  name: _documents_references
+  title: Skills document non-trivial workflows
+  tags:
+    - packaging
+    - documentation
+spec:
+  statement: >-
+    Subjects represented within this domain OUGHT to provide reference
+    documentation for any non-trivial workflow, rather than relying on
+    SKILL.md alone.
+  scope:
+    subjects:
+      - skill package root
+  criteria:
+    kind: file-existence
+    instructions: >-
+      Confirm a references/ directory exists with at least one document per
+      major workflow the SKILL.md delegates detail to.
+  source:
+    authority: ltp/SKILL.md, hypothesize/SKILL.md, promisify/SKILL.md
+    kind: repository-convention
+    rationale: >-
+      Each existing skill's SKILL.md explicitly delegates workflow detail to a
+      references/ directory rather than inlining it.

@@ -1,0 +1,23 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-ltp-references-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/_documents_references
+  effectiveDomain: /skills/ltp
+  verdict: kept
+  confidence: 0.95
+  rationale: >-
+    ltp/references/ contains one document per major workflow SKILL.md
+    delegates to (model vocabulary, logical scrutiny, workflow stages, CLI
+    and integration, and the diagnostics catalog).
+  evidence:
+    - kind: file-existence
+      path: ltp/references
+      summary: >-
+        6 files: model-and-vocabulary.md, logical-scrutiny.md, workflow.md,
+        cli-and-integration.md, diagnostics.md, ltp-model.schema.json.

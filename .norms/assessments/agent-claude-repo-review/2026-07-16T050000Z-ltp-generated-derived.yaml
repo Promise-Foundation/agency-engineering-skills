@@ -1,0 +1,26 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-ltp-generated-derived-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/ltp/_generated_artifacts_are_derived
+  effectiveDomain: /skills/ltp
+  verdict: kept
+  confidence: 0.95
+  rationale: >-
+    SKILL.md explicitly forbids hand-editing generated/ output, and `ltp
+    check` re-derives the projections and fails on drift or a hand-edit.
+  evidence:
+    - kind: documentation-quote
+      path: ltp/SKILL.md
+      lines: "70-70"
+      summary: "Do not hand-edit anything under `generated/` -- it is machine-owned."
+    - kind: tooling-behavior
+      path: ltp/src/ltp/cli.py
+      summary: >-
+        `ltp check` re-renders the model in memory and exits non-zero if a
+        committed generated/ file differs from the fresh render.

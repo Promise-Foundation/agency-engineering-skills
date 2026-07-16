@@ -1,0 +1,20 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-hypothesize-references-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/_documents_references
+  effectiveDomain: /skills/hypothesize
+  verdict: kept
+  confidence: 0.9
+  rationale: >-
+    hypothesize/references/ documents the adoption playbook, the publication
+    model, and the tag vocabulary the SKILL.md delegates to.
+  evidence:
+    - kind: file-existence
+      path: hypothesize/references
+      summary: "3 files: adoption.md, publication-model.md, tag-vocabulary.md."

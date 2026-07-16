@@ -1,0 +1,31 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-hypothesize-capability-conclusion-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/hypothesize/_separates_capability_from_conclusion
+  effectiveDomain: /skills/hypothesize
+  verdict: kept
+  confidence: 0.95
+  rationale: >-
+    SKILL.md states the three dimensions are never conflated, and
+    core.py structurally separates capability_status, evidence_maturity, and
+    conclusion in the derived manifest, only ever promoting conclusion from a
+    qualified, preregistered study result.
+  evidence:
+    - kind: documentation-quote
+      path: hypothesize/SKILL.md
+      lines: "14-18"
+      summary: >-
+        "Capability != evidence != conclusion." and "Passing tests can never
+        promote a hypothesis."
+    - kind: code-review
+      path: hypothesize/src/hypothesize/core.py
+      summary: >-
+        `_derive_hypotheses` sets `capability_status`, `evidence_maturity`,
+        and `conclusion` as three separate fields; conclusion only changes
+        via `_is_qualified_scientific` (qualified AND preregistered).

@@ -1,0 +1,30 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /skills/ltp
+  name: _generated_artifacts_are_derived
+  title: Generated LTP artifacts are derived, not authored
+  tags:
+    - ltp
+    - provenance
+spec:
+  statement: >-
+    Subjects within this domain OUGHT to treat every file under a generated/
+    directory as derived output that tooling regenerates, and OUGHT NOT
+    hand-edit it.
+  scope:
+    subjects:
+      - ltp/*/generated/**
+  criteria:
+    kind: documentation-review
+    instructions: >-
+      Confirm SKILL.md instructs against hand-editing generated/ output and
+      that sync/check tooling exists to detect drift between the model and
+      its generated projections.
+  source:
+    authority: ltp/SKILL.md
+    kind: skill-documentation
+    rationale: >-
+      ltp/SKILL.md states "Do not hand-edit anything under `generated/` -- it
+      is machine-owned," and `ltp check` fails when a committed projection is
+      stale or hand-edited.

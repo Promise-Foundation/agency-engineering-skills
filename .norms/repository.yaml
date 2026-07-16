@@ -1,0 +1,15 @@
+apiVersion: norms/v1
+kind: Repository
+metadata:
+  name: agency-engineering-skills
+  description: >-
+    Normative promises for the skill packages and the interface in this
+    repository, assessed against the packaging, documentation, and
+    architectural conventions the repository's own skills state about
+    themselves.
+spec:
+  promiseRoot: .norms/promises
+  assessmentRoot: .norms/assessments
+  trustViewRoot: .norms/views
+  reportRoot: .norms/reports
+  defaultView: default

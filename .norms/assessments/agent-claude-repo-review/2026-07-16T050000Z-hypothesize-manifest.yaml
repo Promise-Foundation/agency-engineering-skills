@@ -1,0 +1,23 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-hypothesize-manifest-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T05:00:00Z
+  revision: "24481a7f1e9581f1207cca488cce24281710e04e"
+  toolVersion: claude-repo-review/0.1
+spec:
+  promise: /skills/_declares_skill_manifest
+  effectiveDomain: /skills/hypothesize
+  verdict: kept
+  confidence: 0.98
+  rationale: >-
+    hypothesize/SKILL.md exists and its front matter declares name and a
+    description covering triggers and scope.
+  evidence:
+    - kind: file-existence
+      path: hypothesize/SKILL.md
+      lines: "1-9"
+      summary: >-
+        Front matter declares `name: hypothesize` and a description
+        explaining when to install, adopt, or extend the pattern.

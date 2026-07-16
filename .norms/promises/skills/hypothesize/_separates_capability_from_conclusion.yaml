@@ -1,0 +1,29 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /skills/hypothesize
+  name: _separates_capability_from_conclusion
+  title: Capability, evidence, and conclusion stay separate
+  tags:
+    - hypothesize
+    - epistemics
+spec:
+  statement: >-
+    Subjects within this domain OUGHT to keep capability status, evidence
+    maturity, and scientific conclusion as three independent dimensions that
+    are never conflated into one verdict.
+  scope:
+    subjects:
+      - hypothesize research-status publication
+  criteria:
+    kind: documentation-review
+    instructions: >-
+      Confirm SKILL.md and the engine keep the three dimensions structurally
+      distinct, and that a passing test alone cannot promote a scientific
+      conclusion.
+  source:
+    authority: hypothesize/SKILL.md
+    kind: skill-documentation
+    rationale: >-
+      hypothesize/SKILL.md states "Capability != evidence != conclusion" and
+      "Passing tests can never promote a hypothesis."

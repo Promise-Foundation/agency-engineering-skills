@@ -1,0 +1,29 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /skills
+  name: _declares_skill_manifest
+  title: Skills declare a manifest
+  tags:
+    - packaging
+    - discoverability
+spec:
+  statement: >-
+    Subjects represented within this domain OUGHT to declare a SKILL.md file
+    at their root stating the skill's name, description, and operating
+    instructions.
+  scope:
+    subjects:
+      - skill package root
+  criteria:
+    kind: file-existence
+    instructions: >-
+      Confirm SKILL.md exists at the skill's root and its YAML front matter
+      declares non-empty name and description fields.
+  source:
+    authority: agency-engineering-skills/README.md
+    kind: repository-convention
+    rationale: >-
+      Every skill in this repository is packaged and discovered through a
+      SKILL.md front-matter contract; see ltp/SKILL.md, hypothesize/SKILL.md,
+      and promisify/SKILL.md.
