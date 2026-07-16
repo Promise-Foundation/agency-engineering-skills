@@ -1,7 +1,23 @@
 # hypothesize
 
-A reusable engine + CLI that derives one honest, machine-readable **research
-status** for a project by keeping three usually-conflated dimensions apart:
+
+## WHAT
+Hypothesize is an agentic coding skill that analyzes a project and identifies
+the hypotheses the project's success depends on.
+
+## WHY
+
+For any non-trivial project, be it a substantial research program or a business venture
+or a simple app, a set of hypotheses can be identified that should be tested before
+substantial work is done.
+
+Much wasted time and effort can be attributed to ignorance of this fact.  Lean development
+and other methodologies are effective because they raise awareness of this.
+
+## HOW
+
+Hypothesize includes a reusable engine + CLI that derives one honest, machine-readable
+**research status** for a project by keeping three usually-conflated dimensions apart:
 
 - **Capability** — what the code demonstrably does, from tagged acceptance tests.
 - **Evidence maturity** — the strongest admitted evidence artifact.
