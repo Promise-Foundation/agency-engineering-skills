@@ -1,0 +1,26 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-zpd-verification-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T18:00:00Z
+  revision: "d7d6c4cb4088d2d921b0924620ee77f88e88fe18-dirty"
+  toolVersion: claude-repo-review/0.2
+spec:
+  promise: /skills/_provides_automated_verification
+  effectiveDomain: /skills/zpd
+  verdict: not_applicable
+  confidence: 0.9
+  rationale: >-
+    The promise's criterion is "tooling-execution": run the package's
+    bundled test suite or validator. zpd ships no tooling at all -- no
+    scripts, no package, nothing executable -- only a markdown
+    specification and a design-tool export archive. This is recorded
+    not_applicable rather than broken because there is no tooling artifact
+    in scope to be broken; it is a category difference from ltp and
+    hypothesize, which each ship a real pytest suite that runs and passes.
+  evidence:
+    - kind: file-existence
+      command: "find zpd -iname '*.py' -o -iname 'test_*'"
+      exitCode: 0
+      summary: "No matches -- zpd contains no executable code of any kind."

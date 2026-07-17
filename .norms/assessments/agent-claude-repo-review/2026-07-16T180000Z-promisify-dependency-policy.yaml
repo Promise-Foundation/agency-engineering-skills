@@ -1,0 +1,26 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-promisify-dependency-policy-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T18:00:00Z
+  revision: "d7d6c4cb4088d2d921b0924620ee77f88e88fe18-dirty"
+  toolVersion: claude-repo-review/0.2
+spec:
+  promise: /skills/_respects_dependency_policy
+  effectiveDomain: /skills/promisify
+  verdict: not_applicable
+  confidence: 0.95
+  rationale: >-
+    agency-engineering.yaml declares promisify's own dependencies as an
+    empty list; it is the repository's shared, no-dependency base skill.
+    The promise's criterion applies to a skill's behavior toward a
+    dependency it declares, so there is no applicable circumstance to
+    assess for promisify as a dependent. This is distinct from asking
+    whether other skills correctly treat promisify as recommended/required,
+    which is assessed separately at their own domains.
+  evidence:
+    - kind: documentation-quote
+      path: agency-engineering.yaml
+      lines: "11-15"
+      summary: "promisify: id: promisify, ..., dependencies: []"

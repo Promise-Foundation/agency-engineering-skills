@@ -1,0 +1,227 @@
+{
+  "build": {
+    "evidence_count": 0,
+    "scenario_counts": {
+      "error": 0,
+      "failed": 0,
+      "passed": 5,
+      "skipped": 0,
+      "undefined": 0,
+      "untested": 0
+    },
+    "source_hash": "f036fbb18702271757912ce08014c9823b2b5c42e7687832a9db6e9a014d9d41"
+  },
+  "capabilities": [
+    {
+      "hypotheses": [
+        "HYP-ENGINE-DECOUPLING"
+      ],
+      "id": "CAP-NO-CROSS-IMPORT",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "tests/test_composition.py::test_hypothesize_engine_does_not_import_ltp_or_norms_py",
+        "tests/test_composition.py::test_ltp_engine_does_not_import_the_hypothesize_package",
+        "tests/test_composition.py::test_promisify_has_no_installable_package_for_others_to_import"
+      ],
+      "status": "implemented",
+      "summary": "Three scenarios confirm hypothesize/src, ltp/src, and (transitively) both do not import promisify's norms.py or each other's installable package.",
+      "tag": "cap_no_cross_import",
+      "title": "Source scan confirms no engine imports a sibling engine's package"
+    },
+    {
+      "hypotheses": [
+        "HYP-BRIDGE-PRESERVES-LOGIC"
+      ],
+      "id": "CAP-BRIDGE-SEPARATION",
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 2,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scenario_ids": [
+        "tests/test_composition.py::test_ltp_bridge_updates_empirical_status_without_touching_clr",
+        "tests/test_composition.py::test_ltp_bridge_export_never_asserts_a_conclusion"
+      ],
+      "status": "implemented",
+      "summary": "Two scenarios confirm import_evidence updates only verification.empirical_status (with a contradiction note on falsification, CLR untouched) and export_links never emits a conclusion-shaped value.",
+      "tag": "cap_bridge_separation",
+      "title": "The ltp<->hypothesize bridge keeps empirical and logical status separate"
+    }
+  ],
+  "evidence": [],
+  "hypotheses": [
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "consequences": [
+        "grep for 'import ltp'/'from ltp' inside hypothesize/src finds nothing",
+        "grep for 'import hypothesize'/'from hypothesize' inside ltp/src (excluding ltp's own ltp.integrations.hypothesize submodule) finds nothing",
+        "each engine's own pytest suite passes with the sibling packages absent from the environment"
+      ],
+      "defeaters": [
+        "a future change adds a real import of one engine's package into another's source",
+        "an engine's own test suite requires a sibling package to be installed to pass"
+      ],
+      "evidence": [],
+      "evidence_health": "current",
+      "evidence_maturity": "design",
+      "id": "HYP-ENGINE-DECOUPLING",
+      "relations": [
+        [
+          "ABOUT",
+          "repo:promisify,hypothesize,ltp"
+        ],
+        [
+          "GOVERNED_BY",
+          "norms.promise:/skills/_respects_dependency_policy"
+        ]
+      ],
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scope": "This repository's three shipped engine packages, checked by static source inspection, not runtime dependency resolution",
+      "statement": "promisify, hypothesize, and ltp can each be installed and run without any one importing a sibling engine's Python package, so removing any one sibling does not break the others' imports.",
+      "subject": "promisify/, hypothesize/src, ltp/src at the current repository revision",
+      "summary": "A source-scan capability confirms no cross-package import exists at this revision. This is a structural snapshot, not a guarantee that no future change reintroduces coupling -- that is exactly why it is wired as a running check, not a one-time claim.",
+      "tag": "hyp_engine_decoupling",
+      "title": "The three engines can run and compose without importing each other"
+    },
+    {
+      "capability_status": "implemented",
+      "conclusion": "not_tested",
+      "consequences": [
+        "importing a falsified outcome leaves every clr.*.result value unchanged",
+        "importing a falsified outcome appends a contradiction note rather than deleting or reversing the claim",
+        "export_links never emits a scientific-conclusion-shaped value (supported/falsified) -- only empirical_status, defaulting to not_tested"
+      ],
+      "defeaters": [
+        "importing an outcome changes any clr.*.result value",
+        "importing a falsified outcome silently deletes the claim or rewrites its conclusion field",
+        "export_links or import_evidence sets review_status directly"
+      ],
+      "evidence": [],
+      "evidence_health": "current",
+      "evidence_maturity": "mechanism",
+      "id": "HYP-BRIDGE-PRESERVES-LOGIC",
+      "relations": [
+        [
+          "ABOUT",
+          "ltp.module:ltp.integrations.hypothesize"
+        ],
+        [
+          "VERIFIES",
+          "ltp.claim:CLM-1 (synthetic fixture)"
+        ]
+      ],
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 2,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scope": "A causal_claims[] entry carrying a verification.hypothesis_ref, imported via a synthetic research-status.json outcome",
+      "statement": "ltp's hypothesize bridge (ltp.integrations.hypothesize) folds a hypothesize research-status outcome into a causal claim's verification.empirical_status field only, and never changes that claim's CLR-derived logical status (clr.*.result), and never deletes or reverses the claim.",
+      "subject": "ltp.integrations.hypothesize (import_evidence, export_links)",
+      "summary": "A bounded mechanism demonstration on a synthetic fixture confirms the bridge's import_evidence and export_links functions preserve the separation on one representative causal claim. This is a mechanism check, not a claim that any real project's causal model has been reconciled with real hypothesize evidence -- no real project currently links a causal_claims[].verification field to this repository's own research/portfolio.toml.",
+      "tag": "hyp_bridge_preserves_logic",
+      "title": "The ltp<->hypothesize bridge updates only empirical status, never logical status"
+    },
+    {
+      "capability_status": "specified",
+      "conclusion": "not_tested",
+      "consequences": [
+        "the learner completes the originally blocked action after the lesson, not merely a quiz",
+        "the updated independent/assisted-level estimate traces to a specific append-only assessment record",
+        "the skill refuses to proceed without a validated promisify domain model, per zpd's hard dependency"
+      ],
+      "defeaters": [
+        "the learner cannot apply the lesson back to the original task (mvp.md section 8: \"a working result does not prove the learner produced it independently\")",
+        "the skill runs and teaches without a validated promise domain model, contradicting its stated hard dependency"
+      ],
+      "evidence": [],
+      "evidence_health": "current",
+      "evidence_maturity": "none",
+      "id": "HYP-ZPD-MVP-VERTICAL-SLICE",
+      "relations": [
+        [
+          "NORMATIVE_CONTEXT",
+          "norms.promise:/skills/_declares_skill_manifest"
+        ],
+        [
+          "NORMATIVE_CONTEXT",
+          "norms.promise:/skills/_respects_dependency_policy"
+        ]
+      ],
+      "scenario_counts": {
+        "error": 0,
+        "failed": 0,
+        "passed": 0,
+        "skipped": 0,
+        "undefined": 0,
+        "untested": 0
+      },
+      "scope": "One learner, one active job, one diagnosed blocker, per mvp.md's explicit non-goals (no curriculum generation, no multi-user classrooms, no numerical merit scores)",
+      "statement": "A single-session workflow -- diagnose one real blocker, teach or assess exactly one domain-scoped capacity promise at the right level, verify immediate application to the learner's actual task, and update an evidence-based capability estimate -- is sufficient to demonstrate ZPD's core teaching claim, without a curriculum, multi-user support, or a numerical mastery score.",
+      "subject": "zpd/mvp.md \"MVP acceptance test\" scenario",
+      "summary": "zpd/mvp.md specifies this vertical slice and its acceptance scenario in detail, but zpd has no SKILL.md or executable implementation (maturity: specified in agency-engineering.yaml); no session has been run, so this is not_tested by construction, and no capability is linked because none is implemented yet.",
+      "tag": "hyp_zpd_mvp_slice",
+      "title": "A single diagnose-teach-verify session is a sufficient MVP for ZPD"
+    }
+  ],
+  "limitations": [
+    {
+      "id": "LIM-STRUCTURAL-SNAPSHOT-ONLY",
+      "status": "open",
+      "text": "HYP-ENGINE-DECOUPLING's capability is a source-scan snapshot at the current revision, re-checked on every hypothesize sync/check run; it is evidence that decoupling holds now and is monitored, not a proof that no future change can reintroduce coupling."
+    },
+    {
+      "id": "LIM-BRIDGE-SYNTHETIC-ONLY",
+      "status": "open",
+      "text": "HYP-BRIDGE-PRESERVES-LOGIC's evidence uses one synthetic causal claim fixture (CLM-1, HYP-EXT), matching ltp's own test_integration.py fixture in shape. No real project in this repository currently links a real causal_claims[].verification.hypothesis_ref to a real hypothesize hypothesis, so external validity of the bridge on a real, larger model remains unestablished."
+    },
+    {
+      "id": "LIM-ZPD-UNBUILT",
+      "status": "open",
+      "text": "zpd has no SKILL.md or executable implementation (agency-engineering.yaml: maturity: specified); see norms.promise:/skills/_declares_skill_manifest, assessed broken for zpd. HYP-ZPD-MVP-VERTICAL-SLICE cannot move past not_tested until an actual session is run against a real learner and task."
+    }
+  ],
+  "portfolio": {
+    "last_reviewed": "2026-07-16",
+    "thesis": "The three shipped engines compose as a federation -- decoupled at the package level, thin at the bridge -- rather than silently collapsing into one model, and that composition claim is itself checked, not merely asserted.",
+    "title": "agency-engineering-skills: composition research"
+  },
+  "quarantined_evidence": [],
+  "requirements": [
+    {
+      "blocking": true,
+      "capabilities": [
+        "CAP-NO-CROSS-IMPORT"
+      ],
+      "hypotheses": [
+        "HYP-ENGINE-DECOUPLING"
+      ],
+      "id": "REQ-NO-CROSS-IMPORT-HELD",
+      "source": "README.md#composition",
+      "title": "Sibling engines must not import each other's Python package"
+    }
+  ],
+  "schema_version": 1,
+  "studies": []
+}

@@ -1,0 +1,29 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-zpd-references-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T18:00:00Z
+  revision: "d7d6c4cb4088d2d921b0924620ee77f88e88fe18-dirty"
+  toolVersion: claude-repo-review/0.2
+spec:
+  promise: /skills/_documents_references
+  effectiveDomain: /skills/zpd
+  verdict: not_applicable
+  confidence: 0.75
+  rationale: >-
+    This promise's criterion is specifically "a references/ directory with
+    at least one document per major workflow the SKILL.md delegates detail
+    to" -- it presupposes a SKILL.md that does the delegating. zpd has no
+    SKILL.md (see assessment-zpd-manifest-001, recorded broken for that more
+    direct, unconditional criterion). Without a SKILL.md there is nothing
+    for a references/ directory to be delegated from, so this promise's
+    specific mechanism has no applicable circumstance yet at zpd's current
+    "specified" maturity. This is not a claim that zpd's mvp.md is adequate
+    documentation for a shipped skill -- only that this particular
+    promise's delegation-shaped criterion does not apply until zpd is
+    packaged as an operating skill.
+  evidence:
+    - kind: file-existence
+      path: zpd
+      summary: "No references/ directory; no SKILL.md to delegate from."

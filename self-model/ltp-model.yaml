@@ -1,0 +1,807 @@
+# This is agency-engineering-skills' own LTP self-model.
+#
+# It intentionally does NOT live at the conventional <root>/ltp/ltp-model.yaml
+# path: that path is fully occupied by the ltp skill PACKAGE itself (src/,
+# tests/, dashboard/, SKILL.md, references/). Writing a model there would
+# collide with -- and could be mistaken for part of -- the skill's own source.
+# This file and its generated/ projections live under the repo-root
+# self-model/ directory instead, always addressed with an explicit --model
+# flag, e.g.:
+#
+#   ltp --model self-model/ltp-model.yaml validate --strict
+#   ltp --model self-model/ltp-model.yaml sync
+#   ltp --model self-model/ltp-model.yaml check
+#
+# --root is never used for this model (default --root resolution looks for
+# <root>/ltp/ltp-model.yaml first, which would resolve into the skill
+# package's own directory -- exactly the collision this file avoids).
+
+schema_version: 2
+
+project:
+  name: agency-engineering-skills
+  analyzed_path: "."
+  analysis_mode: forward
+  goal: G-1
+
+analysis_plan:
+  mode: full
+  goal_tree: {status: required}
+  current_reality_tree: {status: required}
+  evaporating_cloud:
+    status: done
+    reason: >-
+      The question of whether a persistent conflict is warranted was
+      considered and closed, not skipped: two candidate conflicts were
+      evaluated and rejected -- see conflict_analysis. The Cloud tree itself
+      has no content because forcing one would manufacture a conflict the
+      evidence does not support.
+  future_reality_tree: {status: required}
+  prerequisite_tree: {status: required}
+  transition_tree: {status: required}
+
+analysis:
+  current_constraint: CONSTRAINT-1
+  recommended_next_action: TR-1
+  expected_effect: IE-1
+  updated_at: "2026-07-16T18:30:00Z"
+
+conflict_analysis:
+  status: no_validated_persistent_conflict
+  candidates_rejected:
+    - candidate: "Zero cross-engine imports (CSF-2) vs. real interoperability between skills"
+      reason: >-
+        Rejected: research/portfolio.toml's CAP-BRIDGE-SEPARATION demonstrates
+        both hold at once -- ltp's hypothesize bridge interoperates by parsing
+        a plain research-status.json, never by importing the hypothesize
+        package. There is no evidence of chronic tension between these two
+        needs, only a solved design problem (a thin, read-only bridge).
+    - candidate: "zpd's hard promisify dependency vs. shipping ZPD quickly as a standalone demo"
+      reason: >-
+        Rejected as a *persistent conflict*: this is a single already-made
+        design decision stated once in zpd/mvp.md ("ZPD has a hard dependency
+        on Promisify... it must not run without a validated promise domain
+        model"), not a chronic, contended tension with evidence of recurring
+        back-and-forth (EC-008 requires persistence evidence, which is absent
+        here -- there is exactly one, already-settled statement of intent).
+
+entities:
+  # -- Goal Tree ------------------------------------------------------------
+  - id: G-1
+    kind: goal
+    statement: >-
+      Every skill this repository ships (promisify, hypothesize, ltp, and
+      eventually zpd) is independently adoptable in a real target repository,
+      keeps its own declarations/entities/claims free of another skill's
+      status dimensions, and is verifiable by that skill's own deterministic
+      tooling.
+    basis: inferred
+    review_status: corroborated
+    confidence: high
+    satisfaction: partial
+    satisfaction_criterion: >-
+      Every skill in agency-engineering.yaml reads maturity: shipped, each
+      ships a passing automated test suite, no shipped skill's package imports
+      a sibling's package, and this repository's own .norms/, research/, and
+      self-model instances all validate against that skill's own CLI.
+    reasoning: >-
+      No single document states this as one sentence; it is inferred from
+      README.md's Composition section ("The skills form a federation, not a
+      mandatory pipeline"), agency-engineering.yaml's dependencyPolicy, and
+      every SKILL.md's own "Agency Engineering composition" section, which
+      converge on the same claim. Partial, not satisfied, because zpd is not
+      yet shipped (see NC-4).
+
+  - id: CSF-1
+    kind: critical_success_factor
+    statement: >-
+      Each skill ships a complete, adoptable package: SKILL.md front matter,
+      delegated reference docs, and an automated, repeatable verification
+      suite for its own tooling.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    satisfaction: partial
+    reasoning: >-
+      Directly grounded in promisify's own three /skills-declared promises
+      (_declares_skill_manifest, _documents_references,
+      _provides_automated_verification) and their assessments in .norms/.
+      Partial: kept for promisify, hypothesize, and ltp; broken/not_applicable
+      for zpd (assessment-zpd-manifest-001, -references-001, -verification-001).
+
+  - id: CSF-2
+    kind: critical_success_factor
+    statement: >-
+      The skills interoperate through thin, read-only bridges that parse
+      each other's generated output formats, never importing or duplicating
+      each other's object models.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    satisfaction: satisfied
+    reasoning: >-
+      Confirmed this session by research/portfolio.toml's CAP-NO-CROSS-IMPORT
+      (source-scan: no engine imports a sibling's package) and
+      CAP-BRIDGE-SEPARATION (ltp's hypothesize bridge updates only
+      verification.empirical_status, never CLR results) -- both implemented,
+      both passing.
+
+  - id: CSF-3
+    kind: critical_success_factor
+    statement: >-
+      The repository applies its own normative (promisify), empirical
+      (hypothesize), and causal (ltp) tooling to itself, not only to
+      hypothetical or third-party target projects.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    satisfaction: satisfied
+    reasoning: >-
+      Satisfied by the completion of this very session's three phases: .norms/
+      validates (32 documents, 0 errors), research/ passes `hypothesize --root
+      . check`, and this self-model passes `ltp --model
+      self-model/ltp-model.yaml validate`. The last leg is self-referential --
+      this model's own successful validation is part of what makes CSF-3 true
+      -- which is disclosed here rather than left implicit.
+
+  - id: NC-1
+    kind: necessary_condition
+    statement: >-
+      promisify ships a complete, adoptable package: SKILL.md, delegated
+      references, and its own automated test suite for scripts/norms.py.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      promisify/SKILL.md exists with non-empty name/description;
+      promisify/references/ has one document per delegated workflow; `cd
+      promisify && python3 -m pytest` exits 0.
+    evidence_refs: [EVD-5]
+    reasoning: >-
+      Was broken as of assessment-promisify-verification-001 (no automated
+      test existed for norms.py's own logic); repaired this session by adding
+      promisify/tests/test_norms.py (40 tests) and promisify/pyproject.toml,
+      then re-assessed kept in assessment-promisify-verification-002.
+
+  - id: NC-2
+    kind: necessary_condition
+    statement: >-
+      hypothesize ships a complete, adoptable package: SKILL.md, delegated
+      references, and its own automated test suite.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      hypothesize/SKILL.md exists; hypothesize/references/ has 3 delegated
+      docs; `PYTHONPATH=src python3 -m pytest -q` in hypothesize/ exits 0.
+    evidence_refs: [EVD-6]
+
+  - id: NC-3
+    kind: necessary_condition
+    statement: >-
+      ltp ships a complete, adoptable package: SKILL.md, delegated
+      references, and its own automated test suite.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      ltp/SKILL.md exists; ltp/references/ has one document per delegated
+      workflow plus a generated schema; `PYTHONPATH=src python3 -m pytest -q`
+      in ltp/ exits 0.
+    evidence_refs: [EVD-6]
+
+  - id: NC-4
+    kind: necessary_condition
+    statement: >-
+      zpd ships a SKILL.md and a minimal executable entry point (a script or
+      module, plus at least one automated test) -- the same shape promisify,
+      hypothesize, and ltp already have.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: unsatisfied
+    satisfaction_criterion: >-
+      `find zpd -iname SKILL.md` returns a match whose front matter declares
+      non-empty name/description; zpd has at least one executable
+      script/module and one passing automated test.
+    evidence_refs: [EVD-1, EVD-2, EVD-3, EVD-4]
+    reasoning: >-
+      The single unsatisfied leaf in this Goal Tree. zpd/ currently contains
+      only mvp.md (a design specification) and "ZPD MVP implementation.zip"
+      (a design-tool export). This is the root cause modeled in the Current
+      Reality Tree below (RC-1 -> UDE-1).
+
+  - id: NC-5
+    kind: necessary_condition
+    statement: >-
+      No shipped engine's Python package imports a sibling engine's Python
+      package.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      research/portfolio.toml's CAP-NO-CROSS-IMPORT reads capability status
+      "implemented" under `hypothesize --root . check`.
+    evidence_refs: [EVD-7]
+
+  - id: NC-6
+    kind: necessary_condition
+    statement: >-
+      Cross-skill status handoffs (e.g. an ltp causal claim's empirical
+      status, folded in from a hypothesize research-status.json) update only
+      the receiving skill's own field, never the donor skill's owned status.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      research/portfolio.toml's CAP-BRIDGE-SEPARATION reads capability status
+      "implemented"; its linked scenarios show a falsified empirical import
+      leaves clr.*.result unchanged and appends a contradiction note rather
+      than deleting or reversing the claim.
+    evidence_refs: [EVD-7]
+
+  - id: NC-7
+    kind: necessary_condition
+    statement: >-
+      The repository's own .norms/ normative model exists, validates, and is
+      kept current.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      `python3 promisify/scripts/norms.py validate .` reports 0 errors.
+    evidence_refs: [EVD-8]
+
+  - id: NC-8
+    kind: necessary_condition
+    statement: >-
+      The repository's own hypothesize research portfolio exists and its
+      publication is current.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      `hypothesize --root . check` exits 0 and reports the generated
+      publication is current.
+    evidence_refs: [EVD-9]
+
+  - id: NC-9
+    kind: necessary_condition
+    statement: >-
+      The repository's own ltp causal model exists, validates, and is kept
+      current.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    satisfaction: satisfied
+    satisfaction_criterion: >-
+      `ltp --model self-model/ltp-model.yaml validate --strict` exits 0 and
+      `ltp --model self-model/ltp-model.yaml check` reports the generated
+      projections are current.
+    evidence_refs: [EVD-10]
+    reasoning: >-
+      Satisfied reflexively: this very file, once it validates, is the
+      evidence. Disclosed explicitly rather than treated as a hidden
+      bootstrapping trick.
+
+  # -- Current Reality Tree --------------------------------------------------
+  - id: UDE-1
+    kind: undesirable_effect
+    statement: >-
+      zpd is referenced as a peer skill in agency-engineering.yaml, README.md,
+      and agency-ui, but pointing an agent or user at zpd/ to adopt or invoke
+      it currently finds only a design specification and a design-tool export
+      archive, not a packaged, invocable skill.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    evidence_refs: [EVD-1, EVD-2, EVD-3]
+
+  - id: RC-1
+    kind: root_cause
+    statement: >-
+      zpd was authored only as a design specification (mvp.md) and a
+      design-tool export (a zip containing an HTML/CSS prototype and
+      supporting assets); no SKILL.md, scripts, or tests were written to
+      package it as an executable skill.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+    influence: control
+    evidence_refs: [EVD-1, EVD-2]
+    assumption_refs: [ASM-1]
+
+  - id: ASM-1
+    kind: assumption
+    statement: >-
+      zpd's implementation has been deliberately deferred pending the MVP
+      design (mvp.md), rather than begun in parallel with or ahead of it --
+      i.e. design-then-build sequencing, not design-and-build together.
+    basis: inferred
+    review_status: unreviewed
+    confidence: medium
+    reasoning: >-
+      Inferred, not confirmed by a maintainer: the repository never states
+      *why* zpd was left at the design stage while the other three skills
+      were built. This assumption is what INJ-1 proposes to break -- proceed
+      to package zpd now, on the existing design, rather than waiting for
+      further design elaboration first.
+
+  # -- Future Reality Tree ---------------------------------------------------
+  - id: INJ-1
+    kind: injection
+    statement: >-
+      Package zpd as a minimal, executable skill: author zpd/SKILL.md
+      following the existing front-matter contract, define a minimal on-disk
+      record format for the MVP's append-only assessments/estimates, and add
+      at least one automated test -- including one that demonstrates the hard
+      promisify-dependency refusal path -- before treating zpd as shipped.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+    influence: control
+    assumption_refs: [ASM-1]
+    reasoning: >-
+      Proposed here, not yet reviewed or approved by a maintainer, and not
+      implemented in this session (building an entire new skill package is
+      out of scope for this analysis). Breaks ASM-1 by proceeding on the
+      existing design rather than waiting for further elaboration.
+
+  - id: DE-1
+    kind: desirable_effect
+    statement: >-
+      zpd ships a SKILL.md and a minimal executable entry point, matching
+      NC-4's satisfaction_criterion.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+
+  - id: DE-2
+    kind: desirable_effect
+    statement: >-
+      An agent pointed at zpd/ can discover and invoke it the same way it
+      already discovers and invokes promisify, hypothesize, and ltp.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+
+  - id: DE-3
+    kind: desirable_effect
+    statement: >-
+      NC-4 becomes satisfied, and CSF-1 becomes satisfied across all four
+      intended skills rather than partial.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+
+  - id: NBR-1
+    kind: negative_branch
+    statement: >-
+      A rushed zpd package could ship a SKILL.md that does not actually
+      enforce the hard promisify-dependency refusal path, silently allowing
+      zpd to teach or assess without a validated promise domain model --
+      contradicting zpd's own specified invariant (zpd/mvp.md).
+    basis: inferred
+    review_status: unreviewed
+    confidence: medium
+
+  - id: TRIM-1
+    kind: trimming_injection
+    statement: >-
+      Require the packaged zpd skill to ship, and pass, one automated test
+      demonstrating that it refuses to teach or assess without a validated
+      promisify domain model already present, before zpd is marked shipped in
+      agency-engineering.yaml. Corresponds to IO-3 in the Prerequisite Tree.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+    influence: control
+
+  # -- Prerequisite Tree ------------------------------------------------------
+  - id: OBS-1
+    kind: obstacle
+    statement: >-
+      No SKILL.md front-matter convention has been chosen for zpd; mvp.md
+      predates any packaging decision.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+
+  - id: IO-1
+    kind: intermediate_objective
+    statement: >-
+      zpd/SKILL.md exists, its front matter declares name and description,
+      and its body states zpd's non-negotiable invariants (including the hard
+      promisify dependency) -- following the same contract promisify,
+      hypothesize, and ltp already use.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+    satisfaction: unsatisfied
+    satisfaction_criterion: "zpd/SKILL.md exists and parses with non-empty name/description front matter."
+
+  - id: OBS-2
+    kind: obstacle
+    statement: >-
+      The MVP's append-only assessment/estimate design (mvp.md, sections 9-11)
+      has never been reduced to a concrete, minimal on-disk record format.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+
+  - id: IO-2
+    kind: intermediate_objective
+    statement: >-
+      A minimal on-disk schema for zpd assessment and capability-estimate
+      records exists, mirroring promisify's append-only assessment convention
+      (stable id, evidence, updated estimate, no in-place mutation of prior
+      records).
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+    satisfaction: unsatisfied
+    satisfaction_criterion: "A documented schema exists and at least one example record validates against it."
+
+  - id: OBS-3
+    kind: obstacle
+    statement: >-
+      There is no automated check proving zpd actually refuses to teach or
+      assess without a validated promisify domain already present.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+
+  - id: IO-3
+    kind: intermediate_objective
+    statement: >-
+      An automated test exists and passes, demonstrating that zpd's packaged
+      skill refuses to proceed when no validated promisify domain model is
+      present for the target repository.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+    satisfaction: unsatisfied
+    satisfaction_criterion: "The test exists, is wired into zpd's own test suite, and passes."
+
+  # -- Transition Tree ---------------------------------------------------------
+  - id: ER-1
+    kind: existing_reality
+    statement: >-
+      zpd/ contains only mvp.md (a design specification) and "ZPD MVP
+      implementation.zip" (a design-tool export archive); no SKILL.md exists.
+    basis: observed
+    review_status: corroborated
+    confidence: high
+
+  - id: NEED-1
+    kind: need
+    statement: >-
+      A discoverable skill manifest stating zpd's scope and its
+      non-negotiable hard promisify dependency, in the same place an agent
+      already looks for promisify, hypothesize, and ltp.
+    basis: inferred
+    review_status: unreviewed
+    confidence: medium
+
+  - id: ACT-1
+    kind: transition_action
+    statement: >-
+      Author zpd/SKILL.md: front matter with name and description, and a
+      body stating the MVP's scope (one active job, one blocker, no
+      curriculum) and the hard promisify-dependency refusal invariant,
+      following the same contract as promisify/SKILL.md, hypothesize/SKILL.md,
+      and ltp/SKILL.md.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+
+  - id: IE-1
+    kind: immediate_effect
+    statement: >-
+      zpd/SKILL.md exists on disk; its YAML front matter parses and declares
+      non-empty name and description fields, satisfying the same
+      file-existence criterion promisify/scripts/norms.py already checks for
+      the other three skills.
+    basis: provisional
+    review_status: unreviewed
+    confidence: medium
+
+  # -- Constraint -------------------------------------------------------------
+  - id: CONSTRAINT-1
+    kind: constraint
+    statement: >-
+      zpd's transition from design specification to packaged, executable
+      skill currently limits full realization of G-1 across all four intended
+      skills.
+    basis: inferred
+    review_status: unreviewed
+    confidence: medium
+    influence: control
+    reasoning: >-
+      Three of four intended skills are shipped, individually tested,
+      mutually decoupled (CSF-2, satisfied), and now self-applied to this
+      repository (CSF-3, satisfied). The one remaining gap limiting G-1's
+      full-suite claim is zpd -- not further work on promisify, hypothesize,
+      or ltp, which would not move G-1 further while zpd remains unpackaged.
+
+  - id: CONSTRAINT-2
+    kind: constraint
+    statement: >-
+      agency-ui's ltp-plugin and hypothesize-plugin content point at
+      illustrative demo projects (content/ltp-demo, content/graphist,
+      content/hypothesize-demo) rather than this repository's own
+      self-model/research artifacts.
+    basis: observed
+    review_status: unreviewed
+    confidence: medium
+    reasoning: >-
+      A real integration gap, but rejected as the limiting constraint on G-1:
+      G-1 is about the skill packages composing correctly, not about a
+      prototype UI's demo wiring. See constraint_assessment.alternative_candidates
+      and open_questions.
+
+evidence:
+  - id: EVD-1
+    source: "zpd/"
+    observation: >-
+      Directory contains only mvp.md and "ZPD MVP implementation.zip"; `find
+      zpd -iname SKILL.md` returns no matches.
+    kind: file-listing
+  - id: EVD-2
+    source: "agency-engineering.yaml"
+    observation: >-
+      zpd is the only entry with maturity: specified; promisify, ltp, and
+      hypothesize are all maturity: shipped.
+    kind: documentation
+  - id: EVD-3
+    source: "agency-ui/README.md"
+    observation: >-
+      States explicitly that "the live UI demo is not a shipped ZPD skill or
+      a complete learning-assessment implementation."
+    kind: documentation
+  - id: EVD-4
+    source: "zpd/mvp.md"
+    observation: >-
+      States ZPD's hard dependency on Promisify and that "the current
+      document specifies an MVP; the live UI demo is not a shipped ZPD skill
+      or a complete learning-assessment implementation."
+    kind: documentation
+  - id: EVD-5
+    source: "promisify/tests/test_norms.py; .norms/assessments/agent-claude-repo-review/2026-07-16T180000Z-promisify-verification-repaired.yaml"
+    observation: >-
+      40 new tests added this session for promisify/scripts/norms.py; `cd
+      promisify && python3 -m pytest` passes (40 passed), repairing a
+      previously broken automated-verification promise for promisify.
+    kind: test-run
+  - id: EVD-6
+    source: ".norms/assessments/agent-claude-repo-review/2026-07-16T050000Z-hypothesize-verification.yaml; .norms/assessments/agent-claude-repo-review/2026-07-16T050000Z-ltp-verification.yaml"
+    observation: >-
+      hypothesize's own pytest suite (32 tests) and ltp's own pytest suite
+      (56 tests) both pass; both assessed "kept" for
+      /skills/_provides_automated_verification.
+    kind: cross-reference
+  - id: EVD-7
+    source: "research/tests/test_composition.py; artifacts/research/pytest-report.json"
+    observation: >-
+      5 passing scenarios: 3 confirm no engine imports a sibling engine's
+      package (CAP-NO-CROSS-IMPORT); 2 confirm ltp's hypothesize bridge
+      updates only verification.empirical_status, never CLR results
+      (CAP-BRIDGE-SEPARATION).
+    kind: test-run
+  - id: EVD-8
+    source: ".norms/"
+    observation: >-
+      `python3 promisify/scripts/norms.py validate .` reports 32 documents,
+      0 errors, 0 warnings.
+    kind: tool-output
+  - id: EVD-9
+    source: "research/"
+    observation: >-
+      `hypothesize --root . check` reports the generated research
+      publication is current.
+    kind: tool-output
+  - id: EVD-10
+    source: "self-model/ltp-model.yaml"
+    observation: >-
+      This self-model exists and validates via `ltp --model
+      self-model/ltp-model.yaml validate`, satisfying NC-9 by its own
+      construction.
+    kind: tool-output
+
+necessity_claims:
+  - {id: NEC-1, prerequisite: CSF-1, objective: G-1, confidence: high}
+  - {id: NEC-2, prerequisite: CSF-2, objective: G-1, confidence: high}
+  - {id: NEC-3, prerequisite: CSF-3, objective: G-1, confidence: high}
+  - {id: NEC-4, prerequisite: NC-1, objective: CSF-1, confidence: high}
+  - {id: NEC-5, prerequisite: NC-2, objective: CSF-1, confidence: high}
+  - {id: NEC-6, prerequisite: NC-3, objective: CSF-1, confidence: high}
+  - {id: NEC-7, prerequisite: NC-4, objective: CSF-1, confidence: high}
+  - {id: NEC-8, prerequisite: NC-5, objective: CSF-2, confidence: high}
+  - {id: NEC-9, prerequisite: NC-6, objective: CSF-2, confidence: high}
+  - {id: NEC-10, prerequisite: NC-7, objective: CSF-3, confidence: high}
+  - {id: NEC-11, prerequisite: NC-8, objective: CSF-3, confidence: high}
+  - {id: NEC-12, prerequisite: NC-9, objective: CSF-3, confidence: high}
+  - id: NEC-13
+    prerequisite: DE-3
+    objective: CSF-1
+    confidence: medium
+    assumption_refs: [ASM-1]
+  - {id: NEC-14, prerequisite: IO-1, objective: INJ-1, confidence: medium}
+  - {id: NEC-15, prerequisite: IO-2, objective: INJ-1, confidence: medium}
+  - {id: NEC-16, prerequisite: IO-3, objective: INJ-1, confidence: medium}
+
+causal_claims:
+  - id: CLM-1
+    premises: [RC-1]
+    operator: single
+    conclusion: UDE-1
+    confidence: high
+    assumption_refs: [ASM-1]
+    clr:
+      clarity: {result: pass}
+      entity_existence: {result: pass, evidence_refs: [EVD-1, EVD-2]}
+      causality_existence: {result: pass}
+      cause_insufficiency: {result: pass}
+      additional_cause: {result: pass}
+      cause_effect_reversal: {result: pass}
+      predicted_effect_existence: {result: pass}
+      tautology: {result: pass}
+    verification:
+      hypothesis_ref: HYP-ZPD-MVP-VERTICAL-SLICE
+      role: entity_existence
+      empirical_status: not_tested
+
+  - id: CLM-2
+    premises: [INJ-1]
+    operator: single
+    conclusion: DE-1
+    confidence: medium
+    assumption_refs: [ASM-1]
+    clr:
+      clarity: {result: pass}
+      entity_existence: {result: untested}
+      causality_existence: {result: untested}
+      cause_insufficiency: {result: pass}
+      additional_cause: {result: pass}
+      cause_effect_reversal: {result: pass}
+      predicted_effect_existence: {result: untested}
+      tautology: {result: pass}
+
+  - id: CLM-3
+    premises: [DE-1]
+    operator: single
+    conclusion: DE-2
+    confidence: medium
+    clr:
+      clarity: {result: pass}
+      entity_existence: {result: untested}
+      causality_existence: {result: untested}
+      cause_insufficiency: {result: pass}
+      additional_cause: {result: pass}
+      cause_effect_reversal: {result: pass}
+      predicted_effect_existence: {result: untested}
+      tautology: {result: pass}
+
+  - id: CLM-4
+    premises: [DE-2]
+    operator: single
+    conclusion: DE-3
+    confidence: medium
+    clr:
+      clarity: {result: pass}
+      entity_existence: {result: untested}
+      causality_existence: {result: untested}
+      cause_insufficiency: {result: pass}
+      additional_cause: {result: pass}
+      cause_effect_reversal: {result: pass}
+      predicted_effect_existence: {result: untested}
+      tautology: {result: pass}
+
+  - id: CLM-5
+    premises: [INJ-1]
+    operator: single
+    conclusion: NBR-1
+    confidence: medium
+
+  - id: CLM-6
+    # Structural link only: this records that TRIM-1 addresses/neutralizes
+    # NBR-1 (per the engine's convention for connecting a trimming injection
+    # to the negative branch it disposes of via causal_claims connectivity),
+    # not that TRIM-1 causes NBR-1 in the ordinary forward-causation sense.
+    # See TRIM-1's own statement for the intended (preventive) direction.
+    premises: [TRIM-1]
+    operator: single
+    conclusion: NBR-1
+    confidence: medium
+
+predicted_effects:
+  - id: PRED-1
+    source_claim: CLM-1
+    statement: >-
+      If RC-1 is the actual and sufficient cause of UDE-1, then (a) no
+      zpd/SKILL.md exists anywhere in the repository, and (b) the
+      repository's own documentation should explicitly flag zpd as
+      not-yet-shipped rather than silently treating it as equivalent to the
+      shipped skills.
+    expectation: should_exist
+    result: observed
+    evidence_refs: [EVD-1, EVD-3, EVD-4]
+
+obstacle_resolutions:
+  - {id: OR-1, obstacle: OBS-1, intermediate_objective: IO-1}
+  - {id: OR-2, obstacle: OBS-2, intermediate_objective: IO-2}
+  - {id: OR-3, obstacle: OBS-3, intermediate_objective: IO-3}
+
+transitions:
+  - id: TR-1
+    existing_reality: ER-1
+    need: NEED-1
+    action: ACT-1
+    immediate_effect: IE-1
+    advances: IO-1
+    verification:
+      kind: manual_review
+      acceptance: >-
+        zpd/SKILL.md exists, parses as YAML front matter plus body, and
+        declares non-empty name/description fields -- the same check
+        promisify's own _declares_skill_manifest promise already applies to
+        the other three skills.
+    likely_scope: ["zpd/SKILL.md"]
+    estimated_size: small
+    rollback: >-
+      Revert the SKILL.md addition; zpd remains documented as maturity:
+      specified with no behavioral change to the other three skills.
+
+constraint_assessment:
+  entity: CONSTRAINT-1
+  status: candidate
+  goal_measure:
+    name: "Skills at maturity: shipped"
+    unit: "skills (of 4 declared in agency-engineering.yaml)"
+  limiting_mechanism: >-
+    Three of four intended skills are shipped, individually tested, mutually
+    decoupled, and now self-applied to this repository; the fourth (zpd) has
+    no executable form, so G-1's full-suite composability claim cannot yet be
+    demonstrated end-to-end across all four, regardless of further work on
+    the other three.
+  evidence_refs: [EVD-2]
+  alternative_candidates:
+    - entity: CONSTRAINT-2
+      rejected_because: >-
+        A real integration gap (the UI demo doesn't reflect this repo's own
+        self-model/research artifacts), but it does not limit G-1 itself,
+        which is about the skill packages composing correctly -- not about a
+        prototype UI's demo wiring.
+  focusing_step:
+    current: identify
+  elevation_direction: >-
+    Package zpd as a shipped skill (INJ-1), adding the missing fourth
+    capability, rather than trying to extract more from the three skills
+    already shipped.
+
+open_questions:
+  - "Should zpd's minimal on-disk record format (assessments/estimates) be YAML, matching promisify's convention, or something else?"
+  - "Is one automated dependency-refusal test (IO-3) sufficient evidence to mark zpd shipped, or does the maturity bar require a fuller suite matching ltp/hypothesize/promisify's scope?"
+  - "Should agency-ui's ltp-plugin and hypothesize-plugin ever point at this repository's own self-model/ and research/ artifacts (in addition to, or instead of, the illustrative demo content), the way promisify-plugin already does for the real .norms/ tree? Rejected here as an alternative constraint candidate (CONSTRAINT-2), but it remains an open integration question."
+
+coverage_gaps:
+  - "promisify/docs/CONVERSATION.md and promisify/docs/THE_PROBLEM.md (large design-history documents) were not read in full."
+  - "agency-ui's TypeScript implementation was sampled (README.md, testing.ts conformance kit, mapping.ts) but not reviewed file-by-file; apps/web/src/shell/** and skills/*-plugin/src/views.tsx were not fully reviewed."
+  - "The contents of 'zpd/ZPD MVP implementation.zip' (an HTML/CSS/JS design-tool export) were listed but not opened or reviewed in detail."
+  - "agency-ui/content/*/ltp/ltp-model.yaml and the hypothesize-demo content are illustrative fixtures for a fictional project (Graphist / a remote-work research program), not evidence about this repository's own composition; read only enough to confirm they are unrelated demo content, not analyzed further."

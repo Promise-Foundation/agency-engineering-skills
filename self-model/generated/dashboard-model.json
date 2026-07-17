@@ -1,0 +1,1505 @@
+{
+  "analysis": {
+    "current_constraint": "CONSTRAINT-1",
+    "expected_effect": "IE-1",
+    "recommended_next_action": "TR-1",
+    "updated_at": "2026-07-16T18:30:00Z"
+  },
+  "analysis_plan": {
+    "current_reality_tree": {
+      "reason": null,
+      "status": "required"
+    },
+    "evaporating_cloud": {
+      "reason": "The question of whether a persistent conflict is warranted was considered and closed, not skipped: two candidate conflicts were evaluated and rejected -- see conflict_analysis. The Cloud tree itself has no content because forcing one would manufacture a conflict the evidence does not support.",
+      "status": "done"
+    },
+    "future_reality_tree": {
+      "reason": null,
+      "status": "required"
+    },
+    "goal_tree": {
+      "reason": null,
+      "status": "required"
+    },
+    "mode": "full",
+    "prerequisite_tree": {
+      "reason": null,
+      "status": "required"
+    },
+    "transition_tree": {
+      "reason": null,
+      "status": "required"
+    }
+  },
+  "build": {
+    "generator": "ltp 0.1.0",
+    "source_hash": "81503a13bc702c7b260c4d9814906f9828be914698d3244f98232ca2c5143fa5"
+  },
+  "causal_claims": [
+    {
+      "assumption_refs": [
+        "ASM-1"
+      ],
+      "clr": {
+        "additional_cause": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "causality_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "cause_effect_reversal": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "cause_insufficiency": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "clarity": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "entity_existence": {
+          "evidence_refs": [
+            "EVD-1",
+            "EVD-2"
+          ],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "predicted_effect_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "tautology": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        }
+      },
+      "conclusion": "UDE-1",
+      "confidence": "high",
+      "id": "CLM-1",
+      "logic_status": "scrutinized",
+      "mode": "sufficiency",
+      "operator": "single",
+      "premises": [
+        "RC-1"
+      ],
+      "verification": {
+        "empirical_status": "not_tested",
+        "hypothesis_ref": "HYP-ZPD-MVP-VERTICAL-SLICE",
+        "role": "entity_existence",
+        "statement_hash": null
+      }
+    },
+    {
+      "assumption_refs": [
+        "ASM-1"
+      ],
+      "clr": {
+        "additional_cause": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "causality_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "cause_effect_reversal": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "cause_insufficiency": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "clarity": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "entity_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "predicted_effect_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "tautology": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        }
+      },
+      "conclusion": "DE-1",
+      "confidence": "medium",
+      "id": "CLM-2",
+      "logic_status": "candidate",
+      "mode": "sufficiency",
+      "operator": "single",
+      "premises": [
+        "INJ-1"
+      ],
+      "verification": null
+    },
+    {
+      "assumption_refs": [],
+      "clr": {
+        "additional_cause": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "causality_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "cause_effect_reversal": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "cause_insufficiency": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "clarity": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "entity_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "predicted_effect_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "tautology": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        }
+      },
+      "conclusion": "DE-2",
+      "confidence": "medium",
+      "id": "CLM-3",
+      "logic_status": "candidate",
+      "mode": "sufficiency",
+      "operator": "single",
+      "premises": [
+        "DE-1"
+      ],
+      "verification": null
+    },
+    {
+      "assumption_refs": [],
+      "clr": {
+        "additional_cause": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "causality_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "cause_effect_reversal": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "cause_insufficiency": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "clarity": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        },
+        "entity_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "predicted_effect_existence": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "untested"
+        },
+        "tautology": {
+          "evidence_refs": [],
+          "proposed_additional_premise": null,
+          "reservation": null,
+          "result": "pass"
+        }
+      },
+      "conclusion": "DE-3",
+      "confidence": "medium",
+      "id": "CLM-4",
+      "logic_status": "candidate",
+      "mode": "sufficiency",
+      "operator": "single",
+      "premises": [
+        "DE-2"
+      ],
+      "verification": null
+    },
+    {
+      "assumption_refs": [],
+      "clr": null,
+      "conclusion": "NBR-1",
+      "confidence": "medium",
+      "id": "CLM-5",
+      "logic_status": "candidate",
+      "mode": "sufficiency",
+      "operator": "single",
+      "premises": [
+        "INJ-1"
+      ],
+      "verification": null
+    },
+    {
+      "assumption_refs": [],
+      "clr": null,
+      "conclusion": "NBR-1",
+      "confidence": "medium",
+      "id": "CLM-6",
+      "logic_status": "candidate",
+      "mode": "sufficiency",
+      "operator": "single",
+      "premises": [
+        "TRIM-1"
+      ],
+      "verification": null
+    }
+  ],
+  "clouds": [],
+  "conflict_claims": [],
+  "constraint_assessment": {
+    "alternative_candidates": [
+      {
+        "entity": "CONSTRAINT-2",
+        "rejected_because": "A real integration gap (the UI demo doesn't reflect this repo's own self-model/research artifacts), but it does not limit G-1 itself, which is about the skill packages composing correctly -- not about a prototype UI's demo wiring."
+      }
+    ],
+    "elevation_direction": "Package zpd as a shipped skill (INJ-1), adding the missing fourth capability, rather than trying to extract more from the three skills already shipped.",
+    "entity": "CONSTRAINT-1",
+    "evidence_refs": [
+      "EVD-2"
+    ],
+    "exploit_direction": null,
+    "focusing_step": {
+      "current": "identify"
+    },
+    "goal_measure": {
+      "name": "Skills at maturity: shipped",
+      "period": null,
+      "unit": "skills (of 4 declared in agency-engineering.yaml)"
+    },
+    "limiting_mechanism": "Three of four intended skills are shipped, individually tested, mutually decoupled, and now self-applied to this repository; the fourth (zpd) has no executable form, so G-1's full-suite composability claim cannot yet be demonstrated end-to-end across all four, regardless of further work on the other three.",
+    "status": "candidate",
+    "subordinate_direction": null
+  },
+  "contradictions": [],
+  "coverage_gaps": [
+    "promisify/docs/CONVERSATION.md and promisify/docs/THE_PROBLEM.md (large design-history documents) were not read in full.",
+    "agency-ui's TypeScript implementation was sampled (README.md, testing.ts conformance kit, mapping.ts) but not reviewed file-by-file; apps/web/src/shell/** and skills/*-plugin/src/views.tsx were not fully reviewed.",
+    "The contents of 'zpd/ZPD MVP implementation.zip' (an HTML/CSS/JS design-tool export) were listed but not opened or reviewed in detail.",
+    "agency-ui/content/*/ltp/ltp-model.yaml and the hypothesize-demo content are illustrative fixtures for a fictional project (Graphist / a remote-work research program), not evidence about this repository's own composition; read only enough to confirm they are unrelated demo content, not analyzed further."
+  ],
+  "entities": [
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "G-1",
+      "influence": "influence",
+      "kind": "goal",
+      "measure": null,
+      "reasoning": "No single document states this as one sentence; it is inferred from README.md's Composition section (\"The skills form a federation, not a mandatory pipeline\"), agency-engineering.yaml's dependencyPolicy, and every SKILL.md's own \"Agency Engineering composition\" section, which converge on the same claim. Partial, not satisfied, because zpd is not yet shipped (see NC-4).",
+      "review_status": "corroborated",
+      "satisfaction": "partial",
+      "satisfaction_criterion": "Every skill in agency-engineering.yaml reads maturity: shipped, each ships a passing automated test suite, no shipped skill's package imports a sibling's package, and this repository's own .norms/, research/, and self-model instances all validate against that skill's own CLI.",
+      "statement": "Every skill this repository ships (promisify, hypothesize, ltp, and eventually zpd) is independently adoptable in a real target repository, keeps its own declarations/entities/claims free of another skill's status dimensions, and is verifiable by that skill's own deterministic tooling."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "CSF-1",
+      "influence": "influence",
+      "kind": "critical_success_factor",
+      "measure": null,
+      "reasoning": "Directly grounded in promisify's own three /skills-declared promises (_declares_skill_manifest, _documents_references, _provides_automated_verification) and their assessments in .norms/. Partial: kept for promisify, hypothesize, and ltp; broken/not_applicable for zpd (assessment-zpd-manifest-001, -references-001, -verification-001).",
+      "review_status": "corroborated",
+      "satisfaction": "partial",
+      "satisfaction_criterion": null,
+      "statement": "Each skill ships a complete, adoptable package: SKILL.md front matter, delegated reference docs, and an automated, repeatable verification suite for its own tooling."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "CSF-2",
+      "influence": "influence",
+      "kind": "critical_success_factor",
+      "measure": null,
+      "reasoning": "Confirmed this session by research/portfolio.toml's CAP-NO-CROSS-IMPORT (source-scan: no engine imports a sibling's package) and CAP-BRIDGE-SEPARATION (ltp's hypothesize bridge updates only verification.empirical_status, never CLR results) -- both implemented, both passing.",
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": null,
+      "statement": "The skills interoperate through thin, read-only bridges that parse each other's generated output formats, never importing or duplicating each other's object models."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "CSF-3",
+      "influence": "influence",
+      "kind": "critical_success_factor",
+      "measure": null,
+      "reasoning": "Satisfied by the completion of this very session's three phases: .norms/ validates (32 documents, 0 errors), research/ passes `hypothesize --root . check`, and this self-model passes `ltp --model self-model/ltp-model.yaml validate`. The last leg is self-referential -- this model's own successful validation is part of what makes CSF-3 true -- which is disclosed here rather than left implicit.",
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": null,
+      "statement": "The repository applies its own normative (promisify), empirical (hypothesize), and causal (ltp) tooling to itself, not only to hypothetical or third-party target projects."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-5"
+      ],
+      "id": "NC-1",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": "Was broken as of assessment-promisify-verification-001 (no automated test existed for norms.py's own logic); repaired this session by adding promisify/tests/test_norms.py (40 tests) and promisify/pyproject.toml, then re-assessed kept in assessment-promisify-verification-002.",
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "promisify/SKILL.md exists with non-empty name/description; promisify/references/ has one document per delegated workflow; `cd promisify && python3 -m pytest` exits 0.",
+      "statement": "promisify ships a complete, adoptable package: SKILL.md, delegated references, and its own automated test suite for scripts/norms.py."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-6"
+      ],
+      "id": "NC-2",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "hypothesize/SKILL.md exists; hypothesize/references/ has 3 delegated docs; `PYTHONPATH=src python3 -m pytest -q` in hypothesize/ exits 0.",
+      "statement": "hypothesize ships a complete, adoptable package: SKILL.md, delegated references, and its own automated test suite."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-6"
+      ],
+      "id": "NC-3",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "ltp/SKILL.md exists; ltp/references/ has one document per delegated workflow plus a generated schema; `PYTHONPATH=src python3 -m pytest -q` in ltp/ exits 0.",
+      "statement": "ltp ships a complete, adoptable package: SKILL.md, delegated references, and its own automated test suite."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-1",
+        "EVD-2",
+        "EVD-3",
+        "EVD-4"
+      ],
+      "id": "NC-4",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": "The single unsatisfied leaf in this Goal Tree. zpd/ currently contains only mvp.md (a design specification) and \"ZPD MVP implementation.zip\" (a design-tool export). This is the root cause modeled in the Current Reality Tree below (RC-1 -> UDE-1).",
+      "review_status": "corroborated",
+      "satisfaction": "unsatisfied",
+      "satisfaction_criterion": "`find zpd -iname SKILL.md` returns a match whose front matter declares non-empty name/description; zpd has at least one executable script/module and one passing automated test.",
+      "statement": "zpd ships a SKILL.md and a minimal executable entry point (a script or module, plus at least one automated test) -- the same shape promisify, hypothesize, and ltp already have."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-7"
+      ],
+      "id": "NC-5",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "research/portfolio.toml's CAP-NO-CROSS-IMPORT reads capability status \"implemented\" under `hypothesize --root . check`.",
+      "statement": "No shipped engine's Python package imports a sibling engine's Python package."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-7"
+      ],
+      "id": "NC-6",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "research/portfolio.toml's CAP-BRIDGE-SEPARATION reads capability status \"implemented\"; its linked scenarios show a falsified empirical import leaves clr.*.result unchanged and appends a contradiction note rather than deleting or reversing the claim.",
+      "statement": "Cross-skill status handoffs (e.g. an ltp causal claim's empirical status, folded in from a hypothesize research-status.json) update only the receiving skill's own field, never the donor skill's owned status."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-8"
+      ],
+      "id": "NC-7",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "`python3 promisify/scripts/norms.py validate .` reports 0 errors.",
+      "statement": "The repository's own .norms/ normative model exists, validates, and is kept current."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-9"
+      ],
+      "id": "NC-8",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "`hypothesize --root . check` exits 0 and reports the generated publication is current.",
+      "statement": "The repository's own hypothesize research portfolio exists and its publication is current."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-10"
+      ],
+      "id": "NC-9",
+      "influence": "control",
+      "kind": "necessary_condition",
+      "measure": null,
+      "reasoning": "Satisfied reflexively: this very file, once it validates, is the evidence. Disclosed explicitly rather than treated as a hidden bootstrapping trick.",
+      "review_status": "corroborated",
+      "satisfaction": "satisfied",
+      "satisfaction_criterion": "`ltp --model self-model/ltp-model.yaml validate --strict` exits 0 and `ltp --model self-model/ltp-model.yaml check` reports the generated projections are current.",
+      "statement": "The repository's own ltp causal model exists, validates, and is kept current."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-1",
+        "EVD-2",
+        "EVD-3"
+      ],
+      "id": "UDE-1",
+      "influence": "influence",
+      "kind": "undesirable_effect",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "zpd is referenced as a peer skill in agency-engineering.yaml, README.md, and agency-ui, but pointing an agent or user at zpd/ to adopt or invoke it currently finds only a design specification and a design-tool export archive, not a packaged, invocable skill."
+    },
+    {
+      "assumption_refs": [
+        "ASM-1"
+      ],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [
+        "EVD-1",
+        "EVD-2"
+      ],
+      "id": "RC-1",
+      "influence": "control",
+      "kind": "root_cause",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "zpd was authored only as a design specification (mvp.md) and a design-tool export (a zip containing an HTML/CSS prototype and supporting assets); no SKILL.md, scripts, or tests were written to package it as an executable skill."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "ASM-1",
+      "influence": "influence",
+      "kind": "assumption",
+      "measure": null,
+      "reasoning": "Inferred, not confirmed by a maintainer: the repository never states *why* zpd was left at the design stage while the other three skills were built. This assumption is what INJ-1 proposes to break -- proceed to package zpd now, on the existing design, rather than waiting for further design elaboration first.",
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "zpd's implementation has been deliberately deferred pending the MVP design (mvp.md), rather than begun in parallel with or ahead of it -- i.e. design-then-build sequencing, not design-and-build together."
+    },
+    {
+      "assumption_refs": [
+        "ASM-1"
+      ],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "INJ-1",
+      "influence": "control",
+      "kind": "injection",
+      "measure": null,
+      "reasoning": "Proposed here, not yet reviewed or approved by a maintainer, and not implemented in this session (building an entire new skill package is out of scope for this analysis). Breaks ASM-1 by proceeding on the existing design rather than waiting for further elaboration.",
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "Package zpd as a minimal, executable skill: author zpd/SKILL.md following the existing front-matter contract, define a minimal on-disk record format for the MVP's append-only assessments/estimates, and add at least one automated test -- including one that demonstrates the hard promisify-dependency refusal path -- before treating zpd as shipped."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "DE-1",
+      "influence": "influence",
+      "kind": "desirable_effect",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "zpd ships a SKILL.md and a minimal executable entry point, matching NC-4's satisfaction_criterion."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "DE-2",
+      "influence": "influence",
+      "kind": "desirable_effect",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "An agent pointed at zpd/ can discover and invoke it the same way it already discovers and invokes promisify, hypothesize, and ltp."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "DE-3",
+      "influence": "influence",
+      "kind": "desirable_effect",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "NC-4 becomes satisfied, and CSF-1 becomes satisfied across all four intended skills rather than partial."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "NBR-1",
+      "influence": "influence",
+      "kind": "negative_branch",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "A rushed zpd package could ship a SKILL.md that does not actually enforce the hard promisify-dependency refusal path, silently allowing zpd to teach or assess without a validated promise domain model -- contradicting zpd's own specified invariant (zpd/mvp.md)."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "TRIM-1",
+      "influence": "control",
+      "kind": "trimming_injection",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "Require the packaged zpd skill to ship, and pass, one automated test demonstrating that it refuses to teach or assess without a validated promisify domain model already present, before zpd is marked shipped in agency-engineering.yaml. Corresponds to IO-3 in the Prerequisite Tree."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "OBS-1",
+      "influence": "influence",
+      "kind": "obstacle",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "No SKILL.md front-matter convention has been chosen for zpd; mvp.md predates any packaging decision."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "IO-1",
+      "influence": "influence",
+      "kind": "intermediate_objective",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unsatisfied",
+      "satisfaction_criterion": "zpd/SKILL.md exists and parses with non-empty name/description front matter.",
+      "statement": "zpd/SKILL.md exists, its front matter declares name and description, and its body states zpd's non-negotiable invariants (including the hard promisify dependency) -- following the same contract promisify, hypothesize, and ltp already use."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "OBS-2",
+      "influence": "influence",
+      "kind": "obstacle",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "The MVP's append-only assessment/estimate design (mvp.md, sections 9-11) has never been reduced to a concrete, minimal on-disk record format."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "IO-2",
+      "influence": "influence",
+      "kind": "intermediate_objective",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unsatisfied",
+      "satisfaction_criterion": "A documented schema exists and at least one example record validates against it.",
+      "statement": "A minimal on-disk schema for zpd assessment and capability-estimate records exists, mirroring promisify's append-only assessment convention (stable id, evidence, updated estimate, no in-place mutation of prior records)."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "OBS-3",
+      "influence": "influence",
+      "kind": "obstacle",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "There is no automated check proving zpd actually refuses to teach or assess without a validated promisify domain already present."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "IO-3",
+      "influence": "influence",
+      "kind": "intermediate_objective",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unsatisfied",
+      "satisfaction_criterion": "The test exists, is wired into zpd's own test suite, and passes.",
+      "statement": "An automated test exists and passes, demonstrating that zpd's packaged skill refuses to proceed when no validated promisify domain model is present for the target repository."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "high",
+      "evidence_refs": [],
+      "id": "ER-1",
+      "influence": "influence",
+      "kind": "existing_reality",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "corroborated",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "zpd/ contains only mvp.md (a design specification) and \"ZPD MVP implementation.zip\" (a design-tool export archive); no SKILL.md exists."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "NEED-1",
+      "influence": "influence",
+      "kind": "need",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "A discoverable skill manifest stating zpd's scope and its non-negotiable hard promisify dependency, in the same place an agent already looks for promisify, hypothesize, and ltp."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "ACT-1",
+      "influence": "influence",
+      "kind": "transition_action",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "Author zpd/SKILL.md: front matter with name and description, and a body stating the MVP's scope (one active job, one blocker, no curriculum) and the hard promisify-dependency refusal invariant, following the same contract as promisify/SKILL.md, hypothesize/SKILL.md, and ltp/SKILL.md."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "provisional",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "IE-1",
+      "influence": "influence",
+      "kind": "immediate_effect",
+      "measure": null,
+      "reasoning": null,
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "zpd/SKILL.md exists on disk; its YAML front matter parses and declares non-empty name and description fields, satisfying the same file-existence criterion promisify/scripts/norms.py already checks for the other three skills."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "CONSTRAINT-1",
+      "influence": "control",
+      "kind": "constraint",
+      "measure": null,
+      "reasoning": "Three of four intended skills are shipped, individually tested, mutually decoupled (CSF-2, satisfied), and now self-applied to this repository (CSF-3, satisfied). The one remaining gap limiting G-1's full-suite claim is zpd -- not further work on promisify, hypothesize, or ltp, which would not move G-1 further while zpd remains unpackaged.",
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "zpd's transition from design specification to packaged, executable skill currently limits full realization of G-1 across all four intended skills."
+    },
+    {
+      "assumption_refs": [],
+      "atomic": false,
+      "atomic_justification": null,
+      "basis": "observed",
+      "confidence": "medium",
+      "evidence_refs": [],
+      "id": "CONSTRAINT-2",
+      "influence": "influence",
+      "kind": "constraint",
+      "measure": null,
+      "reasoning": "A real integration gap, but rejected as the limiting constraint on G-1: G-1 is about the skill packages composing correctly, not about a prototype UI's demo wiring. See constraint_assessment.alternative_candidates and open_questions.",
+      "review_status": "unreviewed",
+      "satisfaction": "unknown",
+      "satisfaction_criterion": null,
+      "statement": "agency-ui's ltp-plugin and hypothesize-plugin content point at illustrative demo projects (content/ltp-demo, content/graphist, content/hypothesize-demo) rather than this repository's own self-model/research artifacts."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EVD-1",
+      "interpretation": null,
+      "kind": "file-listing",
+      "lines": null,
+      "observation": "Directory contains only mvp.md and \"ZPD MVP implementation.zip\"; `find zpd -iname SKILL.md` returns no matches.",
+      "source": "zpd/"
+    },
+    {
+      "id": "EVD-2",
+      "interpretation": null,
+      "kind": "documentation",
+      "lines": null,
+      "observation": "zpd is the only entry with maturity: specified; promisify, ltp, and hypothesize are all maturity: shipped.",
+      "source": "agency-engineering.yaml"
+    },
+    {
+      "id": "EVD-3",
+      "interpretation": null,
+      "kind": "documentation",
+      "lines": null,
+      "observation": "States explicitly that \"the live UI demo is not a shipped ZPD skill or a complete learning-assessment implementation.\"",
+      "source": "agency-ui/README.md"
+    },
+    {
+      "id": "EVD-4",
+      "interpretation": null,
+      "kind": "documentation",
+      "lines": null,
+      "observation": "States ZPD's hard dependency on Promisify and that \"the current document specifies an MVP; the live UI demo is not a shipped ZPD skill or a complete learning-assessment implementation.\"",
+      "source": "zpd/mvp.md"
+    },
+    {
+      "id": "EVD-5",
+      "interpretation": null,
+      "kind": "test-run",
+      "lines": null,
+      "observation": "40 new tests added this session for promisify/scripts/norms.py; `cd promisify && python3 -m pytest` passes (40 passed), repairing a previously broken automated-verification promise for promisify.",
+      "source": "promisify/tests/test_norms.py; .norms/assessments/agent-claude-repo-review/2026-07-16T180000Z-promisify-verification-repaired.yaml"
+    },
+    {
+      "id": "EVD-6",
+      "interpretation": null,
+      "kind": "cross-reference",
+      "lines": null,
+      "observation": "hypothesize's own pytest suite (32 tests) and ltp's own pytest suite (56 tests) both pass; both assessed \"kept\" for /skills/_provides_automated_verification.",
+      "source": ".norms/assessments/agent-claude-repo-review/2026-07-16T050000Z-hypothesize-verification.yaml; .norms/assessments/agent-claude-repo-review/2026-07-16T050000Z-ltp-verification.yaml"
+    },
+    {
+      "id": "EVD-7",
+      "interpretation": null,
+      "kind": "test-run",
+      "lines": null,
+      "observation": "5 passing scenarios: 3 confirm no engine imports a sibling engine's package (CAP-NO-CROSS-IMPORT); 2 confirm ltp's hypothesize bridge updates only verification.empirical_status, never CLR results (CAP-BRIDGE-SEPARATION).",
+      "source": "research/tests/test_composition.py; artifacts/research/pytest-report.json"
+    },
+    {
+      "id": "EVD-8",
+      "interpretation": null,
+      "kind": "tool-output",
+      "lines": null,
+      "observation": "`python3 promisify/scripts/norms.py validate .` reports 32 documents, 0 errors, 0 warnings.",
+      "source": ".norms/"
+    },
+    {
+      "id": "EVD-9",
+      "interpretation": null,
+      "kind": "tool-output",
+      "lines": null,
+      "observation": "`hypothesize --root . check` reports the generated research publication is current.",
+      "source": "research/"
+    },
+    {
+      "id": "EVD-10",
+      "interpretation": null,
+      "kind": "tool-output",
+      "lines": null,
+      "observation": "This self-model exists and validates via `ltp --model self-model/ltp-model.yaml validate`, satisfying NC-9 by its own construction.",
+      "source": "self-model/ltp-model.yaml"
+    }
+  ],
+  "gates": [],
+  "health": {
+    "counts": {
+      "error": 0,
+      "info": 0,
+      "warning": 0
+    },
+    "diagnostics": [],
+    "publishable": true
+  },
+  "necessity_claims": [
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-1",
+      "objective": "G-1",
+      "prerequisite": "CSF-1"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-2",
+      "objective": "G-1",
+      "prerequisite": "CSF-2"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-3",
+      "objective": "G-1",
+      "prerequisite": "CSF-3"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-4",
+      "objective": "CSF-1",
+      "prerequisite": "NC-1"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-5",
+      "objective": "CSF-1",
+      "prerequisite": "NC-2"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-6",
+      "objective": "CSF-1",
+      "prerequisite": "NC-3"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-7",
+      "objective": "CSF-1",
+      "prerequisite": "NC-4"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-8",
+      "objective": "CSF-2",
+      "prerequisite": "NC-5"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-9",
+      "objective": "CSF-2",
+      "prerequisite": "NC-6"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-10",
+      "objective": "CSF-3",
+      "prerequisite": "NC-7"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-11",
+      "objective": "CSF-3",
+      "prerequisite": "NC-8"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "high",
+      "id": "NEC-12",
+      "objective": "CSF-3",
+      "prerequisite": "NC-9"
+    },
+    {
+      "assumption_refs": [
+        "ASM-1"
+      ],
+      "confidence": "medium",
+      "id": "NEC-13",
+      "objective": "CSF-1",
+      "prerequisite": "DE-3"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "medium",
+      "id": "NEC-14",
+      "objective": "INJ-1",
+      "prerequisite": "IO-1"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "medium",
+      "id": "NEC-15",
+      "objective": "INJ-1",
+      "prerequisite": "IO-2"
+    },
+    {
+      "assumption_refs": [],
+      "confidence": "medium",
+      "id": "NEC-16",
+      "objective": "INJ-1",
+      "prerequisite": "IO-3"
+    }
+  ],
+  "obstacle_resolutions": [
+    {
+      "id": "OR-1",
+      "intermediate_objective": "IO-1",
+      "obstacle": "OBS-1"
+    },
+    {
+      "id": "OR-2",
+      "intermediate_objective": "IO-2",
+      "obstacle": "OBS-2"
+    },
+    {
+      "id": "OR-3",
+      "intermediate_objective": "IO-3",
+      "obstacle": "OBS-3"
+    }
+  ],
+  "open_questions": [
+    "Should zpd's minimal on-disk record format (assessments/estimates) be YAML, matching promisify's convention, or something else?",
+    "Is one automated dependency-refusal test (IO-3) sufficient evidence to mark zpd shipped, or does the maturity bar require a fuller suite matching ltp/hypothesize/promisify's scope?",
+    "Should agency-ui's ltp-plugin and hypothesize-plugin ever point at this repository's own self-model/ and research/ artifacts (in addition to, or instead of, the illustrative demo content), the way promisify-plugin already does for the real .norms/ tree? Rejected here as an alternative constraint candidate (CONSTRAINT-2), but it remains an open integration question."
+  ],
+  "predicted_effects": [
+    {
+      "evidence_refs": [
+        "EVD-1",
+        "EVD-3",
+        "EVD-4"
+      ],
+      "expectation": "should_exist",
+      "id": "PRED-1",
+      "result": "observed",
+      "source_claim": "CLM-1",
+      "statement": "If RC-1 is the actual and sufficient cause of UDE-1, then (a) no zpd/SKILL.md exists anywhere in the repository, and (b) the repository's own documentation should explicitly flag zpd as not-yet-shipped rather than silently treating it as equivalent to the shipped skills.",
+      "waived": false,
+      "waiver_reason": null
+    }
+  ],
+  "project": {
+    "analysis_mode": "forward",
+    "analyzed_path": ".",
+    "goal": "G-1",
+    "name": "agency-engineering-skills",
+    "provisional_goal": null
+  },
+  "schema_version": 2,
+  "transitions": [
+    {
+      "action": "ACT-1",
+      "advances": "IO-1",
+      "estimated_size": "small",
+      "existing_reality": "ER-1",
+      "id": "TR-1",
+      "immediate_effect": "IE-1",
+      "likely_scope": [
+        "zpd/SKILL.md"
+      ],
+      "need": "NEED-1",
+      "owner": null,
+      "precondition_refs": [],
+      "risk_refs": [],
+      "rollback": "Revert the SKILL.md addition; zpd remains documented as maturity: specified with no behavioral change to the other three skills.",
+      "verification": {
+        "acceptance": "zpd/SKILL.md exists, parses as YAML front matter plus body, and declares non-empty name/description fields -- the same check promisify's own _declares_skill_manifest promise already applies to the other three skills.",
+        "command": null,
+        "kind": "manual_review"
+      }
+    }
+  ],
+  "views": {
+    "current-reality": {
+      "edges": [
+        {
+          "claim": "CLM-1",
+          "relation": "causes",
+          "source": "RC-1",
+          "target": "UDE-1"
+        }
+      ],
+      "empty": false,
+      "node_ids": [
+        "RC-1",
+        "UDE-1"
+      ],
+      "title": "Current Reality Tree - why it is stuck"
+    },
+    "evaporating-cloud": {
+      "edges": [],
+      "empty": true,
+      "node_ids": [],
+      "title": "Evaporating Cloud - what is in tension"
+    },
+    "future-reality": {
+      "edges": [
+        {
+          "claim": "CLM-2",
+          "relation": "causes",
+          "source": "INJ-1",
+          "target": "DE-1"
+        },
+        {
+          "claim": "CLM-3",
+          "relation": "causes",
+          "source": "DE-1",
+          "target": "DE-2"
+        },
+        {
+          "claim": "CLM-4",
+          "relation": "causes",
+          "source": "DE-2",
+          "target": "DE-3"
+        },
+        {
+          "claim": "CLM-5",
+          "relation": "causes",
+          "source": "INJ-1",
+          "target": "NBR-1"
+        },
+        {
+          "claim": "CLM-6",
+          "relation": "causes",
+          "source": "TRIM-1",
+          "target": "NBR-1"
+        }
+      ],
+      "empty": false,
+      "node_ids": [
+        "INJ-1",
+        "DE-1",
+        "DE-2",
+        "DE-3",
+        "NBR-1",
+        "TRIM-1"
+      ],
+      "title": "Future Reality Tree - what resolves it"
+    },
+    "goal-tree": {
+      "edges": [
+        {
+          "claim": "NEC-1",
+          "relation": "necessary_for",
+          "source": "CSF-1",
+          "target": "G-1"
+        },
+        {
+          "claim": "NEC-2",
+          "relation": "necessary_for",
+          "source": "CSF-2",
+          "target": "G-1"
+        },
+        {
+          "claim": "NEC-3",
+          "relation": "necessary_for",
+          "source": "CSF-3",
+          "target": "G-1"
+        },
+        {
+          "claim": "NEC-4",
+          "relation": "necessary_for",
+          "source": "NC-1",
+          "target": "CSF-1"
+        },
+        {
+          "claim": "NEC-5",
+          "relation": "necessary_for",
+          "source": "NC-2",
+          "target": "CSF-1"
+        },
+        {
+          "claim": "NEC-6",
+          "relation": "necessary_for",
+          "source": "NC-3",
+          "target": "CSF-1"
+        },
+        {
+          "claim": "NEC-7",
+          "relation": "necessary_for",
+          "source": "NC-4",
+          "target": "CSF-1"
+        },
+        {
+          "claim": "NEC-8",
+          "relation": "necessary_for",
+          "source": "NC-5",
+          "target": "CSF-2"
+        },
+        {
+          "claim": "NEC-9",
+          "relation": "necessary_for",
+          "source": "NC-6",
+          "target": "CSF-2"
+        },
+        {
+          "claim": "NEC-10",
+          "relation": "necessary_for",
+          "source": "NC-7",
+          "target": "CSF-3"
+        },
+        {
+          "claim": "NEC-11",
+          "relation": "necessary_for",
+          "source": "NC-8",
+          "target": "CSF-3"
+        },
+        {
+          "claim": "NEC-12",
+          "relation": "necessary_for",
+          "source": "NC-9",
+          "target": "CSF-3"
+        }
+      ],
+      "empty": false,
+      "node_ids": [
+        "G-1",
+        "CSF-1",
+        "CSF-2",
+        "CSF-3",
+        "NC-1",
+        "NC-2",
+        "NC-3",
+        "NC-4",
+        "NC-5",
+        "NC-6",
+        "NC-7",
+        "NC-8",
+        "NC-9"
+      ],
+      "title": "Goal Tree - what must be true"
+    },
+    "prerequisite-tree": {
+      "edges": [
+        {
+          "claim": "NEC-14",
+          "relation": "necessary_for",
+          "source": "IO-1",
+          "target": "INJ-1"
+        },
+        {
+          "claim": "NEC-15",
+          "relation": "necessary_for",
+          "source": "IO-2",
+          "target": "INJ-1"
+        },
+        {
+          "claim": "NEC-16",
+          "relation": "necessary_for",
+          "source": "IO-3",
+          "target": "INJ-1"
+        },
+        {
+          "claim": "OR-1",
+          "relation": "overcome_by",
+          "source": "OBS-1",
+          "target": "IO-1"
+        },
+        {
+          "claim": "OR-2",
+          "relation": "overcome_by",
+          "source": "OBS-2",
+          "target": "IO-2"
+        },
+        {
+          "claim": "OR-3",
+          "relation": "overcome_by",
+          "source": "OBS-3",
+          "target": "IO-3"
+        }
+      ],
+      "empty": false,
+      "node_ids": [
+        "INJ-1",
+        "OBS-1",
+        "IO-1",
+        "OBS-2",
+        "IO-2",
+        "OBS-3",
+        "IO-3"
+      ],
+      "title": "Prerequisite Tree - what comes first"
+    },
+    "transition-tree": {
+      "edges": [
+        {
+          "claim": "TR-1",
+          "relation": "then",
+          "source": "ER-1",
+          "target": "NEED-1"
+        },
+        {
+          "claim": "TR-1",
+          "relation": "then",
+          "source": "NEED-1",
+          "target": "ACT-1"
+        },
+        {
+          "claim": "TR-1",
+          "relation": "then",
+          "source": "ACT-1",
+          "target": "IE-1"
+        },
+        {
+          "claim": "TR-1",
+          "relation": "then",
+          "source": "IE-1",
+          "target": "IO-1"
+        }
+      ],
+      "empty": false,
+      "node_ids": [
+        "ER-1",
+        "NEED-1",
+        "ACT-1",
+        "IE-1",
+        "IO-1"
+      ],
+      "title": "Transition Tree - what to do now"
+    }
+  }
+}

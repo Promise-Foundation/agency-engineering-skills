@@ -1,0 +1,47 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-promisify-verification-002
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T18:00:00Z
+  revision: "d7d6c4cb4088d2d921b0924620ee77f88e88fe18-dirty"
+  toolVersion: claude-repo-review/0.2
+spec:
+  promise: /skills/_provides_automated_verification
+  effectiveDomain: /skills/promisify
+  verdict: kept
+  confidence: 0.95
+  rationale: >-
+    Repairs the broken verdict recorded in
+    assessment-promisify-verification-001 (observed 2026-07-16T05:00:00Z):
+    promisify/scripts/norms.py now has an automated pytest suite at
+    promisify/tests/test_norms.py covering domain grammar and ancestry,
+    validate_repository's schema and semantic checks (forbidden promise
+    keys, misplaced promise files, duplicate promise addresses, unknown or
+    out-of-effective-scope assessment references, missing-evidence
+    warnings), effective_promises inheritance, all four conflict-resolution
+    policies (unknown-on-conflict, latest, majority, conservative),
+    calculate_trust arithmetic (checked against the worked example in
+    references/trust.md), CLI argument wiring, the explorer projection, and
+    a self-check that this repository's own .norms/ tree validates. This
+    tests norms.py's own behavior, which is distinct from
+    promisify/evals/*.yaml (agent-triggering fixtures that test whether an
+    agent is prompted to use the skill, not whether the tool computes
+    correctly).
+  evidence:
+    - kind: file-existence
+      path: promisify/tests/test_norms.py
+      summary: >-
+        40 test functions covering domain resolution, repository validation,
+        inheritance, conflict-policy resolution, trust arithmetic, CLI
+        wiring, and the explorer projection.
+    - kind: test-run
+      command: "cd promisify && python3 -m pytest -q"
+      exitCode: 0
+      summary: "40 passed in 0.21s"
+    - kind: source
+      path: promisify/pyproject.toml
+      summary: >-
+        Adds [tool.pytest.ini_options] (pythonpath=scripts, testpaths=tests)
+        so `python3 -m pytest` from the promisify/ directory discovers and
+        runs the suite the same way ltp/ and hypothesize/ already do.

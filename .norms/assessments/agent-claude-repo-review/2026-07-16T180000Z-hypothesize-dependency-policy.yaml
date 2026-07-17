@@ -1,0 +1,32 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-hypothesize-dependency-policy-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T18:00:00Z
+  revision: "d7d6c4cb4088d2d921b0924620ee77f88e88fe18-dirty"
+  toolVersion: claude-repo-review/0.2
+spec:
+  promise: /skills/_respects_dependency_policy
+  effectiveDomain: /skills/hypothesize
+  verdict: kept
+  confidence: 0.9
+  rationale: >-
+    agency-engineering.yaml declares hypothesize's dependency on promisify
+    with strength "recommended". hypothesize/SKILL.md's "Agency Engineering
+    composition" section states the same offer-then-continue-standalone
+    behavior the policy requires for a recommended dependency.
+  evidence:
+    - kind: documentation-quote
+      path: agency-engineering.yaml
+      lines: "31-34"
+      summary: >-
+        "dependencies: - skill: promisify, strength: recommended, purpose:
+        reuse normative domains without turning promises into hypotheses."
+    - kind: documentation-quote
+      path: hypothesize/SKILL.md
+      lines: "31-35"
+      summary: >-
+        "Promisify is recommended, not required. Before starting, determine
+        whether the current scope already has Promisify context... Continue
+        standalone when the user declines."

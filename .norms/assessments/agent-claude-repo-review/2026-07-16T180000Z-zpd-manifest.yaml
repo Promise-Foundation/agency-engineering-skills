@@ -1,0 +1,34 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-zpd-manifest-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T18:00:00Z
+  revision: "d7d6c4cb4088d2d921b0924620ee77f88e88fe18-dirty"
+  toolVersion: claude-repo-review/0.2
+spec:
+  promise: /skills/_declares_skill_manifest
+  effectiveDomain: /skills/zpd
+  verdict: broken
+  confidence: 0.95
+  rationale: >-
+    The zpd directory contains only mvp.md (an MVP design specification)
+    and "ZPD MVP implementation.zip" (a design-tool export archive with an
+    HTML prototype and supporting assets); no SKILL.md exists anywhere
+    under zpd/. The promise's criterion is an unconditional file-existence
+    check, so this is a direct, unambiguous failure rather than a matter of
+    interpretation. This is consistent with -- and corroborated by --
+    agency-engineering.yaml's own maturity label for zpd: "specified", the
+    only skill in the registry not marked "shipped".
+  evidence:
+    - kind: file-existence
+      command: "find zpd -iname 'SKILL.md'"
+      exitCode: 0
+      summary: "No matches."
+    - kind: file-existence
+      path: zpd
+      summary: "Contents: mvp.md, 'ZPD MVP implementation.zip'. No SKILL.md, no scripts/, no references/."
+    - kind: documentation-quote
+      path: agency-engineering.yaml
+      lines: "38-41"
+      summary: "zpd: ..., maturity: specified (every other skill in the registry is 'shipped')."

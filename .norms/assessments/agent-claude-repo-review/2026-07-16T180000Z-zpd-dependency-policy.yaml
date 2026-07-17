@@ -1,0 +1,47 @@
+apiVersion: norms/v1
+kind: Assessment
+metadata:
+  id: assessment-zpd-dependency-policy-001
+  assessor: agent/claude-repo-review
+  observedAt: 2026-07-16T18:00:00Z
+  revision: "d7d6c4cb4088d2d921b0924620ee77f88e88fe18-dirty"
+  toolVersion: claude-repo-review/0.2
+spec:
+  promise: /skills/_respects_dependency_policy
+  effectiveDomain: /skills/zpd
+  verdict: not_applicable
+  confidence: 0.85
+  rationale: >-
+    agency-engineering.yaml declares zpd's dependency on promisify with
+    strength "required", and zpd/mvp.md's "Agency Engineering dependency and
+    ontology" section states the matching hard-dependency intent in prose
+    ("ZPD has a hard dependency on Promisify... it must not run without a
+    validated promise domain model"). But this promise's own criterion
+    names a specific artifact -- "SKILL.md's Agency Engineering composition
+    section" -- and zpd has no SKILL.md at all: the directory contains only
+    mvp.md (a design specification) and a design-tool export archive, no
+    scripts or packaged skill entry point. There is no operating skill yet
+    for the required-dependency behavior to be exhibited or assessed
+    against, consistent with zpd's own declared maturity: "specified" in
+    agency-engineering.yaml, not "shipped". Recorded not_applicable rather
+    than broken because the promise's named artifact does not yet exist to
+    fail the check; compare
+    assessment-zpd-manifest-001, which finds /skills/_declares_skill_manifest
+    genuinely broken for the same underlying reason (no SKILL.md).
+  evidence:
+    - kind: documentation-quote
+      path: zpd/mvp.md
+      lines: "9-11"
+      summary: >-
+        "ZPD has a hard dependency on Promisify. Unlike LTP and Hypothesize,
+        it must not run without a validated promise domain model because its
+        learner estimates assess capacity promises effective in that
+        domain."
+    - kind: file-existence
+      command: "find zpd -iname 'SKILL.md'"
+      exitCode: 0
+      summary: "No matches -- zpd has no SKILL.md."
+    - kind: documentation-quote
+      path: agency-engineering.yaml
+      lines: "38-45"
+      summary: "zpd: ..., maturity: specified, dependencies: [{skill: promisify, strength: required}]"

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "downtake",
+    "label": "Downtake",
+    "path": "../../downtake"
+  },
+  {
+    "id": "graphist",
+    "label": "Graphist",
+    "path": "../../graphist"
+  },
+  {
+    "id": "oracular-ui",
+    "label": "Oracular UI",
+    "path": "../../oracular-ui"
+  },
+  {
+    "id": "persistent-partition-logic",
+    "label": "Persistent Partition Logic",
+    "path": "../../persistent-partition-logic"
+  },
+  {
+    "id": "thrival",
+    "label": "Thrival",
+    "path": "../../thrival"
+  },
+  {
+    "id": "uptake-integrity-protocol",
+    "label": "Uptake Integrity Protocol",
+    "path": "../../uptake-integrity-protocol"
+  }
+]

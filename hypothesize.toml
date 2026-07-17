@@ -1,0 +1,32 @@
+# hypothesize configuration for this repository's own composition research.
+#
+# This dogfoods hypothesize on the repository that defines it: `research/`
+# holds a real portfolio (not the illustrative agency-ui/content/hypothesize-demo
+# fixture) about whether promisify, hypothesize, and ltp actually stay
+# decoupled as designed. `hypothesize --root . sync` derives status from three
+# separate inputs -- tagged pytest scenarios (capability), admitted evidence
+# artifacts / evidence-role tags (maturity), and qualified preregistered
+# results (conclusion, none yet) -- and writes it to research/generated/ and
+# this README's generated region.
+#
+#   source .venv/bin/activate
+#   python3 -m pytest research/tests -c research/pytest.ini \
+#     --json-report --json-report-file=artifacts/research/pytest-report.json
+#   hypothesize --root . sync
+#   hypothesize --root . check
+
+catalog = "research/portfolio.toml"
+evidence_dir = "research/evidence"
+
+[runner]
+adapter = "pytest"
+report = "artifacts/research/pytest-report.json"
+
+[[targets]]
+kind = "json"
+path = "research/generated/research-status.json"
+
+[[targets]]
+kind = "markdown_region"
+path = "README.md"
+marker = "research-status"

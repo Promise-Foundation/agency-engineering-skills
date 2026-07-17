@@ -1,0 +1,31 @@
+apiVersion: norms/v1
+kind: TrustView
+metadata:
+  name: current
+  description: >-
+    Cross-time view accepting the repo-review agent's latest claim per
+    promise, regardless of which revision it was observed at. `default` is
+    pinned to a fixed historical revision for reproducibility; that pin
+    means newly repaired or newly assessed domains (recorded at a later
+    revision) are invisible to `default` by construction, not because
+    anything is wrong with them. `current` is intentionally left unpinned so
+    this session's repair and new assessments are visible. Per
+    references/trust.md's snapshot policy, an unpinned view selects the
+    newest per-assessor claim and must be treated as cross-time and
+    potentially non-reproducible -- a live working picture, not a stable
+    historical record like `default`.
+spec:
+  observer: team/agency-engineering-maintainers
+  domain: /skills/ltp
+  assessmentSelection:
+    assessors: "*"
+    latestPerAssessor: true
+    requireEvidence: true
+  conflictPolicy: unknown-on-conflict
+  scoring:
+    unit: effective-promise
+    weighting: equal
+    excludeVerdicts:
+      - unknown
+      - not_applicable
+      - disputed

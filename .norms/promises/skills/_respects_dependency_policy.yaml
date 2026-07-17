@@ -1,0 +1,45 @@
+apiVersion: norms/v1
+kind: Promise
+metadata:
+  domain: /skills
+  name: _respects_dependency_policy
+  title: Skills behave according to their declared dependency strength
+  tags:
+    - architecture
+    - composition
+spec:
+  statement: >-
+    Subjects represented within this domain OUGHT to behave according to
+    the dependency strength declared for them in agency-engineering.yaml:
+    a `required` dependency OUGHT to block the skill from running when that
+    dependency is unavailable; a `recommended` dependency OUGHT to offer to
+    run the dependency first and continue standalone if the user declines;
+    an `optional` dependency OUGHT to be used silently when present,
+    without prompting.
+  scope:
+    subjects:
+      - skill SKILL.md "Agency Engineering composition" section
+  criteria:
+    kind: documentation-review
+    instructions: >-
+      For each skill with a declared dependency in
+      agency-engineering.yaml's spec.skills[].dependencies, confirm its
+      SKILL.md states behavior matching the declared strength: `required`
+      -> the skill will not proceed without the dependency; `recommended`
+      -> the skill offers to run the dependency first, then continues
+      standalone if declined; `optional` -> the skill uses the integration
+      when present without prompting.
+  source:
+    authority: agency-engineering.yaml
+    kind: repository-convention
+    rationale: >-
+      agency-engineering.yaml's spec.dependencyPolicy defines exactly these
+      three strengths and their required behavior ("required: refuse to run
+      when the dependency is unavailable", "recommended: offer to run the
+      dependency first, then continue standalone if declined", "optional:
+      use the integration when present without prompting"). Each skill that
+      declares a dependency states matching behavior in its own SKILL.md's
+      "Agency Engineering composition" section (e.g. ltp/SKILL.md and
+      hypothesize/SKILL.md both state: "Promisify is recommended, not
+      required... ask whether the user wants to run Promisify first.
+      Continue standalone when the user declines.").

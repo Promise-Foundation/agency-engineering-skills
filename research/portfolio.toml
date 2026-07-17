@@ -1,0 +1,158 @@
+# Research portfolio for the agency-engineering-skills repository itself.
+#
+# This is the repo dogfooding `hypothesize` on its own composition claims, not
+# a demo. `hypothesize` only derives from this file; it never writes back here.
+# IDs (HYP-*, CAP-*, REQ-*, LIM-*) are stable and must not be reused for a
+# different meaning. Titles/summaries may be refined freely.
+#
+# Compare agency-ui/content/hypothesize-demo/research/portfolio.toml: that file
+# is illustrative UI-demo content about a fictional remote-work research
+# program, used to exercise the hypothesize-plugin's rendering. This file is
+# about the real subject: whether this repository's own architectural claims
+# -- that promisify, hypothesize, and ltp compose without collapsing into each
+# other -- actually hold at the current revision.
+#
+# Deliberately NOT modeled here as hypotheses (see promisify's .norms/ instead):
+#   - "the interface renders only generated data"        -> a promise, kept
+#   - "promises never store a verdict"                   -> a promise, kept
+#   - "skills respect their declared dependency strength" -> a promise, mixed
+# These are normative/architectural OUGHT claims with attributable assessments,
+# not empirical propositions -- promisify already owns them. Hypothesize's job
+# here is narrower: keep it to propositions that could be empirically wrong, not
+# every true statement about the repository.
+
+schema_version = 1
+title = "agency-engineering-skills: composition research"
+last_reviewed = "2026-07-16"
+thesis = "The three shipped engines compose as a federation -- decoupled at the package level, thin at the bridge -- rather than silently collapsing into one model, and that composition claim is itself checked, not merely asserted."
+
+# ---------------------------------------------------------------------------
+# Hypotheses. Empirical propositions about this repository's own composition.
+# A passing test never promotes one to supported/falsified/inconclusive on its
+# own -- only a qualified, preregistered study result would (references/
+# publication-model.md). What the tests below DO establish is capability and,
+# for the bridge, mechanism-level evidence; see the capability/evidence_kind
+# each is linked to.
+# ---------------------------------------------------------------------------
+
+[[hypotheses]]
+id = "HYP-ENGINE-DECOUPLING"
+tag = "hyp_engine_decoupling"
+title = "The three engines can run and compose without importing each other"
+statement = "promisify, hypothesize, and ltp can each be installed and run without any one importing a sibling engine's Python package, so removing any one sibling does not break the others' imports."
+summary = "A source-scan capability confirms no cross-package import exists at this revision. This is a structural snapshot, not a guarantee that no future change reintroduces coupling -- that is exactly why it is wired as a running check, not a one-time claim."
+subject = "promisify/, hypothesize/src, ltp/src at the current repository revision"
+scope = "This repository's three shipped engine packages, checked by static source inspection, not runtime dependency resolution"
+consequences = [
+  "grep for 'import ltp'/'from ltp' inside hypothesize/src finds nothing",
+  "grep for 'import hypothesize'/'from hypothesize' inside ltp/src (excluding ltp's own ltp.integrations.hypothesize submodule) finds nothing",
+  "each engine's own pytest suite passes with the sibling packages absent from the environment",
+]
+defeaters = [
+  "a future change adds a real import of one engine's package into another's source",
+  "an engine's own test suite requires a sibling package to be installed to pass",
+]
+relations = [
+  ["ABOUT", "repo:promisify,hypothesize,ltp"],
+  ["GOVERNED_BY", "norms.promise:/skills/_respects_dependency_policy"],
+]
+
+[[hypotheses]]
+id = "HYP-BRIDGE-PRESERVES-LOGIC"
+tag = "hyp_bridge_preserves_logic"
+title = "The ltp<->hypothesize bridge updates only empirical status, never logical status"
+statement = "ltp's hypothesize bridge (ltp.integrations.hypothesize) folds a hypothesize research-status outcome into a causal claim's verification.empirical_status field only, and never changes that claim's CLR-derived logical status (clr.*.result), and never deletes or reverses the claim."
+summary = "A bounded mechanism demonstration on a synthetic fixture confirms the bridge's import_evidence and export_links functions preserve the separation on one representative causal claim. This is a mechanism check, not a claim that any real project's causal model has been reconciled with real hypothesize evidence -- no real project currently links a causal_claims[].verification field to this repository's own research/portfolio.toml."
+subject = "ltp.integrations.hypothesize (import_evidence, export_links)"
+scope = "A causal_claims[] entry carrying a verification.hypothesis_ref, imported via a synthetic research-status.json outcome"
+consequences = [
+  "importing a falsified outcome leaves every clr.*.result value unchanged",
+  "importing a falsified outcome appends a contradiction note rather than deleting or reversing the claim",
+  "export_links never emits a scientific-conclusion-shaped value (supported/falsified) -- only empirical_status, defaulting to not_tested",
+]
+defeaters = [
+  "importing an outcome changes any clr.*.result value",
+  "importing a falsified outcome silently deletes the claim or rewrites its conclusion field",
+  "export_links or import_evidence sets review_status directly",
+]
+relations = [
+  ["ABOUT", "ltp.module:ltp.integrations.hypothesize"],
+  ["VERIFIES", "ltp.claim:CLM-1 (synthetic fixture)"],
+]
+
+[[hypotheses]]
+id = "HYP-ZPD-MVP-VERTICAL-SLICE"
+tag = "hyp_zpd_mvp_slice"
+title = "A single diagnose-teach-verify session is a sufficient MVP for ZPD"
+statement = "A single-session workflow -- diagnose one real blocker, teach or assess exactly one domain-scoped capacity promise at the right level, verify immediate application to the learner's actual task, and update an evidence-based capability estimate -- is sufficient to demonstrate ZPD's core teaching claim, without a curriculum, multi-user support, or a numerical mastery score."
+summary = "zpd/mvp.md specifies this vertical slice and its acceptance scenario in detail, but zpd has no SKILL.md or executable implementation (maturity: specified in agency-engineering.yaml); no session has been run, so this is not_tested by construction, and no capability is linked because none is implemented yet."
+subject = "zpd/mvp.md \"MVP acceptance test\" scenario"
+scope = "One learner, one active job, one diagnosed blocker, per mvp.md's explicit non-goals (no curriculum generation, no multi-user classrooms, no numerical merit scores)"
+consequences = [
+  "the learner completes the originally blocked action after the lesson, not merely a quiz",
+  "the updated independent/assisted-level estimate traces to a specific append-only assessment record",
+  "the skill refuses to proceed without a validated promisify domain model, per zpd's hard dependency",
+]
+defeaters = [
+  "the learner cannot apply the lesson back to the original task (mvp.md section 8: \"a working result does not prove the learner produced it independently\")",
+  "the skill runs and teaches without a validated promise domain model, contradicting its stated hard dependency",
+]
+relations = [
+  ["NORMATIVE_CONTEXT", "norms.promise:/skills/_declares_skill_manifest"],
+  ["NORMATIVE_CONTEXT", "norms.promise:/skills/_respects_dependency_policy"],
+]
+
+# ---------------------------------------------------------------------------
+# Capabilities. Status is derived from tagged pytest scenarios in
+# research/tests/test_composition.py (see hypothesize.toml's [runner] and
+# artifacts/research/pytest-report.json). No capability is registered for
+# HYP-ZPD-MVP-VERTICAL-SLICE: nothing has been implemented for it yet, so it
+# honestly reads "specified" via the default (no linked capability) path.
+# ---------------------------------------------------------------------------
+
+[[capabilities]]
+id = "CAP-NO-CROSS-IMPORT"
+tag = "cap_no_cross_import"
+title = "Source scan confirms no engine imports a sibling engine's package"
+summary = "Three scenarios confirm hypothesize/src, ltp/src, and (transitively) both do not import promisify's norms.py or each other's installable package."
+hypotheses = ["HYP-ENGINE-DECOUPLING"]
+
+[[capabilities]]
+id = "CAP-BRIDGE-SEPARATION"
+tag = "cap_bridge_separation"
+title = "The ltp<->hypothesize bridge keeps empirical and logical status separate"
+summary = "Two scenarios confirm import_evidence updates only verification.empirical_status (with a contradiction note on falsification, CLR untouched) and export_links never emits a conclusion-shaped value."
+hypotheses = ["HYP-BRIDGE-PRESERVES-LOGIC"]
+
+# ---------------------------------------------------------------------------
+# Requirements. Passive normative metadata (NOT a hypothesis); the engine
+# validates and republishes this but does not compute whether it gates
+# anything -- see hypothesize/SKILL.md's registry contract.
+# ---------------------------------------------------------------------------
+
+[[requirements]]
+id = "REQ-NO-CROSS-IMPORT-HELD"
+title = "Sibling engines must not import each other's Python package"
+source = "README.md#composition"
+blocking = true
+capabilities = ["CAP-NO-CROSS-IMPORT"]
+hypotheses = ["HYP-ENGINE-DECOUPLING"]
+
+# ---------------------------------------------------------------------------
+# Limitations. Honest reasons a claim cannot yet be promoted or is bounded.
+# ---------------------------------------------------------------------------
+
+[[limitations]]
+id = "LIM-STRUCTURAL-SNAPSHOT-ONLY"
+status = "open"
+text = "HYP-ENGINE-DECOUPLING's capability is a source-scan snapshot at the current revision, re-checked on every hypothesize sync/check run; it is evidence that decoupling holds now and is monitored, not a proof that no future change can reintroduce coupling."
+
+[[limitations]]
+id = "LIM-BRIDGE-SYNTHETIC-ONLY"
+status = "open"
+text = "HYP-BRIDGE-PRESERVES-LOGIC's evidence uses one synthetic causal claim fixture (CLM-1, HYP-EXT), matching ltp's own test_integration.py fixture in shape. No real project in this repository currently links a real causal_claims[].verification.hypothesis_ref to a real hypothesize hypothesis, so external validity of the bridge on a real, larger model remains unestablished."
+
+[[limitations]]
+id = "LIM-ZPD-UNBUILT"
+status = "open"
+text = "zpd has no SKILL.md or executable implementation (agency-engineering.yaml: maturity: specified); see norms.promise:/skills/_declares_skill_manifest, assessed broken for zpd. HYP-ZPD-MVP-VERTICAL-SLICE cannot move past not_tested until an actual session is run against a real learner and task."
