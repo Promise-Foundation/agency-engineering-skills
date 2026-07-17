@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "artifacts": [
+    {
+      "domain": "/dynamic",
+      "manifest": {
+        "schema_version": 3,
+        "as_of": "2026-03-15",
+        "project": {"name": "Dynamic LTP fixture", "goal": "G-1", "analysis_mode": "forward"},
+        "analysis": {},
+        "entities": [
+          {"id": "G-1", "kind": "goal", "statement": "Learning loops close", "review_status": "corroborated"},
+          {"id": "INJ-1", "kind": "injection", "statement": "Surface overdue predictions", "review_status": "corroborated"},
+          {"id": "DE-1", "kind": "desirable_effect", "statement": "Reviews happen on time", "review_status": "disputed"},
+          {"id": "CLM-A", "kind": "cause", "statement": "Never corroborated claim", "review_status": "disputed"},
+          {"id": "CLM-B", "kind": "cause", "statement": "Recently disputed claim", "review_status": "disputed"}
+        ],
+        "causal_claims": [
+          {
+            "id": "CLM-1",
+            "premises": ["INJ-1"],
+            "operator": "single",
+            "conclusion": "DE-1",
+            "logic_status": "contradicted",
+            "verification": {"hypothesis_ref": "HYP-1", "role": "mechanism", "empirical_status": "falsified"},
+            "clr": {"causality_existence": {"result": "fail"}}
+          }
+        ],
+        "semantic_relations": [],
+        "gates": [],
+        "predicted_effects": [
+          {
+            "id": "PRED-1", "source_claim": "CLM-1", "statement": "Expedites fall",
+            "indicator": "expedites per week", "baseline": 20, "expected_change_percent": -40,
+            "tolerance_percent": 5, "expected_by": "2026-03-01", "review_by": "2026-03-10",
+            "implementation_status": "complete", "implementation_fidelity": 0.58, "minimum_fidelity": 0.8,
+            "owner": "operations"
+          },
+          {
+            "id": "PRED-OVERDUE", "source_claim": "CLM-1", "statement": "Review latency falls",
+            "indicator": "review latency", "expected_change_percent": -20, "review_by": "2026-03-01",
+            "implementation_status": "complete", "implemented_at": "2026-02-20", "owner": "operations"
+          }
+        ],
+        "observations": [
+          {"id": "OBS-1", "prediction": "PRED-1", "observed_at": "2026-03-10", "change_percent": -10, "result": "mixed", "source": "operations dashboard"}
+        ],
+        "prediction_evaluations": [
+          {"id": "EVAL-PRED-1", "prediction": "PRED-1", "observation": "OBS-1", "as_of": "2026-03-15", "result": "inconclusive", "explanation": "implementation fidelity is below the preregistered minimum"},
+          {"id": "EVAL-PRED-OVERDUE", "prediction": "PRED-OVERDUE", "as_of": "2026-03-15", "result": "inconclusive", "explanation": "no qualifying observation has been admitted"}
+        ],
+        "learning_obligations": [
+          {"id": "OBL-PRED-OVERDUE-EVALUATE", "kind": "prediction_overdue", "target": "PRED-OVERDUE", "due_at": "2026-03-01", "next_action": "admit a qualifying observation and evaluate the prediction", "owner": "operations", "blocking": true},
+          {"id": "OBL-PRED-OVERDUE-VERIFY", "kind": "intervention_unverified", "target": "PRED-OVERDUE", "due_at": "2026-03-01", "next_action": "record an outcome observation after implementation", "owner": "operations", "blocking": true},
+          {"id": "OBL-PRED-1-REFRESH", "kind": "observation_stale", "target": "PRED-1", "due_at": "2026-03-12", "next_action": "refresh the operational observation", "owner": "operations", "blocking": true},
+          {"id": "OBL-CLM-1-REVIEW", "kind": "revision_unreviewed", "target": "CLM-1", "due_at": "2026-03-10", "next_action": "request review from affected stakeholders", "owner": "model owner", "blocking": true},
+          {"id": "OBL-CLM-1-EVIDENCE", "kind": "weak_evidence", "target": "CLM-1", "due_at": "2026-03-15", "next_action": "admit outcome evidence for the high-impact link", "owner": "research", "blocking": false}
+        ],
+        "learning_history": {
+          "digest": "fixture",
+          "events": [
+            {"id": "git:a:CLM-A:added", "occurred_at": "2026-02-01", "kind": "model_record_added", "subject": "CLM-A", "summary": "claim CLM-A proposed", "source": "git:a", "current": {"review_status": "unreviewed"}},
+            {"id": "assessment:a:CLM-A", "occurred_at": "2026-02-03", "kind": "stakeholder_assessment", "subject": "CLM-A", "summary": "sales disputed CLM-A", "source": "promisify:a", "actor": "sales", "reason": "never corroborated", "current": "disputed"},
+            {"id": "git:b:CLM-B:added", "occurred_at": "2026-02-05", "kind": "model_record_added", "subject": "CLM-B", "summary": "claim CLM-B proposed", "source": "git:b", "current": {"review_status": "unreviewed"}},
+            {"id": "assessment:b1:CLM-B", "occurred_at": "2026-02-10", "kind": "stakeholder_assessment", "subject": "CLM-B", "summary": "operations corroborated CLM-B", "source": "promisify:b1", "actor": "operations", "current": "corroborated"},
+            {"id": "research:b:CLM-B", "occurred_at": "2026-02-15", "kind": "hypothesis_conclusion_changed", "subject": "CLM-B", "summary": "claim CLM-B supported by outcome evidence", "source": "hypothesize:b", "current": "supported"},
+            {"id": "git:c:CLM-1:revised", "occurred_at": "2026-03-04", "kind": "model_record_revised", "subject": "CLM-1", "summary": "relationship CLM-1 revised: cause insufficiency, premise added", "source": "git:c", "reason": "additional-cause reservation", "previous": {"premises": ["INJ-1"]}, "current": {"premises": ["INJ-1", "AC-1"]}},
+            {"id": "assessment:b2:CLM-B", "occurred_at": "2026-03-14", "kind": "stakeholder_assessment", "subject": "CLM-B", "summary": "sales disputed CLM-B", "source": "promisify:b2", "actor": "sales", "reason": "seasonal demand", "current": "disputed"},
+            {"id": "prediction:PRED-OVERDUE", "occurred_at": "2026-03-15", "kind": "prediction_evaluated", "subject": "PRED-OVERDUE", "summary": "prediction PRED-OVERDUE reached its review date", "source": "EVAL-PRED-OVERDUE", "current": "inconclusive"}
+          ]
+        },
+        "views": {
+          "current-reality": {
+            "title": "Current Reality Tree - why it is stuck", "empty": false,
+            "node_ids": ["CLM-A", "CLM-B"], "edges": []
+          },
+          "future-reality": {
+            "title": "Future Reality Tree - what should improve", "empty": false,
+            "node_ids": ["INJ-1", "DE-1"],
+            "edges": [{"source": "INJ-1", "target": "DE-1", "relation": "causes", "claim": "CLM-1"}]
+          }
+        },
+        "health": {"counts": {"error": 2, "warning": 0, "info": 0}, "publishable": false, "diagnostics": [
+          {"code": "PRED-OVERDUE", "severity": "error", "message": "prediction overdue", "target": "PRED-OVERDUE"},
+          {"code": "INT-UNVERIFIED", "severity": "error", "message": "intervention unverified", "target": "PRED-OVERDUE"}
+        ]}
+      }
+    }
+  ]
+}

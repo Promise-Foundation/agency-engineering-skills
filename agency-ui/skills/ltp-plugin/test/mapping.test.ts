@@ -40,4 +40,28 @@ describe("LTP domain artifact mapping", () => {
     ]);
     expect(new Set(goals.map((resource) => resource.id)).size).toBe(2);
   });
+
+  it("publishes semantic relations and causal-outcome predictions without collapsing them into claims", () => {
+    const dynamic = model("Dynamic");
+    dynamic.causal_claims = [
+      { id: "CLM-1", premises: ["G-1"], conclusion: "NC-1", logic_status: "scrutinized" },
+    ];
+    dynamic.semantic_relations = [
+      { id: "REL-1", source: "G-1", target: "NC-1", relation: "prevents" },
+    ];
+    dynamic.predicted_effects = [
+      { id: "PRED-1", source_claim: "CLM-1", statement: "Outcome changes" },
+    ];
+    dynamic.prediction_evaluations = [
+      { id: "EVAL-PRED-1", prediction: "PRED-1", as_of: "2026-07-17", result: "inconclusive" },
+    ];
+
+    const bundle: LtpArtifactBundle = { artifacts: [{ domain: "/dynamic", manifest: dynamic }] };
+    const resources = ltpMapping.toResources(bundle);
+    expect(resources.find((resource) => resource.type === "ltp.relation")?.status).toBe("prevents");
+    expect(resources.find((resource) => resource.type === "ltp.prediction")?.status).toBe("inconclusive");
+
+    const relations = ltpMapping.toRelations?.(bundle) ?? [];
+    expect(relations.map((relation) => relation.type)).toEqual(["PREVENTS", "PREDICTS"]);
+  });
 });

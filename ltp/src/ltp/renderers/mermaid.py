@@ -103,6 +103,14 @@ def _causal(model: LtpModel, index: ModelIndex, view, direction: str = "BT") -> 
             for premise in sorted(claim.premises):
                 diagram.edge(premise, gate_id)
             diagram.edge(gate_id, claim.conclusion, "causes")
+    for relation_id in sorted(view.semantic_relations):
+        relation = index.semantic_relations[relation_id]
+        diagram.edge(
+            relation.source,
+            relation.target,
+            relation.relation.value.replace("_", " "),
+            dashed=True,
+        )
     return diagram.render()
 
 

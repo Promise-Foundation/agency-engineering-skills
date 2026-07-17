@@ -108,13 +108,17 @@ export function LtpGraph({
                 ? "overcome by"
                 : edge.relation === "then"
                   ? "then"
-                  : "",
+                  : edge.relation === "causes" || edge.relation === "premise"
+                    ? ""
+                    : edge.relation.replace(/_/g, " "),
         markerEnd: { type: MarkerType.ArrowClosed, width: 14, height: 14 },
         style:
           edge.relation === "necessary_for"
             ? { strokeDasharray: "5 4" }
             : edge.relation === "conflict"
               ? { stroke: "#e0645a", strokeDasharray: "2 3" }
+              : ["prevents", "mitigates", "neutralizes", "detects"].includes(edge.relation)
+                ? { stroke: "#66b9c8", strokeDasharray: "6 4" }
               : {},
       }));
 

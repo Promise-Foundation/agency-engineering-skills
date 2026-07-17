@@ -34,7 +34,7 @@
   },
   "build": {
     "generator": "ltp 0.1.0",
-    "source_hash": "01a8d1c2bf6849bed4563ccdfee6413101ef16119b3bb251420de1d6663e5c4b"
+    "source_hash": "33fc333b4b264b4121c595960603a94fe6d955116e25b66e1c574e88422c75d9"
   },
   "causal_claims": [
     {
@@ -717,6 +717,7 @@
       "prerequisite": "IO-1"
     }
   ],
+  "observations": [],
   "obstacle_resolutions": [
     {
       "id": "OR-1",
@@ -729,14 +730,27 @@
   ],
   "predicted_effects": [
     {
+      "baseline": null,
       "evidence_refs": [
         "EVD-1"
       ],
       "expectation": "should_exist",
+      "expected_by": null,
+      "expected_change_percent": null,
+      "expected_lag_days": null,
       "id": "PRED-1",
+      "implementation_fidelity": null,
+      "implementation_status": "not_started",
+      "implemented_at": null,
+      "indicator": null,
+      "minimum_fidelity": null,
+      "observation_valid_for_days": null,
+      "owner": null,
       "result": "observed",
+      "review_by": null,
       "source_claim": "CLM-1",
       "statement": "Unqualified generalizations recur across reports",
+      "tolerance_percent": 0.0,
       "waived": false,
       "waiver_reason": null
     }
@@ -749,6 +763,7 @@
     "provisional_goal": null
   },
   "schema_version": 2,
+  "semantic_relations": [],
   "transitions": [
     {
       "action": "ACT-1",

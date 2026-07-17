@@ -1,0 +1,241 @@
+# Research portfolio for the implemented DYNAMIC-LTP program.
+#
+# This is deliberately SEPARATE from research/portfolio.toml. That file is the
+# repo's real, present-tense composition record ("do promisify, hypothesize, and
+# ltp actually stay decoupled *now*"). This file is a *build program*: the moves
+# we intend to make to turn the LTP model from an instrumented current-state
+# snapshot into a versioned, currency-enforced learning system. The capabilities
+# are implemented; the causal hypotheses remain untested without qualified studies.
+#
+# We register the program the way the repo registers everything else -- as
+# hypotheses (empirically-wrong-able propositions), capabilities (bounded
+# behaviors), and honest limitations -- so the plan itself is on the record and
+# derivable, not prose that drifts. Practice what we preach.
+#
+# Wiring (see docs/dynamic-ltp/ROADMAP.md "Putting the plan on the record"):
+# engine contracts are mirrored by ltp/tests/test_dynamic.py and test_migrate.py;
+# UI contracts execute via agency-ui's Cucumber/Playwright suite. These results
+# establish bounded software behavior only and never promote a causal conclusion.
+#
+# IDs are stable and must not be reused for a different meaning.
+
+schema_version = 1
+title = "dynamic-ltp: from instrumented snapshot to currency-enforced learning system"
+last_reviewed = "2026-07-17"
+thesis = "An LTP model can be kept honest about its currency with reality -- not merely its internal consistency -- by typing causal polarity, tracking predicted-vs-observed outcomes over time, projecting one navigable learning history from records that already exist, and letting CI reject a model with overdue learning obligations."
+
+# ---------------------------------------------------------------------------
+# Hypotheses. Each is a proposition the program could be wrong about.
+# ---------------------------------------------------------------------------
+
+[[hypotheses]]
+id = "HYP-DYN-CURRENCY"
+tag = "hyp_dyn_currency"
+title = "A model's currency with reality can be enforced, not just its internal consistency"
+statement = "Representing learning obligations (a prediction past its review date, an observation older than its claim's expected lag, a revision no reviewer has confirmed, an intervention completed but not verified) as first-class, derivable facts lets `ltp check` / `hypothesize check` reject a model that is internally consistent and byte-current yet operationally obsolete -- turning \"please keep it current\" into red CI."
+summary = "The enforcement reframe: publishable should mean \"no overdue unresolved learning obligations\", not merely \"the projections match the source\". Implemented: obligations are derived from typed temporal fields relative to an explicit --as-of date, and overdue ones block `ltp check`. Capability-level only -- no study yet tests whether enforced currency changes what teams notice."
+subject = "A new learning-obligation derivation over the ltp model + prediction evaluations, gated in `ltp check`"
+scope = "One project's model at a point in time; obligations computed from typed temporal fields, not inferred from git timestamps"
+consequences = [
+  "a model whose only defect is an overdue prediction fails `ltp check --strict` with a distinct, coded diagnostic",
+  "a completed intervention whose effect is not yet due does not block; the gate fires only once the effect is due and still unobserved",
+  "a resolved or waived obligation clears the diagnostic without editing the underlying claim's logical status",
+]
+defeaters = [
+  "obligations can only be faked by hand-editing a status, so the gate enforces nothing new",
+  "every real project accrues so many obligations that the gate is disabled in practice (a granularity/UX failure)",
+]
+relations = [
+  ["ABOUT", "ltp.module:ltp.validators"],
+  ["GOVERNED_BY", "norms.promise:/skills/_respects_dependency_policy"],
+]
+
+[[hypotheses]]
+id = "HYP-DYN-POLARITY"
+tag = "hyp_dyn_polarity"
+title = "Typed causal polarity keeps the model semantically honest"
+statement = "Giving relationships a typed polarity (causes | enables | prevents | mitigates | neutralizes | detects) lets a trimming injection that *neutralizes* a negative branch be represented as such, so the validator can reject a prevents-relation encoded as a sufficiency (\"causes\") edge -- removing the need for the apology comment currently required on self-model CLM-6."
+summary = "An ontology fix that is orthogonal to static-vs-dynamic: a `causes`-typed edge from TRIM-1 to NBR-1 is as false in an event-sourced world as in YAML. Implemented: a closed semantic_relation vocabulary; REL-001 rejects a prevention of any arity encoded as sufficiency, and FRT-006 requires each negative branch be neutralized or explicitly accepted."
+subject = "ltp semantic-relation vocabulary + a first-class semantic_relations structure that keeps prevention outside causal sufficiency"
+scope = "Reality-tree negative-branch disposition and any relationship whose real polarity is not forward sufficiency"
+consequences = [
+  "the trimming-injection -> negative-branch link carries polarity `neutralizes`, and no free-text comment is needed to explain it",
+  "a model that encodes a `neutralizes` relationship as a plain sufficiency `causal_claim` raises a coded validator error",
+  "`ltp migrate` rewrites the existing self-model CLM-6 apology into a typed trimming_resolution, preserving the id",
+]
+defeaters = [
+  "the polarity vocabulary cannot express a real relationship in the corpus, forcing a fallback to untyped `causes`",
+  "the validator cannot distinguish a legitimate sufficiency claim from a mis-encoded prevention without human input",
+]
+relations = [
+  ["ABOUT", "ltp.entity:TRIM-1"],
+  ["ABOUT", "ltp.claim:CLM-6"],
+]
+
+[[hypotheses]]
+id = "HYP-DYN-PREDICTION"
+tag = "hyp_dyn_prediction"
+title = "The gherkin/capability evaluation loop generalizes to causal outcomes"
+statement = "The deterministic predicted->observed->matched? loop that hypothesize already runs for software *capabilities* (tagged scenario -> test report -> pass/fail/regressed) generalizes to LTP *causal outcomes* (a predicted effect with a baseline, expected magnitude, expected lag and review date -> a recorded observation -> a supported/contradicted/inconclusive/not-yet-due evaluation) without collapsing \"action completed\" into \"effect occurred\" into \"hypothesis validated\"."
+summary = "This makes the causal-outcome layer a live loop like the capability layer, kept strictly separate from capability existence and logical status. Implemented and tested on synthetic fixtures (mechanism ceiling): a pure evaluator classifies supported/contradicted/inconclusive/not-yet-due, respects direction rather than only tolerance, and ignores observations taken before the intervention. No real causal outcome has been evaluated."
+subject = "ltp PredictedEffect temporal fields + a PredictionEvaluation record + the evaluator"
+scope = "One causal claim carrying a predicted effect with an observation; classification is a pure function of (prediction, observation, clock)"
+consequences = [
+  "an implementation-complete injection with an absent expected effect renders as \"effect absent\", never as green/done",
+  "the evaluation is byte-identical for identical (prediction, observation, as-of-date) inputs",
+  "a mechanism-passing scenario raises evidence maturity to `mechanism` but never sets the causal claim's conclusion",
+]
+defeaters = [
+  "the classifier cannot separate \"contradicted\" from \"not yet due\" without a human, so it asserts false negatives",
+  "recording an observation silently changes the claim's CLR-derived logical status",
+]
+relations = [
+  ["ABOUT", "ltp.module:ltp.models.PredictedEffect"],
+  ["VERIFIES", "ltp.claim:CLM-DYN-1 (synthetic fixture)"],
+]
+
+[[hypotheses]]
+id = "HYP-DYN-HISTORY"
+tag = "hyp_dyn_history"
+title = "A navigable learning history can be projected from records that already exist"
+statement = "A snapshot-at-date, semantic-diff, and attention view can be projected by *unifying records the repo already produces* -- git revisions of the single authored ltp model, promisify's append-only .norms/assessments, hypothesize's regenerated research-status snapshots, and the new prediction evaluations -- so a parallel generic event store is not required to make the model dynamic."
+summary = "The refined architecture: keep the typed current-state model; add a read-model projection over existing histories rather than a new write path. The pure projector is implemented and unifies all four sources in tests, but the live dashboard currently feeds it only prediction evaluations -- wiring git/.norms/research snapshots at runtime is deferred (see LIM-DYN-HISTORY-UNWIRED)."
+subject = "A learning-history projection (read-model) over git + .norms/assessments + research-status snapshots + prediction evaluations"
+scope = "One project; a bounded set of existing record sources; no new authoritative write path introduced"
+consequences = [
+  "\"what changed between two dates\" is answered semantically (claims added, relationship revised with its reservation, position flipped, prediction came due) rather than as a raw text diff",
+  "the projection is deterministic and hashable, like every other generated artifact",
+  "no record source is duplicated into a new event log; the projection references them",
+]
+defeaters = [
+  "git text diffs of the model cannot be lifted to semantic changes reliably, forcing a real event store after all",
+  "the record sources disagree on identity/time so they cannot be unified into one ordered history",
+]
+relations = [
+  ["ABOUT", "norms.assessment:.norms/assessments"],
+  ["ABOUT", "ltp.artifact:ltp/generated/dashboard-model.json"],
+]
+
+[[hypotheses]]
+id = "HYP-DYN-UI-CEILING"
+tag = "hyp_dyn_ui_ceiling"
+title = "The UI can preserve evidence-role ceilings visually"
+statement = "The dashboard can render capability status, logical (CLR) status, empirical status, and predicted-vs-observed outcome so that a lower-authority green signal never reads as a higher-authority conclusion -- the visual analog of the tag-vocabulary ceilings, and the same guard the reference Interview-Coach app enforces for LTP feedback quality."
+summary = "The UI move that most directly answers the original essay: separated, side-by-side statuses so a completed action is not inferred to be a validated hypothesis. Implemented as separation-by-construction -- each dimension renders from its own field, and a supplied \"supported\" conclusion can display its study citation -- but there is no active cross-field guard that verifies the conclusion is licensed before rendering it (see LIM-DYN-CEILING-PASSIVE)."
+subject = "agency-ui dashboard rendering of the four status dimensions + prediction outcome"
+scope = "One selected causal claim / node in the shell; assertion is about what the UI displays, driven through the public surface"
+consequences = [
+  "a claim with capability `implemented` and conclusion `not_tested` never displays a \"validated\"/\"supported\" affordance",
+  "a contradicted causal link renders as contradicted, not as \"in progress\"",
+  "an intervention marked complete does not render its downstream effect as achieved",
+]
+defeaters = [
+  "users read the composite display as a single verdict despite the separation (a comprehension failure the guard cannot prevent)",
+  "the UI must invent a status the engine does not supply in order to render the ceiling",
+]
+relations = [
+  ["ABOUT", "repo:agency-ui"],
+  ["NORMATIVE_CONTEXT", "norms.promise:/skills/_renders_only_generated_data"],
+]
+
+# ---------------------------------------------------------------------------
+# Capabilities. Executable scenarios now exist. `tag` is set
+# explicitly on every entry (the auto-derived fallback double-prefixes CAP-*).
+# ---------------------------------------------------------------------------
+
+[[capabilities]]
+id = "CAP-RELATION-POLARITY"
+tag = "cap_relation_polarity"
+title = "Typed relation polarity + first-class semantic relations"
+summary = "A closed relationship vocabulary and semantic_relations structure; the validator rejects prevention encoded as sufficiency; migrate rewrites self-model CLM-6 without changing its id."
+hypotheses = ["HYP-DYN-POLARITY"]
+
+[[capabilities]]
+id = "CAP-PREDICTION-EVALUATION"
+tag = "cap_prediction_evaluation"
+title = "Deterministic predicted-vs-observed evaluation with temporal fields"
+summary = "PredictedEffect gains baseline/expected/tolerance/expected_lag/review_by; a PredictionEvaluation classifies supported/contradicted/inconclusive/not-yet-due as a pure function; new PRED-OVERDUE / OBS-STALE diagnostics."
+hypotheses = ["HYP-DYN-PREDICTION"]
+
+[[capabilities]]
+id = "CAP-LEARNING-OBLIGATION-GATE"
+tag = "cap_learning_obligation_gate"
+title = "Publish/CI gate on unresolved overdue learning obligations"
+summary = "`ltp check` derives learning obligations and exits non-zero when one is overdue; a resolved/waived obligation clears it without touching logical status."
+hypotheses = ["HYP-DYN-CURRENCY"]
+
+[[capabilities]]
+id = "CAP-LEARNING-HISTORY"
+tag = "cap_learning_history"
+title = "Deterministic learning-history projection (snapshot + semantic diff)"
+summary = "A pure read-model that unifies git model revisions, .norms/assessments, research-status snapshots, and prediction evaluations into one ordered, hashable history with as-of-date and semantic diff. Only prediction evaluations are wired into the live dashboard today (LIM-DYN-HISTORY-UNWIRED)."
+hypotheses = ["HYP-DYN-HISTORY"]
+
+[[capabilities]]
+id = "CAP-DYNAMIC-DASHBOARD"
+tag = "cap_dynamic_dashboard"
+title = "agency-ui views over the learning history"
+summary = "Timeline (snapshot/diff/playback), prediction-vs-outcome, disagreement/perspective, attention-required, and node-lifecycle views, each a projection of the same records."
+hypotheses = ["HYP-DYN-HISTORY", "HYP-DYN-CURRENCY"]
+
+[[capabilities]]
+id = "CAP-EPISTEMIC-CEILING-UI"
+tag = "cap_epistemic_ceiling_ui"
+title = "UI guard preserving evidence-role ceilings"
+summary = "The dashboard renders capability/logical/empirical/predicted status side by side, each from its own field, so a lower-authority green signal cannot be re-labelled as a conclusion. This is separation-by-construction, not an active guard that re-checks the engine (LIM-DYN-CEILING-PASSIVE)."
+hypotheses = ["HYP-DYN-UI-CEILING"]
+
+# ---------------------------------------------------------------------------
+# Studies. The honest path to any scientific conclusion (none qualified yet).
+# ---------------------------------------------------------------------------
+
+[[studies]]
+id = "STUDY-DYN-CURRENCY-PILOT"
+title = "Preregistered pilot: does enforced currency change what teams notice and fix?"
+order = 1
+status = "designed"
+preregistered = false
+qualified = false
+hypotheses = ["HYP-DYN-CURRENCY", "HYP-DYN-PREDICTION"]
+criterion = "On a real project, registering predictions with review dates and gating on overdue obligations surfaces at least one stale conclusion that the current internal-consistency-only gate misses, without the gate being disabled for noise."
+
+# ---------------------------------------------------------------------------
+# Requirements. Passive normative metadata (not computed by the engine).
+# ---------------------------------------------------------------------------
+
+[[requirements]]
+id = "REQ-DYN-CEILINGS-HELD"
+title = "The new UI must not let a lower-authority signal display as a higher-authority conclusion"
+source = "docs/dynamic-ltp/ROADMAP.md#evidence-role-ceilings"
+blocking = true
+capabilities = ["CAP-EPISTEMIC-CEILING-UI"]
+hypotheses = ["HYP-DYN-UI-CEILING"]
+
+# ---------------------------------------------------------------------------
+# Limitations. Honest bounds on the implemented program.
+# ---------------------------------------------------------------------------
+
+[[limitations]]
+id = "LIM-DYN-CAPABILITY-ONLY"
+status = "open"
+text = "The engine and UI capabilities execute on deterministic synthetic fixtures. This establishes that the mechanism exists; it does not establish that dynamic LTP views improve real team learning or decision quality."
+
+[[limitations]]
+id = "LIM-DYN-SYNTHETIC-OUTCOMES-ONLY"
+status = "open"
+text = "CAP-PREDICTION-EVALUATION runs on synthetic fixtures, a mechanism ceiling. No qualified real causal outcome study has been admitted, so HYP-DYN-PREDICTION cannot pass mechanism-level evidence to any scientific conclusion."
+
+[[limitations]]
+id = "LIM-DYN-HISTORY-GIT-DEPENDENCY"
+status = "open"
+text = "The learning-history projection depends on git for LTP structural revisions until structural edits are themselves recorded as reasoned changes. Git answers what text changed and by whom, not why; the semantic-diff quality is bounded by that until structural changes carry their own reservation metadata."
+
+[[limitations]]
+id = "LIM-DYN-HISTORY-UNWIRED"
+status = "open"
+text = "CAP-LEARNING-HISTORY's projector accepts and is tested on all four sources (git revisions, .norms/assessments, research-status snapshots, prediction evaluations), but the live dashboard (renderers/dashboard.py) currently feeds it only prediction evaluations. Unifying the other three at runtime is deferred, so the production timeline shows one source until then."
+
+[[limitations]]
+id = "LIM-DYN-CEILING-PASSIVE"
+status = "open"
+text = "CAP-EPISTEMIC-CEILING-UI holds the ceiling by binding each status dimension to its own engine field (separation by construction), not by an active guard that cross-checks capability against conclusion. If an upstream source set a conclusion wrongly, the UI would display it; the UI adds no independent verification. An active guard plus a non-vacuous test are deferred."

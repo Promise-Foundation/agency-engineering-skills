@@ -24,7 +24,10 @@ def validate(model: LtpModel, index: ModelIndex) -> "list[Diagnostic]":
     out: "list[Diagnostic]" = []
     udes = index.of_kind(EntityKind.UNDESIRABLE_EFFECT)
     injections = index.of_kind(EntityKind.INJECTION)
-    if not model.causal_claims and not udes and not injections:
+    nbrs = index.of_kind(EntityKind.NEGATIVE_BRANCH)
+    # A negative branch is a reality-tree construct: its disposition (FRT-006) must
+    # be checked even in a model with no causal claims, UDEs, or injections.
+    if not model.causal_claims and not udes and not injections and not nbrs:
         return out
 
     causal_adj = graph.causal_adjacency(model)
@@ -114,7 +117,30 @@ def validate(model: LtpModel, index: ModelIndex) -> "list[Diagnostic]":
                 )
             )
 
-    # -- Future Reality Tree (only when there are injections) ----------- #
+    # FRT-006: negative branches must be dispositioned -- independent of whether
+    # any injection exists, since a negative branch is itself an FRT construct and
+    # an undispositioned one is a defect regardless of injection presence.
+    trimming_relations = {
+        relation.target
+        for relation in model.semantic_relations
+        if index.kind_of(relation.source) == EntityKind.TRIMMING_INJECTION
+        and relation.relation.value in {"prevents", "mitigates", "neutralizes"}
+    }
+    for nbr in index.of_kind(EntityKind.NEGATIVE_BRANCH):
+        accepted = nbr.review_status in (ReviewStatus.INVALIDATED, ReviewStatus.SUPERSEDED)
+        if nbr.id not in trimming_relations and not accepted:
+            out.append(
+                diagnostic(
+                    "FRT-006",
+                    f"negative branch {nbr.id} is not dispositioned by a trimming "
+                    "injection or explicitly accepted",
+                    target=nbr.id,
+                    hint="add a trimming_injection that neutralizes it, or mark it "
+                    "review_status: superseded with a reason",
+                )
+            )
+
+    # -- Future Reality Tree (injection-specific checks) --------------- #
     if not injections:
         return out
 
@@ -161,25 +187,6 @@ def validate(model: LtpModel, index: ModelIndex) -> "list[Diagnostic]":
                     "FRT-005",
                     f"desirable effect {de.id} supports no NC, CSF, or goal",
                     target=de.id,
-                )
-            )
-
-    # FRT-006: negative branches must be dispositioned.
-    trims = {trim.id for trim in index.of_kind(EntityKind.TRIMMING_INJECTION)}
-    trimmed_targets: "set[str]" = set()
-    for trim_id in trims:
-        trimmed_targets |= graph.reachable(causal_adj, trim_id)
-    for nbr in index.of_kind(EntityKind.NEGATIVE_BRANCH):
-        accepted = nbr.review_status in (ReviewStatus.INVALIDATED, ReviewStatus.SUPERSEDED)
-        if nbr.id not in trimmed_targets and not accepted:
-            out.append(
-                diagnostic(
-                    "FRT-006",
-                    f"negative branch {nbr.id} is not dispositioned by a trimming "
-                    "injection or explicitly accepted",
-                    target=nbr.id,
-                    hint="add a trimming_injection that neutralizes it, or mark it "
-                    "review_status: superseded with a reason",
                 )
             )
 

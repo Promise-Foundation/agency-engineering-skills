@@ -50,10 +50,14 @@ scrutiny backlog; **info** is a note.
 | `GT-008` | warning | CSF appears necessary for another CSF, not the goal |
 | `GT-010` | warning | necessary condition's necessity is unjustified |
 | `ID-001` | info | entity id prefix does not match its kind |
+| `INT-UNVERIFIED` | error | completed intervention has no outcome observation |
+| `OBS-STALE` | error | prediction observation is stale |
 | `PLAN-001` | info | analysis-plan status disagrees with model content |
 | `PLAN-002` | warning | a required tree has no content |
 | `PRED-001` | warning | root-cause candidate has no predicted effect |
 | `PRED-002` | warning | a predicted effect that should exist was not observed |
+| `PRED-003` | error | prediction waiver has no reason |
+| `PRED-OVERDUE` | error | prediction is overdue and unevaluated |
 | `PRT-001` | error | obstacle has no intermediate objective |
 | `PRT-002` | warning | IO overcomes no named obstacle |
 | `PRT-003` | warning | IO is written as an imperative action, not a condition |
@@ -61,6 +65,9 @@ scrutiny backlog; **info** is a note.
 | `PRT-006` | error | IO has no dependency path to the target injection |
 | `REF-001` | error | reference to an unknown id |
 | `REF-002` | error | reference to an id of the wrong kind for its role |
+| `REL-001` | error | prevention or neutralisation encoded as causation |
+| `REL-002` | error | forward causation encoded outside a sufficiency claim |
+| `TIME-001` | error | temporal field is not a valid ISO date or datetime |
 | `TT-002` | error | transition advances no intermediate objective |
 | `TT-003` | warning | action contains multiple independently verifiable changes |
 | `TT-004` | warning | action directly implements the whole injection |
@@ -71,4 +78,4 @@ scrutiny backlog; **info** is a note.
 | `XTR-004` | error | recommended action has no complete path to the goal |
 | `XTR-005` | warning | entity is disconnected from every structure |
 
-_63 codes: 27 error, 33 warning, 3 info._
+_70 codes: 34 error, 33 warning, 3 info._

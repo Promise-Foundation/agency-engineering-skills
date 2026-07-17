@@ -92,6 +92,9 @@ def validate(model: LtpModel, index: ModelIndex) -> "list[Diagnostic]":
     for resolution in model.obstacle_resolutions:
         used.add(resolution.obstacle)
         used.add(resolution.intermediate_objective)
+    for relation in model.semantic_relations:
+        used.add(relation.source)
+        used.add(relation.target)
     for transition in model.transitions:
         used.update(
             filter(

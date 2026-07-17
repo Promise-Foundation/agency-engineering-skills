@@ -102,7 +102,7 @@ function Workspace({
   };
 
   return (
-    <div className="shell">
+    <div className="shell" data-testid="agency-shell">
       <Header domain={domainRef} onSearch={onSearch} />
       {activation.failed.length > 0 ? <FailureBanner activation={activation} /> : null}
       <div className="shell__body">

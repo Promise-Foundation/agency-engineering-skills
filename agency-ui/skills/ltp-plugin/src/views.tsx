@@ -7,7 +7,21 @@ import type {
 } from "@agency/skill-sdk";
 import { Card, Chip, EmptyState, Field, Toolbar, type Tone } from "@agency/ui-kit";
 import { LtpGraph } from "./graph";
-import { scopedLtpId, type LtpClaim, type LtpEntity, type LtpModel } from "./mapping";
+import {
+  AttentionView,
+  DYNAMIC_SURFACES,
+  HistoryView,
+  PerspectivesView,
+  PredictionsView,
+  type DynamicSurface,
+} from "./dynamic";
+import {
+  scopedLtpId,
+  type LtpClaim,
+  type LtpEntity,
+  type LtpModel,
+  type LtpSemanticRelation,
+} from "./mapping";
 
 const VIEW_ORDER = [
   "goal-tree",
@@ -18,7 +32,7 @@ const VIEW_ORDER = [
   "transition-tree",
 ];
 
-function useDomainModel(
+export function useDomainModel(
   host: AgencyHost,
   domain: string | null,
 ): { model: AgencyResource<LtpModel> | null; loading: boolean } {
@@ -52,6 +66,7 @@ export function LtpOverview({ host, domain }: HostProps) {
   const domainPath = domain?.id ?? null;
   const { model, loading } = useDomainModel(host, domainPath);
   const [viewKey, setViewKey] = useState("current-reality");
+  const [surface, setSurface] = useState<DynamicSurface>("model");
   if (loading) return <EmptyState title="Loading the LTP model…" />;
   if (!model) {
     return (
@@ -80,6 +95,20 @@ export function LtpOverview({ host, domain }: HostProps) {
       </div>
 
       <Toolbar>
+        {DYNAMIC_SURFACES.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            className={`ltp-surface-tab ${surface === item.id ? "is-active" : ""}`}
+            onClick={() => setSurface(item.id)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </Toolbar>
+
+      {surface === "model" && <>
+      <Toolbar>
         {available.map((key) => (
           <button
             key={key}
@@ -105,6 +134,11 @@ export function LtpOverview({ host, domain }: HostProps) {
             });
         }}
       />
+      </>}
+      {surface === "history" && <HistoryView model={data} />}
+      {surface === "predictions" && domainPath && <PredictionsView model={data} host={host} domain={domainPath} />}
+      {surface === "perspectives" && domainPath && <PerspectivesView model={data} host={host} domain={domainPath} />}
+      {surface === "attention" && domainPath && <AttentionView model={data} host={host} domain={domainPath} />}
     </div>
   );
 }
@@ -161,6 +195,28 @@ export function LtpHealthCard({ host, domain }: HostProps) {
   );
 }
 
+export function LtpLearningCard({ host, domain }: HostProps) {
+  const domainPath = domain?.id ?? null;
+  const { model, loading } = useDomainModel(host, domainPath);
+  if (loading) return <Card title="LTP learning loop">Loading…</Card>;
+  if (!model) return <Card title="LTP learning loop">Not generated for this domain.</Card>;
+  const obligations = model.data.learning_obligations ?? [];
+  const evaluated = model.data.prediction_evaluations ?? [];
+  return (
+    <Card
+      title="LTP learning loop"
+      subtitle={model.data.as_of ? `as of ${model.data.as_of}` : "no as-of date supplied"}
+      actions={<button className="ltp-link" onClick={() => host.navigation.navigate("/ltp")}>Open ›</button>}
+    >
+      <Toolbar>
+        <Chip tone={obligations.length ? "negative" : "positive"}>{obligations.length} overdue obligations</Chip>
+        <Chip tone="info">{evaluated.length} predictions evaluated</Chip>
+      </Toolbar>
+      <p className="ltp-muted">Currency with reality is reported separately from internal consistency.</p>
+    </Card>
+  );
+}
+
 export function LtpEntityView({ resource }: ResourceComponentProps) {
   const entity = resource.data as LtpEntity;
   return (
@@ -182,6 +238,29 @@ export function LtpEntityView({ resource }: ResourceComponentProps) {
 export function LtpClaimView({ host, resource }: ResourceComponentProps) {
   const claim = resource.data as LtpClaim;
   const clr = claim.clr ?? {};
+  const [hypothesis, setHypothesis] = useState<Record<string, unknown> | null>(null);
+  const { model } = useDomainModel(host, resource.domain ?? null);
+  useEffect(() => {
+    let live = true;
+    const reference = claim.verification?.hypothesis_ref;
+    if (!reference || !resource.domain) {
+      setHypothesis(null);
+      return;
+    }
+    void host.resources
+      .get({ type: "hypothesis", id: `${encodeURIComponent(resource.domain)}::${reference}` })
+      .then((item) => {
+        if (live) setHypothesis((item?.data ?? null) as Record<string, unknown> | null);
+      });
+    return () => { live = false; };
+  }, [claim.verification?.hypothesis_ref, host, resource.domain]);
+  const prediction = model?.data.predicted_effects?.find((item) => item.source_claim === claim.id);
+  const evaluation = model?.data.prediction_evaluations?.find((item) => item.prediction === prediction?.id);
+  const capability = typeof hypothesis?.capability_status === "string" ? hypothesis.capability_status : "not specified";
+  const evidence = typeof hypothesis?.evidence_maturity === "string" ? hypothesis.evidence_maturity : "none";
+  const conclusion = typeof hypothesis?.conclusion === "string"
+    ? hypothesis.conclusion
+    : (claim.verification?.empirical_status ?? "not tested");
   return (
     <div className="ltp-detail">
       <p className="ltp-flow">
@@ -192,6 +271,22 @@ export function LtpClaimView({ host, resource }: ResourceComponentProps) {
           {claim.logic_status ?? "candidate"}
         </Chip>
       </Field>
+      <div className="ltp-dimensions" aria-label="Separated progress dimensions">
+        <Field label="Capability"><span data-testid="status-capability">{capability.replaceAll("_", " ")}</span></Field>
+        <Field label="Logical (CLR)"><span data-testid="status-logical">{claim.logic_status ?? "candidate"}</span></Field>
+        <Field label="Evidence ceiling"><span data-testid="status-empirical">{evidence.replaceAll("_", " ")}</span></Field>
+        <Field label="Empirical conclusion"><span data-testid="status-conclusion">{conclusion.replaceAll("_", " ")}</span></Field>
+        <Field label="Observed outcome">{evaluation?.result?.replaceAll("_", " ") ?? "not evaluated"}</Field>
+        {evidence === "mechanism" && <Field label="Inference ceiling">mechanism on synthetic fixture; no scientific conclusion licensed</Field>}
+        {conclusion === "supported" && Array.isArray(hypothesis?.trace) && (
+          <Field label="Licensed by study">
+            {(hypothesis.trace as { id?: string | null; title?: string }[])
+              .filter((item) => item.id?.startsWith("evidence:"))
+              .map((item) => item.title ?? item.id)
+              .join(", ") || "qualified study"}
+          </Field>
+        )}
+      </div>
       {claim.verification?.hypothesis_ref && (
         <Field label="Verified by">
           <button
@@ -217,6 +312,17 @@ export function LtpClaimView({ host, resource }: ResourceComponentProps) {
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function LtpRelationView({ resource }: ResourceComponentProps) {
+  const relation = resource.data as LtpSemanticRelation;
+  return (
+    <div className="ltp-detail">
+      <p className="ltp-flow">{relation.source} —{relation.relation.replaceAll("_", " ")}→ {relation.target}</p>
+      <Field label="Semantic relation">{relation.relation.replaceAll("_", " ")}</Field>
+      {relation.reasoning && <Field label="Reasoning">{relation.reasoning}</Field>}
     </div>
   );
 }

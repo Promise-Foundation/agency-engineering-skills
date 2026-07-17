@@ -17,9 +17,9 @@
 
 ## Predicted effects
 
-| ID | Source | Expectation | Result | Statement |
-|---|---|---|---|---|
-| PRED-1 | CLM-1 | should_exist | observed | Unqualified generalizations recur across reports |
+| ID | Source | Expectation | Result | Review by | Statement |
+|---|---|---|---|---|---|
+| PRED-1 | CLM-1 | should_exist | observed | - | Unqualified generalizations recur across reports |
 
 ## Diagram
 

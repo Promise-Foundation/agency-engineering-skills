@@ -42,6 +42,7 @@ class DerivedView:
     clouds: "list[str]" = field(default_factory=list)
     conflict_claims: "list[str]" = field(default_factory=list)
     obstacle_resolutions: "list[str]" = field(default_factory=list)
+    semantic_relations: "list[str]" = field(default_factory=list)
     transitions: "list[str]" = field(default_factory=list)
     predicted_effects: "list[str]" = field(default_factory=list)
 
@@ -53,6 +54,7 @@ class DerivedView:
             or self.necessity_claims
             or self.clouds
             or self.transitions
+            or self.semantic_relations
         )
 
 
@@ -142,12 +144,23 @@ def derive_views(model: LtpModel) -> "dict[str, DerivedView]":
     # -- future reality -------------------------------------------------- #
     frt_claims = [c for c in model.causal_claims if _causal_touches(c, index, _FRT_KINDS)]
     frt_entities = _entities_of_causal(frt_claims, index)
+    frt_relations = [
+        relation
+        for relation in model.semantic_relations
+        if index.kind_of(relation.source) in _FRT_KINDS
+        or index.kind_of(relation.target) in _FRT_KINDS
+    ]
+    for relation in frt_relations:
+        for endpoint in (relation.source, relation.target):
+            if endpoint in index.entities and endpoint not in frt_entities:
+                frt_entities.append(endpoint)
     views["future-reality"] = DerivedView(
         key="future-reality",
         title=VIEW_TITLES["future-reality"],
         entities=frt_entities,
         causal_claims=[c.id for c in frt_claims],
         predicted_effects=[p.id for p in model.predicted_effects],
+        semantic_relations=[relation.id for relation in frt_relations],
     )
 
     # -- prerequisite tree ---------------------------------------------- #

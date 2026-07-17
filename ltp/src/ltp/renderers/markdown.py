@@ -226,12 +226,31 @@ def future_reality_tree(model: LtpModel, index: ModelIndex, report) -> str:
         ["Claim", "Logic", "Operator", "Confidence", "Assumptions", "CLR"],
         _causal_rows(model, index, sorted(view.causal_claims)),
     )
+    if view.semantic_relations:
+        out += "\n## Typed non-causal relationships\n\n"
+        out += _table(
+            ["Relation", "Source", "Type", "Target"],
+            [
+                [relation.id, relation.source, relation.relation.value, relation.target]
+                for relation in (
+                    index.semantic_relations[item]
+                    for item in sorted(view.semantic_relations)
+                )
+            ],
+        )
     if model.predicted_effects:
         out += "\n## Predicted effects\n\n"
         out += _table(
-            ["ID", "Source", "Expectation", "Result", "Statement"],
+            ["ID", "Source", "Expectation", "Result", "Review by", "Statement"],
             [
-                [p.id, p.source_claim, p.expectation.value, p.result.value, p.statement]
+                [
+                    p.id,
+                    p.source_claim,
+                    p.expectation.value,
+                    p.result.value,
+                    p.review_by or "-",
+                    p.statement,
+                ]
                 for p in model.predicted_effects
             ],
         )

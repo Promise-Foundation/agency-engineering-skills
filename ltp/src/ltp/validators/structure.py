@@ -11,7 +11,7 @@ from __future__ import annotations
 from typing import Iterable, Optional
 
 from ..diagnostics import Diagnostic, diagnostic
-from ..enums import EntityKind
+from ..enums import EntityKind, SemanticRelationType
 from ..ids import prefix_matches_kind
 from ..models import LtpModel, ModelIndex
 
@@ -121,6 +121,37 @@ def validate(model: LtpModel, index: ModelIndex) -> "list[Diagnostic]":
                         f"CLR {name} proposed premise",
                     )
 
+        trimming_premises = [
+            premise
+            for premise in claim.premises
+            if index.kind_of(premise) == EntityKind.TRIMMING_INJECTION
+        ]
+        if trimming_premises and index.kind_of(claim.conclusion) == EntityKind.NEGATIVE_BRANCH:
+            out.append(
+                diagnostic(
+                    "REL-001",
+                    f"causal claim {claim.id} says trimming injection "
+                    f"{', '.join(trimming_premises)} causes negative branch {claim.conclusion}",
+                    target=claim.id,
+                    hint="replace it with a semantic_relation whose relation is neutralizes, mitigates, or prevents",
+                )
+            )
+
+    # -- semantic, non-sufficiency relations --------------------------- #
+    for relation in model.semantic_relations:
+        entity_ref(relation.source, relation.id, "semantic relation source")
+        entity_ref(relation.target, relation.id, "semantic relation target")
+        evidence_ref(relation.evidence_refs, relation.id, "semantic relation")
+        if relation.relation == SemanticRelationType.CAUSES:
+            out.append(
+                diagnostic(
+                    "REL-002",
+                    f"semantic relation {relation.id} uses causes without sufficiency semantics",
+                    target=relation.id,
+                    hint="use a causal_claim with premises, operator, conclusion, and CLR scrutiny",
+                )
+            )
+
     # -- clouds ---------------------------------------------------------- #
     for cloud in model.clouds:
         entity_ref(cloud.objective, cloud.id, "cloud objective", [EntityKind.CLOUD_OBJECTIVE])
@@ -149,6 +180,24 @@ def validate(model: LtpModel, index: ModelIndex) -> "list[Diagnostic]":
     for pred in model.predicted_effects:
         record_ref(pred.source_claim, index.causal_claims, "causal claim", pred.id, "predicted-effect source")
         evidence_ref(pred.evidence_refs, pred.id, "predicted effect")
+        if pred.waived and not pred.waiver_reason:
+            out.append(
+                diagnostic(
+                    "PRED-003",
+                    f"predicted effect {pred.id} is waived without a reason",
+                    target=pred.id,
+                )
+            )
+
+    for observation in model.observations:
+        record_ref(
+            observation.prediction,
+            index.predicted_effects,
+            "predicted effect",
+            observation.id,
+            "observation prediction",
+        )
+        evidence_ref(observation.evidence_refs, observation.id, "observation")
 
     # -- prerequisite tree ---------------------------------------------- #
     for resolution in model.obstacle_resolutions:
@@ -200,5 +249,7 @@ def validate(model: LtpModel, index: ModelIndex) -> "list[Diagnostic]":
             record_ref(ref, index.transitions, "transition", f"views.{name}", "view transition")
         for ref in view.obstacle_resolutions:
             record_ref(ref, index.obstacle_resolutions, "obstacle resolution", f"views.{name}", "view obstacle resolution")
+        for ref in view.relations:
+            record_ref(ref, index.semantic_relations, "semantic relation", f"views.{name}", "view semantic relation")
 
     return out

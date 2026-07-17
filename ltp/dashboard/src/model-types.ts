@@ -12,6 +12,7 @@ export type EmpiricalStatus = "not_tested" | "supported" | "falsified" | "inconc
 export type EntityKind = "goal" | "critical_success_factor" | "necessary_condition" | "undesirable_effect" | "cause" | "root_cause" | "constraint" | "cloud_objective" | "cloud_need" | "cloud_action" | "injection" | "desirable_effect" | "negative_branch" | "trimming_injection" | "obstacle" | "intermediate_objective" | "existing_reality" | "need" | "transition_action" | "immediate_effect" | "assumption" | "risk";
 export type Expectation = "should_exist" | "should_not_exist";
 export type FocusingStep = "identify" | "exploit" | "subordinate" | "elevate" | "inertia";
+export type ImplementationStatus = "not_started" | "in_progress" | "complete";
 export type Influence = "control" | "influence" | "monitor" | "outside";
 export type OperatingMode = "diagnose" | "resolve_conflict" | "plan_change" | "full" | "reconcile";
 export type Operator = "single" | "all" | "any" | "exclusive_any" | "magnitudinal";
@@ -19,6 +20,7 @@ export type PlanStatus = "required" | "done" | "deferred" | "skipped";
 export type PredictedResult = "untested" | "observed" | "absent" | "mixed";
 export type ReviewStatus = "unreviewed" | "corroborated" | "user_confirmed" | "disputed" | "invalidated" | "superseded";
 export type Satisfaction = "unknown" | "satisfied" | "partial" | "unsatisfied" | "not_applicable";
+export type SemanticRelationType = "causes" | "requires" | "enables" | "contributes_to" | "prevents" | "mitigates" | "neutralizes" | "detects" | "responds_to" | "evidences" | "tests" | "implements" | "supersedes" | "contradicts";
 export type TransitionSize = "small" | "medium" | "large";
 export type VerificationRole = "entity_existence" | "mechanism" | "causal_outcome" | "scientific_outcome" | "negative_branch_guardrail" | "prerequisite_readiness" | "transition_acceptance";
 
@@ -167,10 +169,12 @@ export interface LtpModel {
   evidence?: Evidence[];
   necessity_claims?: NecessityClaim[];
   causal_claims?: CausalClaim[];
+  semantic_relations?: SemanticRelation[];
   clouds?: Cloud[];
   conflict_claims?: ConflictClaim[];
   conflict_analysis?: ConflictAnalysis;
   predicted_effects?: PredictedEffect[];
+  observations?: Observation[];
   obstacle_resolutions?: ObstacleResolution[];
   transitions?: Transition[];
   constraint_assessment?: ConstraintAssessment;
@@ -194,6 +198,18 @@ export interface NecessityClaim {
   confidence?: Confidence;
 }
 
+export interface Observation {
+  id: string;
+  prediction: string;
+  observed_at: string;
+  result?: PredictedResult;
+  value?: number;
+  change_percent?: number;
+  source?: string;
+  evidence_refs?: string[];
+  notes?: string;
+}
+
 export interface ObstacleResolution {
   id: string;
   obstacle: string;
@@ -212,6 +228,19 @@ export interface PredictedEffect {
   expectation?: Expectation;
   result?: PredictedResult;
   evidence_refs?: string[];
+  indicator?: string;
+  baseline?: number;
+  expected_change_percent?: number;
+  tolerance_percent?: number;
+  expected_by?: string;
+  review_by?: string;
+  expected_lag_days?: number;
+  owner?: string;
+  implementation_status?: ImplementationStatus;
+  implemented_at?: string;
+  implementation_fidelity?: number;
+  minimum_fidelity?: number;
+  observation_valid_for_days?: number;
   waived?: boolean;
   waiver_reason?: string;
 }
@@ -227,6 +256,15 @@ export interface Project {
 export interface RejectedCloud {
   candidate: string;
   reason: string;
+}
+
+export interface SemanticRelation {
+  id: string;
+  source: string;
+  target: string;
+  relation: SemanticRelationType;
+  evidence_refs?: string[];
+  reasoning?: string;
 }
 
 export interface Transition {
@@ -259,4 +297,5 @@ export interface View {
   clouds?: string[];
   transitions?: string[];
   obstacle_resolutions?: string[];
+  relations?: string[];
 }

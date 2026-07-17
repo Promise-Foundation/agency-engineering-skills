@@ -16,13 +16,18 @@
 | CLM-3 | DE-1 => DE-2 | single | medium | - | yes |
 | CLM-4 | DE-2 => DE-3 | single | medium | - | yes |
 | CLM-5 | INJ-1 => NBR-1 | single | medium | - | no |
-| CLM-6 | TRIM-1 => NBR-1 | single | medium | - | no |
+
+## Typed non-causal relationships
+
+| Relation | Source | Type | Target |
+|---|---|---|---|
+| CLM-6 | TRIM-1 | neutralizes | NBR-1 |
 
 ## Predicted effects
 
-| ID | Source | Expectation | Result | Statement |
-|---|---|---|---|---|
-| PRED-1 | CLM-1 | should_exist | observed | If RC-1 is the actual and sufficient cause of UDE-1, then (a) no zpd/SKILL.md exists anywhere in the repository, and (b) the repository's own documentation should explicitly flag zpd as not-yet-shipped rather than silently treating it as equivalent to the shipped skills. |
+| ID | Source | Expectation | Result | Review by | Statement |
+|---|---|---|---|---|---|
+| PRED-1 | CLM-1 | should_exist | observed | 2026-07-17 | If RC-1 is the actual and sufficient cause of UDE-1, then (a) no zpd/SKILL.md exists anywhere in the repository, and (b) the repository's own documentation should explicitly flag zpd as not-yet-shipped rather than silently treating it as equivalent to the shipped skills. |
 
 ## Diagram
 
@@ -38,5 +43,5 @@ flowchart BT
     DE_1 -->|causes| DE_2
     DE_2 -->|causes| DE_3
     INJ_1 -->|causes| NBR_1
-    TRIM_1 -->|causes| NBR_1
+    TRIM_1 -. neutralizes .-> NBR_1
 ```

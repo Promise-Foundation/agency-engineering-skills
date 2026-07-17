@@ -1,4 +1,4 @@
-"""v1 -> v2 migration preserves ids and yields a parseable v2 model."""
+"""Legacy -> v3 migration preserves ids and yields a parseable typed model."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from ltp.store import yaml_load
 V1 = FIXTURES / "v1" / "ltp-model.yaml"
 
 
-def test_v1_needs_migration_v2_does_not():
+def test_v1_needs_migration_v3_does_not():
     v1 = yaml_load(V1.read_text(encoding="utf-8"))
     assert needs_migration(v1) is True
     migrated = migrate_dict(v1)
@@ -22,7 +22,7 @@ def test_migration_preserves_ids_and_parses():
     original_ids = {e["id"] for e in v1["entities"]}
     migrated = migrate_dict(v1)
     model = parse_model(migrated)  # must parse as typed v2
-    assert model.schema_version == 2
+    assert model.schema_version == 3
     migrated_ids = {e.id for e in model.entities}
     assert original_ids <= migrated_ids  # every v1 entity id survived
 
@@ -54,7 +54,7 @@ def test_migration_handles_structured_v1_extensions():
         "weird_field": {"unexpected": True},
     }
     migrated = migrate_dict(v1)
-    model = parse_model(migrated)  # must parse as typed v2
+    model = parse_model(migrated)  # must parse as typed v3
 
     kinds = {e.id: e.kind.value for e in model.entities}
     assert kinds.get("G-1") == "goal" and kinds.get("G-alt") == "goal"
@@ -67,3 +67,23 @@ def test_migration_handles_structured_v1_extensions():
     # an unrecognized v1 field is dropped but noted, not passed through
     assert "weird_field" not in migrated
     assert any("weird_field" in q for q in model.open_questions)
+
+
+def test_v2_trimming_claim_becomes_typed_relation_with_same_id():
+    v2 = {
+        "schema_version": 2,
+        "project": {"name": "T"},
+        "entities": [
+            {"id": "TRIM-1", "kind": "trimming_injection", "statement": "trim"},
+            {"id": "NBR-1", "kind": "negative_branch", "statement": "risk"},
+        ],
+        "causal_claims": [
+            {"id": "CLM-6", "premises": ["TRIM-1"], "conclusion": "NBR-1"}
+        ],
+    }
+    migrated = migrate_dict(v2)
+    model = parse_model(migrated)
+    assert not model.causal_claims
+    relation = model.semantic_relations[0]
+    assert relation.id == "CLM-6"
+    assert relation.relation.value == "neutralizes"

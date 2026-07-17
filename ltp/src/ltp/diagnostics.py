@@ -33,6 +33,10 @@ CATALOG: "dict[str, tuple[Severity, str]]" = {
     # Reference integrity (checked after parse so all danglers surface at once)
     "REF-001": (Severity.ERROR, "reference to an unknown id"),
     "REF-002": (Severity.ERROR, "reference to an id of the wrong kind for its role"),
+    "TIME-001": (Severity.ERROR, "temporal field is not a valid ISO date or datetime"),
+    # Semantic relationship ontology
+    "REL-001": (Severity.ERROR, "prevention or neutralisation encoded as causation"),
+    "REL-002": (Severity.ERROR, "forward causation encoded outside a sufficiency claim"),
     # Id conventions
     "ID-001": (Severity.INFO, "entity id prefix does not match its kind"),
     # Goal Tree
@@ -103,6 +107,10 @@ CATALOG: "dict[str, tuple[Severity, str]]" = {
     # Predicted effects
     "PRED-001": (Severity.WARNING, "root-cause candidate has no predicted effect"),
     "PRED-002": (Severity.WARNING, "a predicted effect that should exist was not observed"),
+    "PRED-003": (Severity.ERROR, "prediction waiver has no reason"),
+    "PRED-OVERDUE": (Severity.ERROR, "prediction is overdue and unevaluated"),
+    "OBS-STALE": (Severity.ERROR, "prediction observation is stale"),
+    "INT-UNVERIFIED": (Severity.ERROR, "completed intervention has no outcome observation"),
     # Analysis plan
     "PLAN-001": (Severity.INFO, "analysis-plan status disagrees with model content"),
     "PLAN-002": (Severity.WARNING, "a required tree has no content"),

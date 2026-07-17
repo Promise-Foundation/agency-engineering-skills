@@ -18,11 +18,11 @@ from . import dashboard, markdown, mermaid
 GENERATED_DIR = "generated"
 
 
-def render_all(model: LtpModel, report=None) -> "dict[str, str]":
+def render_all(model: LtpModel, report=None, *, as_of: str | None = None) -> "dict[str, str]":
     if report is None:
         from ..validators import validate
 
-        report = validate(model)
+        report = validate(model, as_of=as_of)
 
     files: "dict[str, str]" = {}
     for name, content in markdown.render_documents(model, report).items():
@@ -30,7 +30,7 @@ def render_all(model: LtpModel, report=None) -> "dict[str, str]":
     for key, source in mermaid.render_diagrams(model).items():
         files[f"{GENERATED_DIR}/diagrams/{key}.mmd"] = MERMAID_HEADER + source
 
-    dash = dashboard.build_dashboard(model, report)
+    dash = dashboard.build_dashboard(model, report, as_of=as_of)
     dash["build"] = {"source_hash": source_hash(model), "generator": GENERATOR}
     files[f"{GENERATED_DIR}/dashboard-model.json"] = (
         json.dumps(dash, indent=2, sort_keys=True) + "\n"

@@ -78,7 +78,7 @@ judgment) to change what the model *means*.
 | `ltp check` -- re-derive; **write nothing**; fail on staleness/invalidity (CI) | Scrutinize a claim against the CLR and record the result |
 | `ltp render` -- write projections without the publish gate | Decide which trees are warranted (the analysis plan) |
 | `ltp doctor` -- diagnose without writing | Repair a diagnostic by changing meaning, not by silencing it |
-| `ltp migrate` -- convert a v1 model to v2, preserving ids | Reconcile the model with the plan and the code |
+| `ltp migrate` -- convert a legacy model to v3, preserving ids | Reconcile the model with the plan and the code |
 | `ltp explain ID` -- evidence, assumptions, CLR, dependents for one record | Explain a status or defend a recommendation |
 
 If the user just wants their documents regenerated, tell them to run `ltp sync`.

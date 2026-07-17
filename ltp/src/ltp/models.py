@@ -40,18 +40,21 @@ from .enums import (
     Expectation,
     FocusingStep,
     Influence,
+    ImplementationStatus,
     OperatingMode,
     Operator,
     PlanStatus,
     PredictedResult,
+    PredictionEvaluationResult,
     ReviewStatus,
     Satisfaction,
+    SemanticRelationType,
     TransitionSize,
     VerificationRole,
 )
 from .errors import ModelError
 
-CURRENT_SCHEMA_VERSION = 2
+CURRENT_SCHEMA_VERSION = 3
 
 
 # --------------------------------------------------------------------------- #
@@ -190,6 +193,22 @@ class CausalClaim:
     verification: Optional[ClaimVerification] = None
 
 
+@dataclass
+class SemanticRelation:
+    """A typed relationship that is not a sufficiency claim.
+
+    In particular, prevention and neutralisation belong here rather than in a
+    ``CausalClaim`` whose forward arrow would state the opposite semantics.
+    """
+
+    id: str
+    source: str
+    target: str
+    relation: SemanticRelationType
+    evidence_refs: "list[str]" = field(default_factory=list)
+    reasoning: Optional[str] = None
+
+
 # --------------------------------------------------------------------------- #
 # Evaporating Cloud
 # --------------------------------------------------------------------------- #
@@ -254,8 +273,48 @@ class PredictedEffect:
     expectation: Expectation = Expectation.SHOULD_EXIST
     result: PredictedResult = PredictedResult.UNTESTED
     evidence_refs: "list[str]" = field(default_factory=list)
+    indicator: Optional[str] = None
+    baseline: Optional[float] = None
+    expected_change_percent: Optional[float] = None
+    tolerance_percent: float = 0.0
+    expected_by: Optional[str] = None
+    review_by: Optional[str] = None
+    expected_lag_days: Optional[int] = None
+    owner: Optional[str] = None
+    implementation_status: ImplementationStatus = ImplementationStatus.NOT_STARTED
+    implemented_at: Optional[str] = None
+    implementation_fidelity: Optional[float] = None
+    minimum_fidelity: Optional[float] = None
+    observation_valid_for_days: Optional[int] = None
     waived: bool = False
     waiver_reason: Optional[str] = None
+
+
+@dataclass
+class Observation:
+    """An admitted observation about one prediction; never a logical verdict."""
+
+    id: str
+    prediction: str
+    observed_at: str
+    result: PredictedResult = PredictedResult.UNTESTED
+    value: Optional[float] = None
+    change_percent: Optional[float] = None
+    source: Optional[str] = None
+    evidence_refs: "list[str]" = field(default_factory=list)
+    notes: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class PredictionEvaluation:
+    """A deterministic read-model record derived from a prediction and observations."""
+
+    id: str
+    prediction: str
+    as_of: str
+    result: PredictionEvaluationResult
+    observation: Optional[str] = None
+    explanation: Optional[str] = None
 
 
 # --------------------------------------------------------------------------- #
@@ -378,6 +437,7 @@ class View:
     clouds: "list[str]" = field(default_factory=list)
     transitions: "list[str]" = field(default_factory=list)
     obstacle_resolutions: "list[str]" = field(default_factory=list)
+    relations: "list[str]" = field(default_factory=list)
 
 
 # --------------------------------------------------------------------------- #
@@ -393,10 +453,12 @@ class LtpModel:
     evidence: "list[Evidence]" = field(default_factory=list)
     necessity_claims: "list[NecessityClaim]" = field(default_factory=list)
     causal_claims: "list[CausalClaim]" = field(default_factory=list)
+    semantic_relations: "list[SemanticRelation]" = field(default_factory=list)
     clouds: "list[Cloud]" = field(default_factory=list)
     conflict_claims: "list[ConflictClaim]" = field(default_factory=list)
     conflict_analysis: Optional[ConflictAnalysis] = None
     predicted_effects: "list[PredictedEffect]" = field(default_factory=list)
+    observations: "list[Observation]" = field(default_factory=list)
     obstacle_resolutions: "list[ObstacleResolution]" = field(default_factory=list)
     transitions: "list[Transition]" = field(default_factory=list)
     constraint_assessment: Optional[ConstraintAssessment] = None
@@ -547,9 +609,11 @@ _ID_FAMILIES = (
     ("evidence", "evidence"),
     ("necessity_claims", "necessity claim"),
     ("causal_claims", "causal claim"),
+    ("semantic_relations", "semantic relation"),
     ("clouds", "cloud"),
     ("conflict_claims", "conflict claim"),
     ("predicted_effects", "predicted effect"),
+    ("observations", "observation"),
     ("obstacle_resolutions", "obstacle resolution"),
     ("transitions", "transition"),
 )
@@ -634,9 +698,13 @@ class ModelIndex:
         self.evidence = {item.id: item for item in model.evidence}
         self.necessity_claims = {claim.id: claim for claim in model.necessity_claims}
         self.causal_claims = {claim.id: claim for claim in model.causal_claims}
+        self.semantic_relations = {
+            relation.id: relation for relation in model.semantic_relations
+        }
         self.clouds = {cloud.id: cloud for cloud in model.clouds}
         self.conflict_claims = {claim.id: claim for claim in model.conflict_claims}
         self.predicted_effects = {pred.id: pred for pred in model.predicted_effects}
+        self.observations = {item.id: item for item in model.observations}
         self.obstacle_resolutions = {
             res.id: res for res in model.obstacle_resolutions
         }
@@ -659,9 +727,11 @@ class ModelIndex:
             or record_id in self.evidence
             or record_id in self.necessity_claims
             or record_id in self.causal_claims
+            or record_id in self.semantic_relations
             or record_id in self.clouds
             or record_id in self.conflict_claims
             or record_id in self.predicted_effects
+            or record_id in self.observations
             or record_id in self.obstacle_resolutions
             or record_id in self.transitions
         )
@@ -672,9 +742,11 @@ class ModelIndex:
             self.evidence,
             self.necessity_claims,
             self.causal_claims,
+            self.semantic_relations,
             self.clouds,
             self.conflict_claims,
             self.predicted_effects,
+            self.observations,
             self.obstacle_resolutions,
             self.transitions,
         ):

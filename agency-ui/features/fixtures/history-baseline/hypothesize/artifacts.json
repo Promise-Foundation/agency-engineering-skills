@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "artifacts": [{
+    "domain": "/dynamic",
+    "manifest": {
+      "portfolio": {"title": "Dynamic fixture"},
+      "hypotheses": [{"id": "HYP-1", "title": "Attention accelerates review", "subject": "ltp.claim:CLM-1", "capability_status": "implemented", "evidence_maturity": "mechanism", "conclusion": "not_tested", "evidence": []}],
+      "capabilities": [{"id": "CAP-1", "title": "Attention queue", "status": "implemented", "hypotheses": ["HYP-1"], "scenario_counts": {"passed": 3}}],
+      "evidence": []
+    }
+  }]
+}

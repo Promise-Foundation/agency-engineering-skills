@@ -12,6 +12,8 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
+    "test:bdd": "cucumber-js --config cucumber.mjs",
+    "test:bdd:serve": "start-server-and-test 'npm run dev' http://127.0.0.1:5197 'npm run test:bdd'",
     "build": "npm run build --workspace @agency/web",
     "dev": "npm run dev --workspace @agency/web",
     "content:build": "python3 scripts/build-domain-artifacts.py && python3 scripts/build-project-bundles.py"
@@ -24,10 +26,14 @@
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^12.9.0",
     "@types/node": "^22.20.1",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.2",
+    "playwright": "^1.61.1",
+    "start-server-and-test": "^3.0.11",
+    "tsx": "^4.23.1",
     "typescript": "^5.9.2",
     "vite": "^7.1.5",
     "vitest": "^3.2.0"

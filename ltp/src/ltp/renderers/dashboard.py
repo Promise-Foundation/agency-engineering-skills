@@ -10,6 +10,9 @@ from __future__ import annotations
 
 from ..enums import CLRState, Operator
 from ..models import CausalClaim, LtpModel, ModelIndex, to_dict
+from ..history import project_learning_history
+from ..obligations import derive_obligations
+from ..predictions import evaluate_all
 from .views import derive_views
 
 _REQUIRED_PASS = ("causality_existence", "cause_effect_reversal", "tautology")
@@ -61,6 +64,17 @@ def _view_graph(view, model: LtpModel, index: ModelIndex) -> "dict[str, object]"
             {"source": claim.prerequisite, "target": claim.objective, "relation": "necessary_for", "claim": claim.id}
         )
 
+    for relation_id in view.semantic_relations:
+        relation = index.semantic_relations[relation_id]
+        edges.append(
+            {
+                "source": relation.source,
+                "target": relation.target,
+                "relation": relation.relation.value,
+                "claim": relation.id,
+            }
+        )
+
     for cloud in model.clouds:
         if cloud.id not in view.clouds:
             continue
@@ -91,7 +105,7 @@ def _view_graph(view, model: LtpModel, index: ModelIndex) -> "dict[str, object]"
     return {"node_ids": node_ids, "edges": edges}
 
 
-def build_dashboard(model: LtpModel, report=None) -> "dict[str, object]":
+def build_dashboard(model: LtpModel, report=None, *, as_of: str | None = None) -> "dict[str, object]":
     index = ModelIndex(model)
 
     entity_nodes = [to_dict(entity, prune=False) for entity in model.entities]
@@ -133,9 +147,11 @@ def build_dashboard(model: LtpModel, report=None) -> "dict[str, object]":
         "evidence": [to_dict(e, prune=False) for e in model.evidence],
         "necessity_claims": [to_dict(c, prune=False) for c in model.necessity_claims],
         "causal_claims": causal,
+        "semantic_relations": [to_dict(r, prune=False) for r in model.semantic_relations],
         "clouds": [to_dict(c, prune=False) for c in model.clouds],
         "conflict_claims": [to_dict(c, prune=False) for c in model.conflict_claims],
         "predicted_effects": [to_dict(p, prune=False) for p in model.predicted_effects],
+        "observations": [to_dict(o, prune=False) for o in model.observations],
         "obstacle_resolutions": [to_dict(r, prune=False) for r in model.obstacle_resolutions],
         "transitions": [to_dict(t, prune=False) for t in model.transitions],
         "constraint_assessment": (
@@ -150,4 +166,18 @@ def build_dashboard(model: LtpModel, report=None) -> "dict[str, object]":
     }
     if report is not None:
         dashboard["health"] = report.to_dict()
+    temporal_errors = bool(
+        report is not None
+        and any(item.code == "TIME-001" for item in report.diagnostics)
+    )
+    if as_of is not None and not temporal_errors:
+        evaluations = evaluate_all(model, as_of=as_of)
+        dashboard["as_of"] = as_of
+        dashboard["prediction_evaluations"] = [to_dict(item, prune=False) for item in evaluations]
+        dashboard["learning_obligations"] = [
+            to_dict(item, prune=False) for item in derive_obligations(model, as_of=as_of)
+        ]
+        dashboard["learning_history"] = project_learning_history(
+            prediction_evaluations=evaluations
+        ).to_dict()
     return dashboard

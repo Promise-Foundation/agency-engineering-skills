@@ -99,3 +99,20 @@ capabilities.
 3. Declare `contributions` (routes, dashboard cards, resource views, inspectors,
    commands) in the manifest.
 4. Add it to `apps/web/src/plugins.ts`. The shell needs no other change.
+# Dynamic LTP views
+
+The LTP plugin coordinates five projections of the same generated model: the
+current causal trees, semantic learning history and date-to-date diff,
+prediction-versus-observation, attributable stakeholder perspectives, and the
+attention queue derived from overdue learning obligations. Record inspectors add
+lifecycles and keep implementation, CLR logic, evidence maturity, empirical
+conclusion, and observed outcome as separate dimensions.
+
+The browser contract is executable Gherkin:
+
+```bash
+npm run test:bdd:serve
+```
+
+It runs 21 scenarios against deterministic fixture sources selected through an
+E2E-only request header; production sources remain generated and read-only.

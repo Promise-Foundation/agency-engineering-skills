@@ -10,7 +10,7 @@ the readable companion.
 ## Top-level shape
 
 ```yaml
-schema_version: 2
+schema_version: 3
 project: {name, analyzed_path?, analysis_mode?, provisional_goal?, goal?}
 analysis: {current_constraint?, recommended_next_action?, expected_effect?, updated_at?}
 analysis_plan: {mode?, goal_tree, current_reality_tree, ...}   # per-view {status, reason?}

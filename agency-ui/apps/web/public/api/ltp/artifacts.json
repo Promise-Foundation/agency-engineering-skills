@@ -37,9 +37,10 @@
             "status": "required"
           }
         },
+        "as_of": "2026-07-17",
         "build": {
           "generator": "ltp 0.1.0",
-          "source_hash": "81503a13bc702c7b260c4d9814906f9828be914698d3244f98232ca2c5143fa5"
+          "source_hash": "157ca0cc4555a249de7c59d8f04a4e99ff15bc58cf58d5f4bf0303e07b792dbe"
         },
         "causal_claims": [
           {
@@ -317,20 +318,6 @@
             "operator": "single",
             "premises": [
               "INJ-1"
-            ],
-            "verification": null
-          },
-          {
-            "assumption_refs": [],
-            "clr": null,
-            "conclusion": "NBR-1",
-            "confidence": "medium",
-            "id": "CLM-6",
-            "logic_status": "candidate",
-            "mode": "sufficiency",
-            "operator": "single",
-            "premises": [
-              "TRIM-1"
             ],
             "verification": null
           }
@@ -1073,6 +1060,22 @@
           "diagnostics": [],
           "publishable": true
         },
+        "learning_history": {
+          "digest": "b9d3357e992e78154e2574b1c9b9b29708f553c4762a423bab68ca5360ea73bc",
+          "events": [
+            {
+              "current": "supported",
+              "id": "prediction:EVAL-PRED-1:2026-07-17",
+              "kind": "prediction_evaluated",
+              "occurred_at": "2026-07-17",
+              "reason": "derived from the latest qualifying observation",
+              "source": "OBS-PRED-1",
+              "subject": "PRED-1",
+              "summary": "prediction PRED-1 evaluated as supported"
+            }
+          ]
+        },
+        "learning_obligations": [],
         "necessity_claims": [
           {
             "assumption_refs": [],
@@ -1189,6 +1192,23 @@
             "prerequisite": "IO-3"
           }
         ],
+        "observations": [
+          {
+            "change_percent": null,
+            "evidence_refs": [
+              "EVD-1",
+              "EVD-3",
+              "EVD-4"
+            ],
+            "id": "OBS-PRED-1",
+            "notes": null,
+            "observed_at": "2026-07-16",
+            "prediction": "PRED-1",
+            "result": "observed",
+            "source": "repository review",
+            "value": null
+          }
+        ],
         "obstacle_resolutions": [
           {
             "id": "OR-1",
@@ -1213,18 +1233,41 @@
         ],
         "predicted_effects": [
           {
+            "baseline": null,
             "evidence_refs": [
               "EVD-1",
               "EVD-3",
               "EVD-4"
             ],
             "expectation": "should_exist",
+            "expected_by": "2026-07-16",
+            "expected_change_percent": null,
+            "expected_lag_days": null,
             "id": "PRED-1",
+            "implementation_fidelity": null,
+            "implementation_status": "not_started",
+            "implemented_at": null,
+            "indicator": "repository_shipping_gap",
+            "minimum_fidelity": null,
+            "observation_valid_for_days": null,
+            "owner": "repository-maintainers",
             "result": "observed",
+            "review_by": "2026-07-17",
             "source_claim": "CLM-1",
             "statement": "If RC-1 is the actual and sufficient cause of UDE-1, then (a) no zpd/SKILL.md exists anywhere in the repository, and (b) the repository's own documentation should explicitly flag zpd as not-yet-shipped rather than silently treating it as equivalent to the shipped skills.",
+            "tolerance_percent": 0.0,
             "waived": false,
             "waiver_reason": null
+          }
+        ],
+        "prediction_evaluations": [
+          {
+            "as_of": "2026-07-17",
+            "explanation": "derived from the latest qualifying observation",
+            "id": "EVAL-PRED-1",
+            "observation": "OBS-PRED-1",
+            "prediction": "PRED-1",
+            "result": "supported"
           }
         ],
         "project": {
@@ -1234,7 +1277,17 @@
           "name": "agency-engineering-skills",
           "provisional_goal": null
         },
-        "schema_version": 2,
+        "schema_version": 3,
+        "semantic_relations": [
+          {
+            "evidence_refs": [],
+            "id": "CLM-6",
+            "reasoning": null,
+            "relation": "neutralizes",
+            "source": "TRIM-1",
+            "target": "NBR-1"
+          }
+        ],
         "transitions": [
           {
             "action": "ACT-1",
@@ -1309,7 +1362,7 @@
               },
               {
                 "claim": "CLM-6",
-                "relation": "causes",
+                "relation": "neutralizes",
                 "source": "TRIM-1",
                 "target": "NBR-1"
               }

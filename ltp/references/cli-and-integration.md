@@ -47,9 +47,9 @@ file carries a "generated -- do not edit" header; `dashboard-model.json` carries
 | `ltp validate [--strict] [--json]` | no | 0 ok / 1 errors (or warnings if `--strict`) | logical diagnostics |
 | `ltp render` | generated | 0 | write projections, no publish gate |
 | `ltp sync [--force]` | generated | 0 / 2 refused | validate then write |
-| `ltp check` | no | 0 / 2 stale-or-invalid | CI gate |
+| `ltp check [--as-of DATE]` | no | 0 / 2 stale-or-invalid | CI gate: freshness (as-of-agnostic) + currency with `--as-of` |
 | `ltp doctor` | no | 0 / 1 errors | diagnostics + staleness notes |
-| `ltp migrate [--write]` | model | 0 / 2 | v1 -> v2, preserving ids |
+| `ltp migrate [--write]` | model | 0 / 2 | legacy -> v3, preserving ids and causal polarity |
 | `ltp explain ID` | no | 0 / 2 not-found | trace one record |
 
 `--root` points at the project (default cwd; the engine looks for `ltp/ltp-model.yaml`);
@@ -60,9 +60,19 @@ file carries a "generated -- do not edit" header; `dashboard-model.json` carries
 ```bash
 python -m pytest                                                # engine tests
 ltp --model ltp/ltp-model.yaml validate --strict               # logic must hold
-ltp --root . check                                             # projections must be current
+ltp --root . check                                             # freshness: projections match the model
+ltp --root . check --as-of "$(date +%F)"                       # currency: no overdue learning obligations
 npm ci --prefix ltp/dashboard && npm run build --prefix ltp/dashboard   # dashboard builds
 ```
+
+`ltp check` runs two independent gates. **Freshness** ("do the committed
+projections match the model?") is deterministic and as-of-agnostic: it reproduces
+the committed dashboard's own as-of snapshot, so a plain `check` never depends on
+the wall clock. **Currency** ("is the model operationally overdue?") is derived
+only when `--as-of` supplies an explicit date -- the engine holds no clock of its
+own -- and an overdue learning obligation then blocks. Keep the two calls separate
+so a stale-but-consistent model is caught by the second without the first flapping
+from one day to the next.
 
 `node_modules/` and `ltp/dashboard/dist/` are git-ignored; the dashboard builds
 from `package-lock.json` with `npm ci`.

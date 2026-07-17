@@ -16,7 +16,7 @@
 # <root>/ltp/ltp-model.yaml first, which would resolve into the skill
 # package's own directory -- exactly the collision this file avoids).
 
-schema_version: 2
+schema_version: 3
 
 project:
   name: agency-engineering-skills
@@ -719,16 +719,11 @@ causal_claims:
     conclusion: NBR-1
     confidence: medium
 
+semantic_relations:
   - id: CLM-6
-    # Structural link only: this records that TRIM-1 addresses/neutralizes
-    # NBR-1 (per the engine's convention for connecting a trimming injection
-    # to the negative branch it disposes of via causal_claims connectivity),
-    # not that TRIM-1 causes NBR-1 in the ordinary forward-causation sense.
-    # See TRIM-1's own statement for the intended (preventive) direction.
-    premises: [TRIM-1]
-    operator: single
-    conclusion: NBR-1
-    confidence: medium
+    source: TRIM-1
+    target: NBR-1
+    relation: neutralizes
 
 predicted_effects:
   - id: PRED-1
@@ -741,6 +736,18 @@ predicted_effects:
       shipped skills.
     expectation: should_exist
     result: observed
+    evidence_refs: [EVD-1, EVD-3, EVD-4]
+    indicator: repository_shipping_gap
+    expected_by: "2026-07-16"
+    review_by: "2026-07-17"
+    owner: repository-maintainers
+
+observations:
+  - id: OBS-PRED-1
+    prediction: PRED-1
+    observed_at: "2026-07-16"
+    result: observed
+    source: repository review
     evidence_refs: [EVD-1, EVD-3, EVD-4]
 
 obstacle_resolutions:

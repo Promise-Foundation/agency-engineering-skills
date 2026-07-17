@@ -163,6 +163,38 @@ class PredictedResult(_Vocabulary):
     MIXED = "mixed"
 
 
+class SemanticRelationType(_Vocabulary):
+    """Non-sufficiency relationships that must not masquerade as causal arrows."""
+
+    CAUSES = "causes"
+    REQUIRES = "requires"
+    ENABLES = "enables"
+    CONTRIBUTES_TO = "contributes_to"
+    PREVENTS = "prevents"
+    MITIGATES = "mitigates"
+    NEUTRALIZES = "neutralizes"
+    DETECTS = "detects"
+    RESPONDS_TO = "responds_to"
+    EVIDENCES = "evidences"
+    TESTS = "tests"
+    IMPLEMENTS = "implements"
+    SUPERSEDES = "supersedes"
+    CONTRADICTS = "contradicts"
+
+
+class PredictionEvaluationResult(_Vocabulary):
+    SUPPORTED = "supported"
+    CONTRADICTED = "contradicted"
+    INCONCLUSIVE = "inconclusive"
+    NOT_YET_DUE = "not_yet_due"
+
+
+class ImplementationStatus(_Vocabulary):
+    NOT_STARTED = "not_started"
+    IN_PROGRESS = "in_progress"
+    COMPLETE = "complete"
+
+
 class AnalysisMode(_Vocabulary):
     FORWARD = "forward"
     REVERSE = "reverse"

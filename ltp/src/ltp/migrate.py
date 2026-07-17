@@ -11,6 +11,7 @@ not plausible filler.
 
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any
 
 from .errors import MigrationError
@@ -82,17 +83,10 @@ def _to_text(item: Any) -> str:
 
 
 def needs_migration(data: "dict[str, Any]") -> bool:
-    if int(data.get("schema_version", 1)) >= 2:
-        return False
-    if "links" in data:
-        return True
-    for entity in data.get("entities", []):
-        if isinstance(entity, dict) and "type" in entity:
-            return True
-    return False
+    return int(data.get("schema_version", 1)) < 3
 
 
-def migrate_dict(data: "dict[str, Any]") -> "dict[str, Any]":
+def _migrate_v1_to_v2(data: "dict[str, Any]") -> "dict[str, Any]":
     if not isinstance(data, dict):
         raise MigrationError("v1 model must be a mapping")
 
@@ -276,3 +270,66 @@ def migrate_dict(data: "dict[str, Any]") -> "dict[str, Any]":
     if data.get("coverage_gaps"):
         out["coverage_gaps"] = [_to_text(item) for item in data["coverage_gaps"]]
     return out
+
+
+def _migrate_v2_to_v3(data: "dict[str, Any]") -> "dict[str, Any]":
+    """Move preventive trimming links out of forward causal sufficiency."""
+    out = deepcopy(data)
+    out["schema_version"] = 3
+    kinds = {
+        entity.get("id"): entity.get("kind")
+        for entity in out.get("entities", [])
+        if isinstance(entity, dict)
+    }
+    kept: "list[dict[str, Any]]" = []
+    moved: "list[dict[str, Any]]" = list(out.get("semantic_relations", []))
+    moved_ids: "set[str]" = set()
+    for claim in out.get("causal_claims", []):
+        premises = claim.get("premises", [])
+        conclusion = claim.get("conclusion")
+        if (
+            len(premises) == 1
+            and kinds.get(premises[0]) == "trimming_injection"
+            and kinds.get(conclusion) == "negative_branch"
+        ):
+            moved_ids.add(claim["id"])
+            relation: "dict[str, Any]" = {
+                "id": claim["id"],
+                "source": premises[0],
+                "target": conclusion,
+                "relation": "neutralizes",
+            }
+            if claim.get("assumption_refs"):
+                relation["reasoning"] = (
+                    "migrated from a v2 causal claim; review assumptions "
+                    + ", ".join(claim["assumption_refs"])
+                )
+            moved.append(relation)
+        else:
+            kept.append(claim)
+    if moved_ids:
+        out["causal_claims"] = kept
+        out["semantic_relations"] = moved
+        for view in out.get("views", {}).values():
+            if not isinstance(view, dict):
+                continue
+            claims = view.get("claims", [])
+            selected = [claim_id for claim_id in claims if claim_id in moved_ids]
+            if selected:
+                view["claims"] = [claim_id for claim_id in claims if claim_id not in moved_ids]
+                view["relations"] = list(dict.fromkeys(view.get("relations", []) + selected))
+    return out
+
+
+def migrate_dict(data: "dict[str, Any]") -> "dict[str, Any]":
+    """Migrate any supported legacy model to the current v3 schema."""
+    if not isinstance(data, dict):
+        raise MigrationError("model must be a mapping")
+    version = int(data.get("schema_version", 1))
+    if version > 3:
+        raise MigrationError(f"model schema v{version} is newer than this engine")
+    if version < 2:
+        return _migrate_v2_to_v3(_migrate_v1_to_v2(data))
+    if version == 2:
+        return _migrate_v2_to_v3(data)
+    return deepcopy(data)

@@ -15,7 +15,7 @@ MINIMAL = {
 
 def test_parses_minimal_and_applies_defaults():
     model = parse_model(MINIMAL)
-    assert model.schema_version == 2
+    assert model.schema_version == 3
     entity = model.entities[0]
     assert entity.basis.value == "inferred"
     assert entity.review_status.value == "unreviewed"

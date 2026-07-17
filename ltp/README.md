@@ -8,9 +8,10 @@ Cloud, Future Reality Tree, Prerequisite Tree, Transition Tree -- are *views* of
 single typed model, derived deterministically. They cannot drift apart, and the
 model cannot silently violate the Categories of Legitimate Reservation:
 
-- The model is **typed**. Every node has a kind from a closed vocabulary; every
-  relationship is a *typed claim* (necessity or compound sufficiency), never a
-  generic arrow.
+- The model is **typed**. Every node has a kind from a closed vocabulary;
+  necessity and compound sufficiency remain typed claims, while prevention,
+  mitigation, neutralisation, evidence, tests, and other non-sufficiency links
+  use an explicit semantic-relation vocabulary rather than a generic arrow.
 - Logic is **validated, not asserted**. `ltp validate` runs the CLR and the
   structural rules of each tree and emits coded diagnostics (`GT-004`, `EC-008`,
   `CRT-006`, ...). The engine verifies the review was done and represented
@@ -18,6 +19,13 @@ model cannot silently violate the Categories of Legitimate Reservation:
 - The model is the **only authored artifact**. Documents, Mermaid diagrams, and
   dashboard data are generated; `ltp check` fails if any committed file is stale
   or hand-edited.
+- Causal outcomes are **live predictions**. Admitted observations are evaluated
+  against expected effects with an explicit `--as-of` date; overdue predictions,
+  stale observations, and completed-but-unverified interventions become coded,
+  blocking learning obligations without changing CLR logic.
+- A semantic learning-history projector unifies model revisions, attributable
+  assessments, research snapshots, and prediction evaluations without adding a
+  second authoritative event-write path.
 
 See [`SKILL.md`](SKILL.md) for the agent-facing workflows and
 [`references/`](references/) for the model vocabulary, the logical-scrutiny model,
@@ -35,11 +43,11 @@ The model layer is pure standard library; PyYAML is the only runtime dependency.
 
 ```bash
 ltp init            # scaffold ltp/ltp-model.yaml
-ltp validate        # run the CLR + structural rules; print coded diagnostics
+ltp validate --as-of 2026-07-17 # include deterministic learning obligations
 ltp sync            # validate, then write every generated projection
-ltp check           # CI gate: fail on staleness or invalidity
+ltp check --as-of 2026-07-17 # CI gate: fail on staleness, invalidity, or overdue learning
 ltp doctor          # diagnose without writing
-ltp migrate --write # convert a v1 permissive model to v2, preserving ids
+ltp migrate --write # convert a legacy model to v3, preserving ids and polarity
 ltp explain CLM-17  # evidence, assumptions, CLR, and dependents for one record
 ```
 

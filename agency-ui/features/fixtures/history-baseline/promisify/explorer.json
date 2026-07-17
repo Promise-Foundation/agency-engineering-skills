@@ -1,0 +1,19 @@
+{
+  "repository": {"name": "Dynamic fixture", "defaultView": "all-assessors"},
+  "domains": [{"domain": "/dynamic", "parent": null, "depth": 0, "children": [], "subjects": ["."], "declaredCount": 1, "effectivePromiseCount": 1}],
+  "effective": {"/dynamic": []},
+  "promises": [],
+  "assessments": [
+    {"id": "A-OPS", "assessor": "operations", "observedAt": "2026-03-10", "promise": "/dynamic/CLM-1", "effectiveDomain": "/dynamic", "verdict": "kept", "rationale": "operational observation", "evidence": []},
+    {"id": "A-SALES", "assessor": "sales", "observedAt": "2026-03-11", "promise": "/dynamic/CLM-1", "effectiveDomain": "/dynamic", "verdict": "disputed", "rationale": "additional cause: season", "evidence": []},
+    {"id": "A-FIN", "assessor": "finance", "observedAt": "2026-03-12", "promise": "/dynamic/CLM-1", "effectiveDomain": "/dynamic", "verdict": "unknown", "rationale": "accepts provisionally", "evidence": []}
+  ],
+  "views": [
+    {"name": "human-only", "observer": "human", "domain": "/dynamic", "conflictPolicy": "most-recent-per-assessor"},
+    {"name": "all-assessors", "observer": "all", "domain": "/dynamic", "conflictPolicy": "preserve-disagreement"}
+  ],
+  "trust": [
+    {"view": "human-only", "domain": "/dynamic", "observer": "human", "snapshot": {}, "score": 0.5, "coverage": 1, "effectivePromiseCount": 1, "counts": {"kept": 1, "broken": 0, "unknown": 1, "not_applicable": 0, "disputed": 1}, "conflictPolicy": "most-recent-per-assessor", "selectedAssessmentIds": ["A-OPS", "A-SALES"], "unresolved": [], "results": []},
+    {"view": "all-assessors", "domain": "/dynamic", "observer": "all", "snapshot": {}, "score": 0.5, "coverage": 1, "effectivePromiseCount": 1, "counts": {"kept": 1, "broken": 0, "unknown": 1, "not_applicable": 0, "disputed": 1}, "conflictPolicy": "preserve-disagreement", "selectedAssessmentIds": ["A-OPS", "A-SALES", "A-FIN"], "unresolved": [], "results": []}
+  ]
+}

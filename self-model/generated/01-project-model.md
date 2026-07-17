@@ -50,7 +50,7 @@
 | Family | Count |
 |---|---|
 | necessity_claims | 16 |
-| causal_claims | 6 |
+| causal_claims | 5 |
 | clouds | 0 |
 | obstacle_resolutions | 3 |
 | transitions | 1 |

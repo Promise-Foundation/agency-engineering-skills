@@ -6,7 +6,7 @@
     ltp sync        validate, then write projections (refuses on errors)
     ltp check       re-derive in memory; fail on staleness or invalidity (CI)
     ltp doctor      diagnose without writing
-    ltp migrate     convert a v1 model to v2, preserving ids
+    ltp migrate     convert a legacy model to v3, preserving ids
     ltp explain ID  show evidence, assumptions, CLR, and dependents for one record
 
 The CLI is the deterministic half; the skill (SKILL.md) is the judgment half.
@@ -39,7 +39,7 @@ from .store import (
 from .validators import validate
 
 _STARTER = """\
-schema_version: 2
+schema_version: 3
 project:
   name: {name}
   analysis_mode: forward
@@ -107,7 +107,7 @@ def cmd_init(args: argparse.Namespace) -> int:
 def cmd_validate(args: argparse.Namespace) -> int:
     workspace = _workspace(args)
     model = load_model(workspace.model_path)
-    report = validate(model)
+    report = validate(model, as_of=args.as_of)
     if args.json:
         print(json.dumps(report.to_dict(), indent=2, sort_keys=True))
     else:
@@ -123,7 +123,7 @@ def cmd_validate(args: argparse.Namespace) -> int:
 def cmd_render(args: argparse.Namespace) -> int:
     workspace = _workspace(args)
     model = load_model(workspace.model_path)
-    files = render_all(model)
+    files = render_all(model, as_of=args.as_of)
     written = write_generated(workspace, files)
     for path in written:
         print(f"wrote {path.relative_to(workspace.home)}")
@@ -135,7 +135,7 @@ def cmd_render(args: argparse.Namespace) -> int:
 def cmd_sync(args: argparse.Namespace) -> int:
     workspace = _workspace(args)
     model = load_model(workspace.model_path)
-    report = validate(model)
+    report = validate(model, as_of=args.as_of)
     if report.errors and not args.force:
         _print_diagnostics(report, stream=sys.stderr)
         print(
@@ -144,7 +144,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 2
-    files = render_all(model, report)
+    files = render_all(model, report, as_of=args.as_of)
     written = write_generated(workspace, files)
     for path in written:
         print(f"wrote {path.relative_to(workspace.home)}")
@@ -155,11 +155,34 @@ def cmd_sync(args: argparse.Namespace) -> int:
     return 0
 
 
+def _committed_as_of(workspace: Workspace) -> Optional[str]:
+    """The as-of date the committed dashboard artifact was rendered with, if any.
+
+    Committed artifacts may embed a time-relative snapshot (obligations and
+    prediction evaluations as of a chosen date). Reproducing that date keeps the
+    freshness check as-of-agnostic: a plain ``ltp check`` compares the committed
+    snapshot against itself, while ``--as-of`` drives only the currency gate.
+    """
+    path = workspace.generated / "dashboard-model.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    value = data.get("as_of")
+    return value if isinstance(value, str) else None
+
+
 def cmd_check(args: argparse.Namespace) -> int:
     workspace = _workspace(args)
     model = load_model(workspace.model_path)
-    report = validate(model)
-    files = render_all(model, report)
+    # Two independent gates. Currency: overdue learning obligations block, but only
+    # when an explicit --as-of supplies the clock (the engine never reads it).
+    report = validate(model, as_of=args.as_of)
+    # Freshness: reproduce the committed snapshot's own as-of so the file comparison
+    # is deterministic regardless of the clock -- "are the files current?" is never
+    # conflated with "is the model operationally overdue?".
+    render_as_of = _committed_as_of(workspace)
+    files = render_all(model, validate(model, as_of=render_as_of), as_of=render_as_of)
     stale = stale_generated(workspace, files)
     problems = False
     if report.errors:
@@ -171,18 +194,24 @@ def cmd_check(args: argparse.Namespace) -> int:
     if problems:
         print("run `ltp sync` to regenerate", file=sys.stderr)
         return 2
-    print("generated projections are current and the model is valid")
+    suffix = f" as of {args.as_of}" if args.as_of else ""
+    print(f"generated projections are current and the model is valid{suffix}")
     return 0
 
 
 def cmd_doctor(args: argparse.Namespace) -> int:
     workspace = _workspace(args)
     model = load_model(workspace.model_path)
-    report = validate(model)
+    report = validate(model, as_of=args.as_of)
     _print_diagnostics(report)
-    # Staleness is a doctor concern too, but doctor never writes.
+    # Staleness is a doctor concern too, but doctor never writes. Freshness
+    # reproduces the committed snapshot's own as-of (see cmd_check), so a
+    # time-relative committed artifact is compared against itself.
     try:
-        stale = stale_generated(workspace, render_all(model, report))
+        render_as_of = _committed_as_of(workspace)
+        stale = stale_generated(
+            workspace, render_all(model, validate(model, as_of=render_as_of), as_of=render_as_of)
+        )
     except LtpError:
         stale = []
     for path in stale:
@@ -197,16 +226,16 @@ def cmd_migrate(args: argparse.Namespace) -> int:
         return 2
     raw = yaml_load(workspace.model_path.read_text(encoding="utf-8")) or {}
     if not needs_migration(raw):
-        print("model is already v2; nothing to migrate")
+        print("model is already v3; nothing to migrate")
         return 0
     migrated = migrate_dict(raw)
     model = LtpModel.from_dict(migrated)  # prove it parses
     if args.write:
-        backup = workspace.model_path.with_suffix(workspace.model_path.suffix + ".v1.bak")
+        backup = workspace.model_path.with_suffix(workspace.model_path.suffix + ".legacy.bak")
         backup.write_text(workspace.model_path.read_text(encoding="utf-8"), encoding="utf-8")
         save_model(workspace.model_path, model)
-        print(f"backed up v1 to {backup.name}")
-        print(f"wrote v2 model to {workspace.model_path}")
+        print(f"backed up legacy model to {backup.name}")
+        print(f"wrote v3 model to {workspace.model_path}")
         report = validate(model)
         print(
             f"migrated model has {report.counts['error']} error(s), "
@@ -370,16 +399,24 @@ def build_parser() -> argparse.ArgumentParser:
     p_validate = sub.add_parser("validate", help="check logical validity")
     p_validate.add_argument("--strict", action="store_true", help="fail on warnings too")
     p_validate.add_argument("--json", action="store_true")
+    p_validate.add_argument("--as-of", default=None, help="explicit ISO date for learning obligations")
     p_validate.set_defaults(func=cmd_validate)
 
-    sub.add_parser("render", help="write generated projections").set_defaults(func=cmd_render)
+    p_render = sub.add_parser("render", help="write generated projections")
+    p_render.add_argument("--as-of", default=None, help="explicit ISO date for prediction projections")
+    p_render.set_defaults(func=cmd_render)
     p_sync = sub.add_parser("sync", help="validate then write projections")
     p_sync.add_argument("--force", action="store_true", help="write even if invalid")
+    p_sync.add_argument("--as-of", default=None, help="explicit ISO date for learning obligations")
     p_sync.set_defaults(func=cmd_sync)
-    sub.add_parser("check", help="fail on staleness or invalidity (CI)").set_defaults(func=cmd_check)
-    sub.add_parser("doctor", help="diagnose without writing").set_defaults(func=cmd_doctor)
+    p_check = sub.add_parser("check", help="fail on staleness or invalidity (CI)")
+    p_check.add_argument("--as-of", default=None, help="explicit ISO date for learning obligations")
+    p_check.set_defaults(func=cmd_check)
+    p_doctor = sub.add_parser("doctor", help="diagnose without writing")
+    p_doctor.add_argument("--as-of", default=None, help="explicit ISO date for learning obligations")
+    p_doctor.set_defaults(func=cmd_doctor)
 
-    p_migrate = sub.add_parser("migrate", help="convert a v1 model to v2")
+    p_migrate = sub.add_parser("migrate", help="convert a legacy model to v3")
     p_migrate.add_argument("--write", action="store_true", help="replace the model (backs up v1)")
     p_migrate.set_defaults(func=cmd_migrate)
 

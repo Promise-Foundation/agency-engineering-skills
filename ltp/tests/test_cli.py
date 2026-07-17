@@ -26,6 +26,18 @@ def test_check_fails_when_generated_is_stale(tmp_path):
     assert main(["--root", root, "check"]) == 2
 
 
+def test_plain_check_is_green_for_an_as_of_stamped_artifact(tmp_path):
+    # Freshness ("are the files current?") must not depend on the wall clock, even
+    # when the committed dashboard carries a time-relative as-of snapshot. A plain
+    # check reproduces the committed snapshot's own as-of; --as-of drives only the
+    # separate currency (overdue-obligation) gate.
+    root = str(tmp_path)
+    main(["--root", root, "init"])
+    assert main(["--root", root, "sync", "--as-of", "2026-07-17"]) == 0
+    assert main(["--root", root, "check"]) == 0
+    assert main(["--root", root, "check", "--as-of", "2026-09-01"]) == 0
+
+
 def test_strict_validate_fails_on_warnings(tmp_path):
     root = str(tmp_path)
     main(["--root", root, "init"])

@@ -17,6 +17,7 @@ from . import (
     constraint,
     crosstree,
     goal_tree,
+    learning,
     plan,
     prerequisite,
     reality,
@@ -68,15 +69,16 @@ class ValidationReport:
         }
 
 
-def run_all(model: LtpModel) -> "list[Diagnostic]":
+def run_all(model: LtpModel, *, as_of: str | None = None) -> "list[Diagnostic]":
     index = ModelIndex(model)
     found: "list[Diagnostic]" = []
     for validator in _VALIDATORS:
         found.extend(validator(model, index))
+    found.extend(learning.validate(model, index, as_of=as_of))
     # Deterministic and de-duplicated: identical (code, target, message) once.
     unique = {(d.code, d.target, d.message): d for d in found}
     return sorted(unique.values(), key=sort_key)
 
 
-def validate(model: LtpModel) -> ValidationReport:
-    return ValidationReport(diagnostics=run_all(model))
+def validate(model: LtpModel, *, as_of: str | None = None) -> ValidationReport:
+    return ValidationReport(diagnostics=run_all(model, as_of=as_of))

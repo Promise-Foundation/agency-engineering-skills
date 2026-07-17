@@ -613,6 +613,12 @@
           },
           "type": "array"
         },
+        "observations": {
+          "items": {
+            "$ref": "#/$defs/Observation"
+          },
+          "type": "array"
+        },
         "obstacle_resolutions": {
           "items": {
             "$ref": "#/$defs/ObstacleResolution"
@@ -636,6 +642,12 @@
         },
         "schema_version": {
           "type": "integer"
+        },
+        "semantic_relations": {
+          "items": {
+            "$ref": "#/$defs/SemanticRelation"
+          },
+          "type": "array"
         },
         "transitions": {
           "items": {
@@ -707,6 +719,52 @@
       ],
       "type": "object"
     },
+    "Observation": {
+      "additionalProperties": false,
+      "properties": {
+        "change_percent": {
+          "type": "number"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "observed_at": {
+          "type": "string"
+        },
+        "prediction": {
+          "type": "string"
+        },
+        "result": {
+          "enum": [
+            "untested",
+            "observed",
+            "absent",
+            "mixed"
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "prediction",
+        "observed_at"
+      ],
+      "type": "object"
+    },
     "ObstacleResolution": {
       "additionalProperties": false,
       "properties": {
@@ -747,6 +805,9 @@
     "PredictedEffect": {
       "additionalProperties": false,
       "properties": {
+        "baseline": {
+          "type": "number"
+        },
         "evidence_refs": {
           "items": {
             "type": "string"
@@ -759,7 +820,41 @@
             "should_not_exist"
           ]
         },
+        "expected_by": {
+          "type": "string"
+        },
+        "expected_change_percent": {
+          "type": "number"
+        },
+        "expected_lag_days": {
+          "type": "integer"
+        },
         "id": {
+          "type": "string"
+        },
+        "implementation_fidelity": {
+          "type": "number"
+        },
+        "implementation_status": {
+          "enum": [
+            "not_started",
+            "in_progress",
+            "complete"
+          ]
+        },
+        "implemented_at": {
+          "type": "string"
+        },
+        "indicator": {
+          "type": "string"
+        },
+        "minimum_fidelity": {
+          "type": "number"
+        },
+        "observation_valid_for_days": {
+          "type": "integer"
+        },
+        "owner": {
           "type": "string"
         },
         "result": {
@@ -770,11 +865,17 @@
             "mixed"
           ]
         },
+        "review_by": {
+          "type": "string"
+        },
         "source_claim": {
           "type": "string"
         },
         "statement": {
           "type": "string"
+        },
+        "tolerance_percent": {
+          "type": "number"
         },
         "waived": {
           "type": "boolean"
@@ -831,6 +932,54 @@
       "required": [
         "candidate",
         "reason"
+      ],
+      "type": "object"
+    },
+    "SemanticRelation": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "reasoning": {
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "causes",
+            "requires",
+            "enables",
+            "contributes_to",
+            "prevents",
+            "mitigates",
+            "neutralizes",
+            "detects",
+            "responds_to",
+            "evidences",
+            "tests",
+            "implements",
+            "supersedes",
+            "contradicts"
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "relation"
       ],
       "type": "object"
     },
@@ -944,6 +1093,12 @@
         },
         "purpose": {
           "type": "string"
+        },
+        "relations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         },
         "title": {
           "type": "string"

@@ -1,7 +1,16 @@
 import type { AgencySkillPlugin } from "@agency/skill-sdk";
 import { manifestSource } from "@agency/core";
 import { ltpMapping } from "./mapping";
-import { LtpClaimView, LtpEntityView, LtpHealthCard, LtpModelView, LtpOverview } from "./views";
+import { LifecycleInspector, PredictionInspector } from "./dynamic";
+import {
+  LtpClaimView,
+  LtpEntityView,
+  LtpHealthCard,
+  LtpLearningCard,
+  LtpModelView,
+  LtpOverview,
+  LtpRelationView,
+} from "./views";
 
 /** LTP as a read-only plugin over domain-addressed generated dashboard models. */
 export const ltpPlugin: AgencySkillPlugin = {
@@ -26,11 +35,16 @@ export const ltpPlugin: AgencySkillPlugin = {
     contributions: {
       navigation: [{ id: "ltp.nav", label: "LTP", to: "/ltp", order: 10 }],
       routes: [{ id: "ltp.overview", path: "/ltp", title: "LTP", component: LtpOverview }],
-      dashboardCards: [{ id: "ltp.health", title: "LTP model health", component: LtpHealthCard, order: 10 }],
+      dashboardCards: [
+        { id: "ltp.health", title: "LTP model health", component: LtpHealthCard, order: 10 },
+        { id: "ltp.learning", title: "LTP learning loop", component: LtpLearningCard, order: 11 },
+      ],
       resourceTypes: [
         { type: "ltp.model", label: "LTP model" },
         { type: "ltp.entity", label: "LTP entity" },
         { type: "ltp.claim", label: "Causal claim" },
+        { type: "ltp.relation", label: "Semantic relation" },
+        { type: "ltp.prediction", label: "Causal-outcome prediction" },
       ],
       promiseTypes: [
         {
@@ -54,6 +68,13 @@ export const ltpPlugin: AgencySkillPlugin = {
         { id: "ltp.model.view", resourceTypes: ["ltp.model"], component: LtpModelView },
         { id: "ltp.entity.view", resourceTypes: ["ltp.entity"], component: LtpEntityView },
         { id: "ltp.claim.view", resourceTypes: ["ltp.claim"], component: LtpClaimView },
+        { id: "ltp.relation.view", resourceTypes: ["ltp.relation"], component: LtpRelationView },
+        { id: "ltp.prediction.view", resourceTypes: ["ltp.prediction"], component: PredictionInspector },
+      ],
+      inspectors: [
+        { id: "ltp.entity.lifecycle", resourceTypes: ["ltp.entity"], component: LifecycleInspector },
+        { id: "ltp.claim.lifecycle", resourceTypes: ["ltp.claim"], component: LifecycleInspector },
+        { id: "ltp.relation.lifecycle", resourceTypes: ["ltp.relation"], component: LifecycleInspector },
       ],
       commands: [{ id: "ltp.open", title: "LTP: open the overview" }],
     },
